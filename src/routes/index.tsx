@@ -274,10 +274,6 @@ function Bots() {
     <section id="bots" className="scroll-mt-24 py-10">
       <div className="mx-auto max-w-6xl px-4">
         <div ref={headRef} className="reveal text-center mb-8">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
-            <Bot className="size-3.5 text-[var(--cyan)]" />
-            <span className="text-muted-foreground">My Bots</span>
-          </div>
           <h2 className="text-3xl md:text-5xl font-bold mb-3">
             Bots <span className="text-gradient">ដែលខ្ញុំបានបង្កើត</span>
           </h2>
@@ -334,12 +330,6 @@ function About() {
   return (
     <section id="about" className="scroll-mt-24 py-10">
       <div className="mx-auto max-w-4xl px-4">
-        <div ref={badgeRef} className="reveal flex justify-center mb-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs">
-            <Heart className="size-3.5 text-[var(--orange)]" />
-            <span className="text-muted-foreground">អំពីខ្ញុំ</span>
-          </div>
-        </div>
 
         {/* Profile card */}
         <div ref={cardRef} className="reveal reveal-scale glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
