@@ -155,10 +155,6 @@ function Hero() {
         </div>
 
         <div className="order-1 md:order-2 text-center md:text-left animate-fade-up" style={{ animationDelay: "0.1s" }}>
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-5">
-            <Zap className="size-3.5 text-[var(--orange)]" />
-            <span className="text-muted-foreground">Telegram Bot Developer</span>
-          </div>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             សួស្តី! ខ្ញុំឈ្មោះ <br />
             <span className="text-gradient">លីម សុវណ្ណរដ្យ</span> 👋
@@ -362,9 +358,6 @@ function Footer() {
     <footer className="py-10 border-t border-border">
       <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div>© 2026 លីម សុវណ្ណរដ្យ — រក្សាសិទ្ធិគ្រប់យ៉ាង</div>
-        <div className="flex items-center gap-1.5">
-          បង្កើតឡើងដោយ <Heart className="size-4 text-[var(--orange)] fill-[var(--orange)]" /> សម្រាប់សហគមន៍ Telegram
-        </div>
       </div>
     </footer>
   );
