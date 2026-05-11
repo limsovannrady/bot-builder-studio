@@ -253,9 +253,6 @@ function Hero() {
           <br />
           <span>អ្នករាល់គ្នា</span>
         </h1>
-        <p className="text-sm text-muted-foreground/80 mb-8 leading-relaxed max-w-lg">
-          ស្វែងយល់ពី Telegram bots ដ៏មានអានុភាពដែលខ្ញុំបានបង្កើត សម្រាប់ជួយការងារប្រចាំថ្ងៃរបស់អ្នក។
-        </p>
 
         {/* Buttons */}
         <div className="flex flex-wrap gap-3 justify-center mb-10">
