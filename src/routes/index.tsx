@@ -286,7 +286,7 @@ function Bots() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-5">
           {bots.map((b, i) => {
             const Icon = b.icon;
             const cardClass =
@@ -325,7 +325,7 @@ function Bots() {
                 />
 
                 {/* Image */}
-                <div className="relative h-52 overflow-hidden">
+                <div className="relative h-36 overflow-hidden">
                   <img
                     src={b.img}
                     alt={b.name}
@@ -336,8 +336,8 @@ function Bots() {
                   {/* accent tint overlay on hover */}
                   <div className={`absolute inset-0 bg-gradient-to-t ${glowOverlay} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
                   {/* Icon badge */}
-                  <div className={`absolute top-4 right-4 size-11 rounded-2xl ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center shadow-lg`}>
-                    <Icon className="size-5" />
+                  <div className={`absolute top-3 right-3 size-8 rounded-xl ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center shadow-lg`}>
+                    <Icon className="size-3.5" />
                   </div>
                   {/* Shine line at top */}
                   <div
@@ -347,23 +347,21 @@ function Bots() {
                 </div>
 
                 {/* Content */}
-                <div className="p-6 pt-5">
-                  <h3 className="text-lg font-bold mb-1 leading-tight">{b.name}</h3>
-                  <p className="text-xs font-mono mb-3" style={{ color: accentColor }}>{b.username}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{b.desc}</p>
+                <div className="p-4">
+                  <h3 className="text-base font-bold mb-0.5 leading-tight">{b.name}</h3>
+                  <p className="text-xs font-mono mb-2" style={{ color: accentColor }}>{b.username}</p>
+                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">{b.desc}</p>
 
                   {/* CTA row */}
-                  <div
-                    className="flex items-center justify-between pt-4 border-t border-white/5"
-                  >
-                    <span className="text-sm font-semibold transition-all duration-200" style={{ color: accentColor }}>
+                  <div className="flex items-center justify-between pt-3 border-t border-white/5">
+                    <span className="text-xs font-semibold" style={{ color: accentColor }}>
                       សាកល្បងឥឡូវ
                     </span>
                     <div
-                      className="size-8 rounded-xl grid place-items-center transition-transform duration-200 group-hover:translate-x-1"
+                      className="size-7 rounded-lg grid place-items-center transition-transform duration-200 group-hover:translate-x-1"
                       style={{ background: `${accentColor}22`, color: accentColor }}
                     >
-                      <Send className="size-3.5" />
+                      <Send className="size-3" />
                     </div>
                   </div>
                 </div>
