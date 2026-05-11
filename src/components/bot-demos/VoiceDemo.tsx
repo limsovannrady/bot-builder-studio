@@ -3,27 +3,27 @@ import { Play, Square, Volume2, Loader2, Mic } from "lucide-react";
 
 const VOICES = [
   {
-    id: "km-KH-PisethNeural",
+    id: "piseth",
     name: "Piseth",
-    gender: "male",
     label: "បុរស",
     emoji: "👨",
+    slow: false,
     sample: "សួស្ដី! ខ្ញុំឈ្មោះ Piseth ជា AI Voice Bot របស់ Sovannrady។",
   },
   {
-    id: "km-KH-SreymomNeural",
+    id: "sreymom",
     name: "Sreymom",
-    gender: "female",
     label: "ស្ត្រី",
     emoji: "👩",
+    slow: true,
     sample: "សួស្ដី! ខ្ញុំឈ្មោះ Sreymom ជា AI Voice Bot របស់ Sovannrady។",
   },
 ] as const;
 
 type Voice = (typeof VOICES)[number];
 
-function buildTTSUrl(text: string, voice: string) {
-  return `/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}`;
+function buildTTSUrl(text: string, slow: boolean) {
+  return `/api/tts?text=${encodeURIComponent(text)}&slow=${slow}`;
 }
 
 function splitText(text: string, max = 180): string[] {
@@ -63,7 +63,7 @@ export default function VoiceDemo() {
 
   async function playChunk(chunk: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const url = buildTTSUrl(chunk, voice.id);
+      const url = buildTTSUrl(chunk, voice.slow);
       const audio = new Audio(url);
       audioRef.current = audio;
       audio.oncanplay = () => { setLoading(false); setPlaying(true); };
@@ -104,8 +104,6 @@ export default function VoiceDemo() {
     setError("");
   }
 
-  const accent = "#22c55e";
-
   return (
     <div className="flex flex-col gap-5">
 
@@ -130,7 +128,7 @@ export default function VoiceDemo() {
                 )}
                 <span className="text-3xl">{v.emoji}</span>
                 <span className="font-bold text-sm">{v.name}</span>
-                <span className="text-[10px] opacity-70">{v.label} · Neural</span>
+                <span className="text-[10px] opacity-70">{v.label} · Khmer AI</span>
               </button>
             );
           })}
