@@ -224,6 +224,11 @@
   }
 }
 
+@keyframes spin-ring {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
 @keyframes rumdul-drift {
   0%   { transform: translate(0px, 0px)                                   rotate(var(--lr, 0deg))            scale(1);    }
   25%  { transform: translate(var(--dx, 14px), calc(var(--dy, -10px) * .5)) rotate(calc(var(--lr,0deg) + 6deg))  scale(1.04); }

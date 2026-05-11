@@ -354,10 +354,52 @@ function About() {
         {/* Profile card */}
         <div ref={cardRef} className="reveal reveal-scale glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Avatar */}
-          <div className="relative shrink-0">
-            <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
-            <div className="relative size-32 md:size-44 rounded-full overflow-hidden shadow-glow">
+          <div className="relative shrink-0 flex items-center justify-center">
+            {/* Outer glow bloom */}
+            <div className="absolute inset-0 rounded-full bg-gradient-hero blur-3xl opacity-40 scale-125" />
+
+            {/* Spinning gradient ring */}
+            <div
+              className="absolute rounded-full"
+              style={{
+                inset: "-5px",
+                background: "conic-gradient(from 0deg, oklch(0.52 0.22 290), oklch(0.62 0.16 200), oklch(0.58 0.18 55), oklch(0.52 0.22 290))",
+                animation: "spin-ring 4s linear infinite",
+                borderRadius: "9999px",
+              }}
+            />
+
+            {/* White gap between ring and image */}
+            <div className="absolute rounded-full bg-background" style={{ inset: "3px" }} />
+
+            {/* Second inner pulse ring */}
+            <div
+              className="absolute rounded-full opacity-60"
+              style={{
+                inset: "-12px",
+                background: "conic-gradient(from 180deg, oklch(0.62 0.16 200 / 0.5), transparent 60%, oklch(0.58 0.18 55 / 0.5), transparent 60%)",
+                animation: "spin-ring 8s linear infinite reverse",
+                borderRadius: "9999px",
+              }}
+            />
+
+            {/* Light beam top-left */}
+            <div className="absolute -top-4 -left-2 w-2 h-8 rounded-full bg-gradient-to-b from-[oklch(0.62_0.16_200)] to-transparent opacity-60 rotate-[-30deg] blur-[2px]" />
+            {/* Light beam bottom-right */}
+            <div className="absolute -bottom-4 -right-2 w-2 h-8 rounded-full bg-gradient-to-t from-[oklch(0.58_0.18_55)] to-transparent opacity-60 rotate-[-30deg] blur-[2px]" />
+
+            {/* Sparkle dots */}
+            <div className="absolute -top-2 right-4 size-2 rounded-full bg-[oklch(0.78_0.18_55)] opacity-80 animate-pulse" style={{ animationDuration: "2s" }} />
+            <div className="absolute -bottom-1 left-3 size-1.5 rounded-full bg-[oklch(0.62_0.16_200)] opacity-70 animate-pulse" style={{ animationDuration: "3s" }} />
+            <div className="absolute top-1/2 -right-3 size-1.5 rounded-full bg-[oklch(0.52_0.22_290)] opacity-80 animate-pulse" style={{ animationDuration: "2.5s" }} />
+
+            {/* Profile image */}
+            <div className="relative size-32 md:size-44 rounded-full overflow-hidden shadow-glow z-10">
               <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
+              {/* Inner light overlay */}
+              <div className="absolute inset-0 rounded-full"
+                style={{ background: "radial-gradient(circle at 30% 25%, oklch(1 0 0 / 0.15), transparent 60%)" }}
+              />
             </div>
           </div>
 
