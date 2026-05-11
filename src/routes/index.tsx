@@ -102,13 +102,13 @@ const bots = [
     link: "https://t.me/CreateQR_ScanBot",
   },
   {
-    name: "AI Assistant Bot",
-    username: "@limsvannrady_ai",
+    name: "Auto Reaction",
+    username: "@AutoReaction2026Bot",
     desc: "ជំនួយការ AI ឆ្លាតវៃ សម្រាប់ឆ្លើយសំណួរ និងបង្កើតគំនិត",
     img: BOT_AI,
     icon: Sparkles,
     accent: "primary",
-    link: "https://t.me/limsvannrady",
+    link: "https://t.me/AutoReaction2026Bot",
   },
   {
     name: "Sovannrady Bot",
