@@ -266,15 +266,6 @@ function Hero() {
           </a>
         </div>
 
-        {/* Stats */}
-        <div className="grid grid-cols-3 gap-3 w-full max-w-sm">
-          {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
-            <div key={s.l} className="glass rounded-xl py-3 px-2 text-center">
-              <div className="text-lg font-bold text-gradient">{s.n}</div>
-              <div className="text-xs text-muted-foreground mt-0.5">{s.l}</div>
-            </div>
-          ))}
-        </div>
 
       </div>
     </section>
