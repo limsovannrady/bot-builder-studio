@@ -176,15 +176,14 @@ function Hero() {
             </a>
           </div>
 
-          <dl className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
+          <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
             {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
               <div key={s.l} className="glass rounded-xl p-3 text-center">
-                <dt className="sr-only">{s.l}</dt>
-                <dd className="text-xl font-bold text-gradient">{s.n}</dd>
-                <div className="text-xs text-muted-foreground mt-1" aria-hidden="true">{s.l}</div>
+                <div className="text-xl font-bold text-gradient">{s.n}</div>
+                <div className="text-xs text-muted-foreground mt-1">{s.l}</div>
               </div>
             ))}
-          </dl>
+          </div>
         </div>
       </div>
     </section>
