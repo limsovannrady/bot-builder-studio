@@ -92,9 +92,14 @@ function Nav() {
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-6xl px-4 py-4">
         <nav className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" onClick={(e) => smoothScroll(e, "home")} className="flex items-center gap-2 font-bold">
+          <a
+            href="#home"
+            onClick={(e) => smoothScroll(e, "home")}
+            aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរដ្យ"
+            className="focus-ring flex items-center gap-2 font-bold rounded-lg"
+          >
             <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
-              <Bot className="size-4 text-white" />
+              <Bot className="size-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-gradient">សុវណ្ណរដ្យ</span>
           </a>
@@ -121,8 +126,14 @@ function Nav() {
               );
             })}
           </div>
-          <a href={TELEGRAM} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition">
-            <Send className="size-4" /> Telegram
+          <a
+            href={TELEGRAM}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="បើក Telegram channel នៅក្នុងផ្ទាំងថ្មី"
+            className="focus-ring hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition"
+          >
+            <Send className="size-4" aria-hidden="true" /> Telegram
           </a>
         </nav>
       </div>
@@ -140,8 +151,13 @@ function Hero() {
             <div className="relative size-64 md:size-80 rounded-full overflow-hidden ring-4 ring-primary/40 shadow-glow animate-float">
               <img src={AVATAR} alt="លីម សុវណ្ណរដ្យ" className="size-full object-cover" />
             </div>
-            <div className="absolute -bottom-2 -right-2 glass rounded-full px-4 py-2 flex items-center gap-2 text-sm shadow-cyan">
-              <span className="size-2 rounded-full bg-[var(--cyan)] animate-pulse" />
+            <div
+              className="absolute -bottom-2 -right-2 glass rounded-full px-4 py-2 flex items-center gap-2 text-sm shadow-cyan"
+              role="status"
+              aria-live="polite"
+              aria-label="ស្ថានភាព៖ នៅអនឡាញ"
+            >
+              <span className="size-2 rounded-full bg-[var(--cyan)] animate-pulse" aria-hidden="true" />
               <span>នៅអនឡាញ</span>
             </div>
           </div>
@@ -163,22 +179,34 @@ function Hero() {
             ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
           </p>
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-            <a href="#bots" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform">
-              <Bot className="size-5" /> សាកល្បង Bots របស់ខ្ញុំ
+            <a
+              href="#bots"
+              onClick={(e) => smoothScroll(e, "bots")}
+              aria-label="រំកិលទៅផ្នែក Bots ដើម្បីសាកល្បង"
+              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform"
+            >
+              <Bot className="size-5" aria-hidden="true" /> សាកល្បង Bots របស់ខ្ញុំ
             </a>
-            <a href={TELEGRAM} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors">
-              <Send className="size-5 text-[var(--orange)]" /> ទាក់ទងតាម Telegram
+            <a
+              href={TELEGRAM}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="ទាក់ទងតាម Telegram (បើកក្នុងផ្ទាំងថ្មី)"
+              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors"
+            >
+              <Send className="size-5 text-[var(--orange)]" aria-hidden="true" /> ទាក់ទងតាម Telegram
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
+          <dl className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
             {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
               <div key={s.l} className="glass rounded-xl p-3 text-center">
-                <div className="text-xl font-bold text-gradient">{s.n}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.l}</div>
+                <dt className="sr-only">{s.l}</dt>
+                <dd className="text-xl font-bold text-gradient">{s.n}</dd>
+                <div className="text-xs text-muted-foreground mt-1" aria-hidden="true">{s.l}</div>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </div>
     </section>
