@@ -95,7 +95,7 @@ const bots = [
   {
     name: "Create QR & Scan",
     username: "@CreateQR_ScanBot",
-    desc: "បង្កើត QR Code និងស្កែន QR Code បានយ៉ាងងាយស្រួល",
+    desc: "",
     img: BOT_TRANS,
     icon: Languages,
     accent: "orange",
@@ -104,7 +104,7 @@ const bots = [
   {
     name: "Auto Reaction",
     username: "@AutoReaction2026Bot",
-    desc: "ជំនួយការ AI ឆ្លាតវៃ សម្រាប់ឆ្លើយសំណួរ និងបង្កើតគំនិត",
+    desc: "",
     img: BOT_AI,
     icon: Sparkles,
     accent: "primary",
@@ -113,7 +113,7 @@ const bots = [
   {
     name: "បង្កើតសំឡេង Ai",
     username: "@limsovannradybot",
-    desc: "Bot ពហុមុខងារ ស្វែងរក ឆ្លើយ និងជួយដោះស្រាយបញ្ហារបស់អ្នក",
+    desc: "",
     img: BOT_4,
     icon: Bot,
     accent: "green",
