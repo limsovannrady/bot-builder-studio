@@ -228,12 +228,6 @@ function Hero() {
     <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
       <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center">
 
-        {/* Tagline badge */}
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-6">
-          <Sparkles className="size-3.5 text-[var(--cyan)]" />
-          <span className="text-muted-foreground">Telegram Bot Developer</span>
-        </div>
-
         {/* Headline */}
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
           <span className="text-gradient">បង្កើត Bots</span>{" "}
