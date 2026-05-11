@@ -126,8 +126,14 @@ function Nav() {
               );
             })}
           </div>
-          <a href={TELEGRAM} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition">
-            <Send className="size-4" /> Telegram
+          <a
+            href={TELEGRAM}
+            target="_blank"
+            rel="noreferrer"
+            aria-label="បើក Telegram channel នៅក្នុងផ្ទាំងថ្មី"
+            className="focus-ring hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition"
+          >
+            <Send className="size-4" aria-hidden="true" /> Telegram
           </a>
         </nav>
       </div>
