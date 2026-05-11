@@ -19,10 +19,10 @@ function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
 
 function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "light";
+    if (typeof window === "undefined") return "dark";
     const stored = localStorage.getItem("theme-v2") as "dark" | "light" | null;
-    if (stored === "dark") return "dark";
-    return "light";
+    if (stored === "light") return "light";
+    return "dark";
   });
   useEffect(() => {
     const root = document.documentElement;
