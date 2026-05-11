@@ -69,7 +69,7 @@ const TELEGRAM = "https://t.me/limsvannrady";
 
 const bots = [
   {
-    name: "Text to Voice Bot",
+    name: "បកប្រែភាសា",
     username: "@limsvannrady",
     desc: "បំលែងអត្ថបទទៅជាសំឡេងធម្មជាតិភ្លាមៗ ជាមួយគុណភាពច្បាស់",
     img: BOT_TTS,
