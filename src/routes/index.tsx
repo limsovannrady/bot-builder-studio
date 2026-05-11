@@ -241,7 +241,7 @@ function Nav() {
 function Hero() {
   const ref = useScrollReveal();
   return (
-    <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
+    <section id="home" className="scroll-mt-24 pt-24 md:pt-28 pb-10">
       <div ref={ref} className="reveal mx-auto max-w-2xl px-4 flex flex-col items-center text-center animate-hero">
 
         {/* Headline */}
@@ -282,9 +282,9 @@ function Bots() {
   const headRef = useScrollReveal();
   const listRef = useScrollReveal();
   return (
-    <section id="bots" className="scroll-mt-24 py-20">
+    <section id="bots" className="scroll-mt-24 py-10">
       <div className="mx-auto max-w-6xl px-4">
-        <div ref={headRef} className="reveal text-center mb-14">
+        <div ref={headRef} className="reveal text-center mb-8">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
             <Bot className="size-3.5 text-[var(--cyan)]" />
             <span className="text-muted-foreground">My Bots</span>
@@ -369,7 +369,7 @@ function About() {
   const badgeRef = useScrollReveal();
   const cardRef  = useScrollReveal();
   return (
-    <section id="about" className="scroll-mt-24 py-20">
+    <section id="about" className="scroll-mt-24 py-10">
       <div className="mx-auto max-w-4xl px-4">
         <div ref={badgeRef} className="reveal flex justify-center mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs">
