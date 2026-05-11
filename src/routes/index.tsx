@@ -8,13 +8,13 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "បង្កើត Telegram bots ដ៏ឆ្លាតវៃ — បំលែងអត្ថបទទៅសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើន។" },
       { property: "og:title", content: "លីម សុវណ្ណរដ្យ — Telegram Bot Developer" },
       { property: "og:description", content: "បង្កើត Telegram bots ដ៏ឆ្លាតវៃ និងមានអានុភាព។" },
-      { property: "og:image", content: "https://i.ibb.co/p8HrfN5/x.jpg" },
+      { property: "og:image", content: "https://i.ibb.co/RTRWzWt7/x.jpg" },
     ],
   }),
   component: Index,
 });
 
-const AVATAR = "https://i.ibb.co/p8HrfN5/x.jpg";
+const AVATAR = "https://i.ibb.co/RTRWzWt7/x.jpg";
 const BOT_TTS = "https://i.ibb.co/BHLg2TzD/x.jpg";
 const BOT_TRANS = "https://i.ibb.co/rGWPY8K2/x.jpg";
 const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
