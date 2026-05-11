@@ -219,7 +219,7 @@ function Hero() {
         {/* Profile photo */}
         <div className="relative mb-6">
           <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
-          <div className="relative size-28 md:size-36 rounded-full overflow-hidden ring-2 ring-primary/50 shadow-glow">
+          <div className="relative size-28 md:size-36 rounded-full overflow-hidden shadow-glow">
             <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
           </div>
         </div>
