@@ -92,9 +92,14 @@ function Nav() {
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-6xl px-4 py-4">
         <nav className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" onClick={(e) => smoothScroll(e, "home")} className="flex items-center gap-2 font-bold">
+          <a
+            href="#home"
+            onClick={(e) => smoothScroll(e, "home")}
+            aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរដ្យ"
+            className="focus-ring flex items-center gap-2 font-bold rounded-lg"
+          >
             <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
-              <Bot className="size-4 text-white" />
+              <Bot className="size-4 text-white" aria-hidden="true" />
             </div>
             <span className="text-gradient">សុវណ្ណរដ្យ</span>
           </a>
