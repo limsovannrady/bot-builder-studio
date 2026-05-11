@@ -126,17 +126,11 @@ function Nav() {
             aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរ៉ាឌី"
             className="focus-ring flex items-center gap-2 font-bold rounded-lg"
           >
-            <div className="relative">
-              <img
-                src="/logo-avatar.jpg"
-                alt="logo"
-                className="size-8 rounded-lg object-cover shadow-glow"
-              />
-              <span
-                className="absolute -bottom-1 -right-1 text-[10px] leading-none select-none"
-                title="កម្ពុជា"
-              >🇰🇭</span>
-            </div>
+            <img
+              src="/logo-avatar.jpg"
+              alt="logo"
+              className="size-8 rounded-lg object-cover shadow-glow"
+            />
             <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
 
