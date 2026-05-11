@@ -126,11 +126,17 @@ function Nav() {
             aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរ៉ាឌី"
             className="focus-ring flex items-center gap-2 font-bold rounded-lg"
           >
-            <img
-              src="/logo-avatar.jpg"
-              alt="logo"
-              className="size-8 rounded-lg object-cover shadow-glow"
-            />
+            <div className="relative">
+              <img
+                src="/logo-avatar.jpg"
+                alt="logo"
+                className="size-8 rounded-lg object-cover shadow-glow"
+              />
+              <span
+                className="absolute -bottom-1 -right-1 text-[10px] leading-none select-none"
+                title="កម្ពុជា"
+              >🇰🇭</span>
+            </div>
             <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
 
@@ -499,24 +505,23 @@ function Footer() {
 }
 
 function LotusIcon({ className }: { className?: string }) {
-  // Petal with explicitly ROUNDED tip using quadratic bezier — clearly lotus, not star
-  // Outer: long petal, rounded tip, wide belly
-  const p1 = "M100 100 C118 88 120 62 109 34 Q104 22 100 24 Q96 22 91 34 C80 62 82 88 100 100Z";
-  // Mid: medium petal, same rounded tip
-  const p2 = "M100 100 C115 91 116 72 107 50 Q103 40 100 42 Q97 40 93 50 C84 72 85 91 100 100Z";
-  // Inner: short, round-tipped
-  const p3 = "M100 100 C110 94 111 83 105 68 Q102 61 100 62 Q98 61 95 68 C89 83 90 94 100 100Z";
+  // រំដួល (Rumdul) — Cambodia's national flower
+  // 3 large outer petals + 3 smaller inner petals (offset 60°) + round center bud
+  // Outer petal: wide oval, rounded tip
+  const outer = "M100 100 C138 87 142 46 100 20 C58 46 62 87 100 100Z";
+  // Inner petal: shorter, slightly narrower — forms the inner cup
+  const inner = "M100 100 C122 92 125 68 100 48 C75 68 78 92 100 100Z";
 
-  const outer = Array.from({ length: 8 }, (_, i) => i * 45);
-  const mid   = Array.from({ length: 8 }, (_, i) => i * 45 + 22.5);
-  const inner = Array.from({ length: 8 }, (_, i) => i * 45);
+  const outerAngles = [0, 120, 240];
+  const innerAngles = [60, 180, 300];
 
   return (
     <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {outer.map(a => <path key={`o${a}`} d={p1} transform={`rotate(${a} 100 100)`} opacity={0.48} />)}
-      {mid.map(a   => <path key={`m${a}`} d={p2} transform={`rotate(${a} 100 100)`} opacity={0.66} />)}
-      {inner.map(a => <path key={`i${a}`} d={p3} transform={`rotate(${a} 100 100)`} opacity={0.85} />)}
-      <circle cx="100" cy="100" r="8" opacity={0.96} />
+      {outerAngles.map(a => <path key={`o${a}`} d={outer} transform={`rotate(${a} 100 100)`} opacity={0.45} />)}
+      {innerAngles.map(a => <path key={`i${a}`} d={inner} transform={`rotate(${a} 100 100)`} opacity={0.72} />)}
+      {/* Center bud — the rounded dome of the Rumdul flower */}
+      <circle cx="100" cy="100" r="14" opacity={0.92} />
+      <circle cx="100" cy="100" r="8"  opacity={0.55} />
     </svg>
   );
 }
