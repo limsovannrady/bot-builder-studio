@@ -41,7 +41,6 @@ const NAV_LINKS = [
   { id: "bots", label: "Bots" },
   { id: "work", label: "ការងារ" },
   { id: "about", label: "អំពីខ្ញុំ" },
-  { id: "contact", label: "ទាក់ទង" },
 ];
 
 function useActiveSection() {
