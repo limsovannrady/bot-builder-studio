@@ -131,7 +131,7 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="pt-32 md:pt-40 pb-20">
+    <section id="home" className="scroll-mt-24 pt-32 md:pt-40 pb-20">
       <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-12 items-center">
         <div className="order-2 md:order-1 flex justify-center md:justify-start animate-fade-up">
           <div className="relative">
@@ -186,7 +186,7 @@ function Hero() {
 
 function Bots() {
   return (
-    <section id="bots" className="py-20">
+    <section id="bots" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="text-center mb-14 animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
@@ -277,7 +277,7 @@ function QrSection() {
 
 function About() {
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-4xl px-4 text-center animate-fade-up">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
           <Heart className="size-3.5 text-[var(--orange)]" />
@@ -316,7 +316,7 @@ function About() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-3xl px-4">
         <div className="bg-gradient-hero rounded-3xl p-10 md:p-14 text-center shadow-glow relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
