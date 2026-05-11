@@ -1,78 +1,108 @@
-import { useState, useEffect, useRef } from "react";
-import { Play, Square, Loader2, Volume2 } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
+import { Play, Square, Volume2, Loader2 } from "lucide-react";
 
 const VOICE_PRESETS = [
-  { lang: "km-KH", label: "ខ្មែរ 🇰🇭", sample: "សួស្ដី! ខ្ញុំគឺជា AI Voice Bot" },
-  { lang: "en-US", label: "English 🇺🇸", sample: "Hello! I am an AI Voice Bot." },
-  { lang: "zh-CN", label: "中文 🇨🇳", sample: "你好！我是AI语音机器人。" },
-  { lang: "ja-JP", label: "日本語 🇯🇵", sample: "こんにちは！私はAI音声ボットです。" },
-  { lang: "ko-KR", label: "한국어 🇰🇷", sample: "안녕하세요! 저는 AI 음성 봇입니다." },
-  { lang: "th-TH", label: "ไทย 🇹🇭", sample: "สวัสดี! ฉันคือหุ่นยนต์เสียง AI" },
-  { lang: "fr-FR", label: "Français 🇫🇷", sample: "Bonjour! Je suis un robot vocal IA." },
-  { lang: "vi-VN", label: "Tiếng Việt 🇻🇳", sample: "Xin chào! Tôi là bot giọng nói AI." },
+  { lang: "km",    gtts: "km",    label: "ខ្មែរ 🇰🇭",      sample: "សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។" },
+  { lang: "en",    gtts: "en",    label: "English 🇺🇸",     sample: "Hello! I am Sovannrady's AI Voice Bot." },
+  { lang: "zh-CN", gtts: "zh-CN", label: "中文 🇨🇳",         sample: "你好！我是Sovannrady的AI语音机器人。" },
+  { lang: "ja",    gtts: "ja",    label: "日本語 🇯🇵",       sample: "こんにちは！SovannradyのAI音声ボットです。" },
+  { lang: "ko",    gtts: "ko",    label: "한국어 🇰🇷",       sample: "안녕하세요! Sovannrady의 AI 음성 봇입니다." },
+  { lang: "th",    gtts: "th",    label: "ไทย 🇹🇭",         sample: "สวัสดี! ฉันคือ AI Voice Bot ของ Sovannrady" },
+  { lang: "fr",    gtts: "fr",    label: "Français 🇫🇷",    sample: "Bonjour! Je suis le robot vocal IA de Sovannrady." },
+  { lang: "vi",    gtts: "vi",    label: "Tiếng Việt 🇻🇳",  sample: "Xin chào! Tôi là bot giọng nói AI của Sovannrady." },
 ];
+
+function buildGoogleTTSUrl(text: string, lang: string, speed: number) {
+  const slow = speed < 0.8 ? "true" : "false";
+  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=${lang}&client=tw-ob&slow=${slow}`;
+}
 
 export default function VoiceDemo() {
   const [text, setText] = useState("សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។");
-  const [lang, setLang] = useState("km-KH");
-  const [rate, setRate] = useState(1);
-  const [pitch, setPitch] = useState(1);
+  const [preset, setPreset] = useState(VOICE_PRESETS[0]);
+  const [speed, setSpeed] = useState(1);
   const [playing, setPlaying] = useState(false);
-  const [supported, setSupported] = useState(true);
-  const [availableVoices, setAvailableVoices] = useState<SpeechSynthesisVoice[]>([]);
-  const uttRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
-    if (!("speechSynthesis" in window)) {
-      setSupported(false);
-      return;
-    }
-    function loadVoices() {
-      setAvailableVoices(window.speechSynthesis.getVoices());
-    }
-    loadVoices();
-    window.speechSynthesis.addEventListener("voiceschanged", loadVoices);
-    return () => window.speechSynthesis.removeEventListener("voiceschanged", loadVoices);
+    return () => {
+      audioRef.current?.pause();
+    };
   }, []);
 
-  function speak() {
-    if (!supported || !text.trim()) return;
-    window.speechSynthesis.cancel();
-
-    const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = lang;
-    utt.rate = rate;
-    utt.pitch = pitch;
-
-    const voice = availableVoices.find(v => v.lang.startsWith(lang.split("-")[0]));
-    if (voice) utt.voice = voice;
-
-    utt.onstart = () => setPlaying(true);
-    utt.onend = () => setPlaying(false);
-    utt.onerror = () => setPlaying(false);
-
-    uttRef.current = utt;
-    window.speechSynthesis.speak(utt);
-  }
-
   function stop() {
-    window.speechSynthesis.cancel();
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.src = "";
+      audioRef.current = null;
+    }
     setPlaying(false);
+    setLoading(false);
   }
 
-  function pickPreset(preset: typeof VOICE_PRESETS[0]) {
-    setLang(preset.lang);
-    setText(preset.sample);
-    if (playing) stop();
+  async function speak() {
+    if (!text.trim()) return;
+    stop();
+    setError("");
+    setLoading(true);
+
+    const chunks = splitText(text, 180);
+    await playChunks(chunks, 0);
   }
 
-  if (!supported) {
-    return (
-      <div className="text-center py-8 text-muted-foreground text-sm">
-        Browser របស់អ្នកមិនគាំទ្រ Speech Synthesis។<br />
-        សូមប្រើ Chrome ឬ Edge ។
-      </div>
-    );
+  function splitText(t: string, max: number): string[] {
+    if (t.length <= max) return [t];
+    const parts: string[] = [];
+    let remaining = t;
+    while (remaining.length > 0) {
+      let cut = remaining.lastIndexOf(" ", max);
+      if (cut <= 0 || remaining.length <= max) cut = Math.min(max, remaining.length);
+      parts.push(remaining.slice(0, cut).trim());
+      remaining = remaining.slice(cut).trim();
+    }
+    return parts.filter(Boolean);
+  }
+
+  async function playChunks(chunks: string[], idx: number) {
+    if (idx >= chunks.length) {
+      setPlaying(false);
+      setLoading(false);
+      return;
+    }
+
+    const url = buildGoogleTTSUrl(chunks[idx], preset.gtts, speed);
+    const audio = new Audio(url);
+    audioRef.current = audio;
+
+    audio.oncanplay = () => {
+      setLoading(false);
+      setPlaying(true);
+    };
+    audio.onended = () => {
+      playChunks(chunks, idx + 1);
+    };
+    audio.onerror = () => {
+      setError("មិនអាចចាក់សំឡេងបានទេ សូមព្យាយាមម្ដងទៀត");
+      setPlaying(false);
+      setLoading(false);
+    };
+
+    try {
+      await audio.play();
+    } catch {
+      setError("Browser រារាំងការចាក់ Audio ។ សូម Allow Audio ក្នុង browser settings។");
+      setPlaying(false);
+      setLoading(false);
+    }
+  }
+
+  function pickPreset(p: typeof VOICE_PRESETS[0]) {
+    stop();
+    setPreset(p);
+    setText(p.sample);
+    setError("");
   }
 
   return (
@@ -85,7 +115,7 @@ export default function VoiceDemo() {
               key={p.lang}
               onClick={() => pickPreset(p)}
               className={`rounded-xl py-2 px-1 text-xs font-medium transition-all ${
-                lang === p.lang
+                preset.lang === p.lang
                   ? "bg-green-500/20 border-2 border-green-500 text-green-400"
                   : "bg-secondary/40 border border-border hover:bg-secondary text-muted-foreground hover:text-foreground"
               }`}
@@ -98,67 +128,64 @@ export default function VoiceDemo() {
 
       <textarea
         value={text}
-        onChange={e => setText(e.target.value)}
+        onChange={e => { setText(e.target.value); if (playing) stop(); }}
         rows={4}
         placeholder="វាយអត្ថបទដែលចង់ស្ដាប់..."
         className="w-full rounded-xl border border-border bg-secondary/30 px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-muted-foreground/60"
       />
 
-      <div className="grid grid-cols-2 gap-3">
-        <div>
-          <label className="text-xs text-muted-foreground mb-1 flex justify-between">
-            <span>ល្បឿន</span> <span className="text-foreground">{rate.toFixed(1)}x</span>
-          </label>
-          <input
-            type="range" min="0.5" max="2" step="0.1"
-            value={rate}
-            onChange={e => setRate(Number(e.target.value))}
-            className="w-full accent-green-500"
-          />
-        </div>
-        <div>
-          <label className="text-xs text-muted-foreground mb-1 flex justify-between">
-            <span>កម្ពស់សំឡេង</span> <span className="text-foreground">{pitch.toFixed(1)}</span>
-          </label>
-          <input
-            type="range" min="0.5" max="2" step="0.1"
-            value={pitch}
-            onChange={e => setPitch(Number(e.target.value))}
-            className="w-full accent-green-500"
-          />
+      <div>
+        <label className="text-xs text-muted-foreground mb-1 flex justify-between">
+          <span>ល្បឿន</span>
+          <span className="text-foreground">{speed < 0.8 ? "យឺត" : speed >= 1.5 ? "លឿន" : "ធម្មតា"}</span>
+        </label>
+        <input
+          type="range" min="0.5" max="2" step="0.5"
+          value={speed}
+          onChange={e => setSpeed(Number(e.target.value))}
+          className="w-full accent-green-500"
+        />
+        <div className="flex justify-between text-[10px] text-muted-foreground/60 mt-0.5">
+          <span>យឺត</span><span>ធម្មតា</span><span>លឿន</span>
         </div>
       </div>
 
-      <div className="flex gap-3">
-        <button
-          onClick={playing ? stop : speak}
-          disabled={!text.trim()}
-          className={`flex-1 flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition disabled:opacity-40 disabled:cursor-not-allowed ${
-            playing
-              ? "bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500/30"
-              : "bg-green-500 text-black hover:opacity-90"
-          }`}
-        >
-          {playing ? (
-            <><Square className="size-4 fill-current" /> បញ្ឈប់</>
-          ) : (
-            <><Play className="size-4 fill-current" /> ស្ដាប់សំឡេង</>
-          )}
-        </button>
-      </div>
+      <button
+        onClick={playing || loading ? stop : speak}
+        disabled={!text.trim()}
+        className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm transition disabled:opacity-40 disabled:cursor-not-allowed ${
+          playing || loading
+            ? "bg-red-500/20 border border-red-500/50 text-red-400 hover:bg-red-500/30"
+            : "bg-green-500 text-black hover:opacity-90"
+        }`}
+      >
+        {loading ? (
+          <><Loader2 className="size-4 animate-spin" /> កំពុងភ្ជាប់...</>
+        ) : playing ? (
+          <><Square className="size-4 fill-current" /> បញ្ឈប់</>
+        ) : (
+          <><Play className="size-4 fill-current" /> ស្ដាប់សំឡេង</>
+        )}
+      </button>
+
+      {error && (
+        <p className="text-xs text-red-400 text-center rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2">
+          {error}
+        </p>
+      )}
 
       {playing && (
         <div className="flex items-center justify-center gap-3 py-3 rounded-xl bg-green-500/10 border border-green-500/20">
           <Volume2 className="size-5 text-green-400 animate-pulse" />
           <div className="flex gap-1 items-end h-5">
-            {[1,2,3,4,5].map(i => (
+            {[1, 2, 3, 4, 5].map(i => (
               <div
                 key={i}
                 className="w-1 bg-green-400 rounded-full"
                 style={{
                   height: `${40 + i * 12}%`,
-                  animation: `wave-bar 0.8s ease-in-out infinite`,
-                  animationDelay: `${i * 0.1}s`,
+                  animation: "wave-bar 0.8s ease-in-out infinite",
+                  animationDelay: `${i * 0.12}s`,
                 }}
               />
             ))}
@@ -170,7 +197,7 @@ export default function VoiceDemo() {
       <style>{`
         @keyframes wave-bar {
           0%, 100% { transform: scaleY(0.4); }
-          50% { transform: scaleY(1); }
+          50%       { transform: scaleY(1);   }
         }
       `}</style>
     </div>
