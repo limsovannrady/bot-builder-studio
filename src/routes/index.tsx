@@ -633,9 +633,40 @@ function Work() {
   );
 }
 
+const SNOWFLAKES = Array.from({ length: 35 }, (_, i) => ({
+  id: i,
+  left: `${(i * 2.86 + Math.random() * 5)}%`,
+  size: `${Math.random() * 5 + 3}px`,
+  duration: `${Math.random() * 6 + 7}s`,
+  delay: `${Math.random() * 4}s`,
+  opacity: Math.random() * 0.35 + 0.25,
+}));
+
+function Snow() {
+  return (
+    <>
+      {SNOWFLAKES.map((f) => (
+        <div
+          key={f.id}
+          className="snowflake"
+          style={{
+            left: f.left,
+            width: f.size,
+            height: f.size,
+            animationDuration: f.duration,
+            animationDelay: f.delay,
+            opacity: f.opacity,
+          }}
+        />
+      ))}
+    </>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen">
+      <Snow />
       <LotusBackground />
       <div className="relative" style={{ zIndex: 2 }}>
         <Nav />

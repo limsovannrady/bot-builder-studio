@@ -304,6 +304,28 @@ html { scroll-behavior: smooth; }
   box-shadow: 0 12px 32px -8px oklch(0 0 0 / 0.35);
 }
 
+/* ── Snowfall effect ── */
+@keyframes snowfall {
+  0%   { transform: translateY(-10px) translateX(0px) rotate(0deg); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(100vh) translateX(40px) rotate(360deg); opacity: 0; }
+}
+.snowflake {
+  position: fixed;
+  top: -10px;
+  border-radius: 50%;
+  background: oklch(0.75 0.06 230 / 0.7);
+  box-shadow: 0 0 4px oklch(0.75 0.08 230 / 0.4);
+  pointer-events: none;
+  animation: snowfall linear infinite;
+  z-index: 9999;
+}
+.dark .snowflake {
+  background: oklch(0.95 0.02 220 / 0.8);
+  box-shadow: 0 0 5px oklch(0.95 0.03 220 / 0.5);
+}
+
 /* ── Work gallery vertical marquee ── */
 @keyframes scroll-up {
   0%   { transform: translateY(0); }
