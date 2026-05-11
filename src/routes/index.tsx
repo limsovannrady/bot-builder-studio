@@ -93,13 +93,13 @@ const bots = [
     link: "https://t.me/GoogleTranslate2026_Bot",
   },
   {
-    name: "BotTranslate",
-    username: "@BotTranslate",
-    desc: "បកប្រែភាសាដោយ AI ដ៏រហ័ស គាំទ្រភាសាជាច្រើនលើពិភពលោក",
+    name: "Create QR & Scan",
+    username: "@CreateQR_ScanBot",
+    desc: "បង្កើត QR Code និងស្កែន QR Code បានយ៉ាងងាយស្រួល",
     img: BOT_TRANS,
     icon: Languages,
     accent: "orange",
-    link: "https://t.me/BotTranslate",
+    link: "https://t.me/CreateQR_ScanBot",
   },
   {
     name: "AI Assistant Bot",
