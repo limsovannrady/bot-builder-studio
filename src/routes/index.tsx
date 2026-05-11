@@ -19,19 +19,19 @@ function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
 
 function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
-    if (typeof window === "undefined") return "dark";
-    const stored = localStorage.getItem("theme") as "dark" | "light" | null;
-    if (stored === "light" || stored === "dark") return stored;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    if (typeof window === "undefined") return "light";
+    const stored = localStorage.getItem("theme-v2") as "dark" | "light" | null;
+    if (stored === "dark") return "dark";
+    return "light";
   });
   useEffect(() => {
     const root = document.documentElement;
-    if (theme === "light") {
-      root.classList.add("light");
+    if (theme === "dark") {
+      root.classList.add("dark");
     } else {
-      root.classList.remove("light");
+      root.classList.remove("dark");
     }
-    localStorage.setItem("theme", theme);
+    localStorage.setItem("theme-v2", theme);
   }, [theme]);
   return { theme, toggle: () => setTheme((t) => (t === "dark" ? "light" : "dark")) };
 }
