@@ -1,6 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+
+function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
+  const ref = useRef<T>(null);
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { el.classList.add("in-view"); observer.unobserve(el); } },
+      { threshold: 0.12 }
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+  return ref;
+}
 
 function useTheme() {
   const [theme, setTheme] = useState<"dark" | "light">(() => {
@@ -224,9 +239,10 @@ function Nav() {
 }
 
 function Hero() {
+  const ref = useScrollReveal();
   return (
     <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
-      <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center">
+      <div ref={ref} className="reveal mx-auto max-w-2xl px-4 flex flex-col items-center text-center animate-hero">
 
         {/* Headline */}
         <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
@@ -263,10 +279,12 @@ function Hero() {
 }
 
 function Bots() {
+  const headRef = useScrollReveal();
+  const listRef = useScrollReveal();
   return (
     <section id="bots" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center mb-14">
+        <div ref={headRef} className="reveal text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
             <Bot className="size-3.5 text-[var(--cyan)]" />
             <span className="text-muted-foreground">My Bots</span>
@@ -279,7 +297,7 @@ function Bots() {
           </p>
         </div>
 
-        <div className="mx-auto max-w-2xl flex flex-col gap-3">
+        <div ref={listRef} className="reveal mx-auto max-w-2xl flex flex-col gap-3">
           {bots.map((b, i) => {
             const Icon = b.icon;
             const accentColor =
@@ -343,10 +361,12 @@ function Bots() {
 
 
 function About() {
+  const badgeRef = useScrollReveal();
+  const cardRef  = useScrollReveal();
   return (
     <section id="about" className="scroll-mt-24 py-20">
-      <div className="mx-auto max-w-4xl px-4 animate-fade-up">
-        <div className="flex justify-center mb-4">
+      <div className="mx-auto max-w-4xl px-4">
+        <div ref={badgeRef} className="reveal flex justify-center mb-4">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs">
             <Heart className="size-3.5 text-[var(--orange)]" />
             <span className="text-muted-foreground">អំពីខ្ញុំ</span>
@@ -354,7 +374,7 @@ function About() {
         </div>
 
         {/* Profile card */}
-        <div className="glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+        <div ref={cardRef} className="reveal reveal-scale glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
           {/* Avatar */}
           <div className="relative shrink-0">
             <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
