@@ -434,22 +434,6 @@ function About() {
           ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
         </p>
 
-        <div className="grid sm:grid-cols-3 gap-4 mt-10">
-          {[
-            { icon: Bot, t: "Bot Development", d: "Node.js, Python, AI APIs" },
-            { icon: Sparkles, t: "AI Integration", d: "OpenAI, Gemini, Custom Models" },
-            { icon: Zap, t: "Fast & Reliable", d: "Cloud-hosted 24/7 uptime" },
-          ].map((s) => {
-            const I = s.icon;
-            return (
-              <div key={s.t} className="glass rounded-2xl p-5 text-left hover:border-[var(--cyan)]/50 transition">
-                <I className="size-6 text-[var(--cyan)] mb-3" />
-                <div className="font-semibold mb-1">{s.t}</div>
-                <div className="text-xs text-muted-foreground">{s.d}</div>
-              </div>
-            );
-          })}
-        </div>
       </div>
     </section>
   );
