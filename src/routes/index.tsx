@@ -224,15 +224,6 @@ function Nav() {
                 </a>
               );
             })}
-            <a
-              href={TELEGRAM}
-              target="_blank"
-              rel="noreferrer"
-              onClick={() => setMenuOpen(false)}
-              className="mt-1 px-4 py-2.5 rounded-xl text-sm font-medium bg-primary text-primary-foreground text-center hover:opacity-90 transition flex items-center justify-center gap-2"
-            >
-              <Send className="size-4" /> Telegram
-            </a>
           </div>
         )}
       </div>
