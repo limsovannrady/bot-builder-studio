@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X } from "lucide-react";
+import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X, ChevronRight } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import BotModal from "@/components/BotModal";
+import TranslateDemo from "@/components/bot-demos/TranslateDemo";
+import QRDemo from "@/components/bot-demos/QRDemo";
+import AutoReactionDemo from "@/components/bot-demos/AutoReactionDemo";
+import VoiceDemo from "@/components/bot-demos/VoiceDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -87,38 +92,46 @@ const bots = [
   {
     name: "បកប្រែភាសា",
     username: "@GoogleTranslate2026_Bot",
-    desc: "",
+    desc: "បកប្រែអត្ថបទរវាងភាសាជាង ៨",
     img: BOT_TTS,
-    icon: Mic,
+    icon: Languages,
     accent: "cyan",
+    accentVar: "var(--cyan)",
     link: "https://t.me/GoogleTranslate2026_Bot",
+    demo: TranslateDemo,
   },
   {
     name: "Create QR & Scan",
     username: "@CreateQR_ScanBot",
-    desc: "",
+    desc: "បង្កើត QR Code និង Scan QR ពីរូបភាព",
     img: BOT_TRANS,
-    icon: Languages,
+    icon: Mic,
     accent: "orange",
+    accentVar: "var(--orange)",
     link: "https://t.me/CreateQR_ScanBot",
+    demo: QRDemo,
   },
   {
     name: "Auto Reaction",
     username: "@AutoReaction2026Bot",
-    desc: "",
+    desc: "ដាក់ Emoji Reaction ដោយស្វ័យប្រវត្តិ",
     img: BOT_AI,
     icon: Sparkles,
     accent: "primary",
+    accentVar: "var(--primary)",
     link: "https://t.me/AutoReaction2026Bot",
+    demo: AutoReactionDemo,
   },
   {
-    name: "បង្កើតសំឡេង Ai",
+    name: "បង្កើតសំឡេង AI",
     username: "@limsovannradybot",
-    desc: "",
+    desc: "បំលែងអត្ថបទទៅជាសំឡេង AI",
     img: BOT_4,
     icon: Bot,
     accent: "green",
+    accentVar: "oklch(0.72 0.19 145)",
     link: "https://t.me/limsovannradybot",
+    demo: VoiceDemo,
   },
 ];
 
@@ -270,6 +283,10 @@ function Hero() {
 function Bots() {
   const headRef = useScrollReveal();
   const listRef = useScrollReveal();
+  const [activeBot, setActiveBot] = useState<number | null>(null);
+
+  const openBot = activeBot !== null ? bots[activeBot] : null;
+
   return (
     <section id="bots" className="scroll-mt-24 py-10">
       <div className="mx-auto max-w-6xl px-4">
@@ -284,18 +301,12 @@ function Bots() {
 
         <div ref={listRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto max-w-3xl">
           {bots.map((b, i) => {
-            const accentColor =
-              b.accent === "cyan"   ? "var(--cyan)" :
-              b.accent === "orange" ? "var(--orange)" :
-              b.accent === "green"  ? "oklch(0.72 0.19 145)" :
-              "var(--primary)";
+            const accentColor = b.accentVar;
             return (
-              <a
+              <button
                 key={b.name}
-                href={b.link}
-                target="_blank"
-                rel="noreferrer"
-                className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up"
+                onClick={() => setActiveBot(i)}
+                className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up text-left w-full"
                 style={{
                   animationDelay: `${i * 0.08}s`,
                   border: `1px solid ${accentColor}30`,
@@ -329,11 +340,35 @@ function Bots() {
                 {/* Name */}
                 <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
 
-              </a>
+                {/* Desc */}
+                <p className="text-[10px] text-muted-foreground text-center leading-snug z-10 line-clamp-2">{b.desc}</p>
+
+                {/* Try button */}
+                <div
+                  className="z-10 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -mb-1"
+                  style={{ background: `${accentColor}22`, color: accentColor }}
+                >
+                  សាកល្បង <ChevronRight className="size-3" />
+                </div>
+              </button>
             );
           })}
         </div>
       </div>
+
+      {openBot && (
+        <BotModal
+          open={activeBot !== null}
+          onClose={() => setActiveBot(null)}
+          botName={openBot.name}
+          botUsername={openBot.username}
+          botImg={openBot.img}
+          telegramLink={openBot.link}
+          accentColor={openBot.accentVar}
+        >
+          <openBot.demo />
+        </BotModal>
+      )}
     </section>
   );
 }
