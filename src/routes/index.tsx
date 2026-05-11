@@ -507,7 +507,7 @@ function LotusBackground() {
 const COL1 = [
   { src: "/work1.jpg",  caption: "ទទួលរង្វាន់ E-GetS Annual Party" },
   { src: "/work4.jpg",  caption: "ពិធីប្រគល់រង្វាន់ជាមួយប្រធាន" },
-  { src: "https://st-img.e-gets.com/MARKETING/d358f02abbd9ea9b336f86c9f66c7beb.png!840.jpg", caption: "E-GetS Marketing" },
+  { src: "https://st-img.e-gets.com/MARKETING/d358f02abbd9ea9b336f86c9f66c7beb.png!840.jpg", caption: "ស្ដេចសេវាកម្ម ក្រុងព្រះសីហនុ" },
   { src: "/work5.jpg",  caption: "E-GetS Annual Party 2025" },
   { src: "/work7.jpg",  caption: "ក្រុមការងារ E-GetS" },
   { src: "/work10.jpg", caption: "វគ្គបណ្ដុះបណ្ដាល Sihanoukville" },
