@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, Sun, Moon, Menu, X } from "lucide-react";
+import { Send, Sun, Moon, Menu, X, Zap, QrCode, Languages, Mic } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import BotPage from "@/components/BotModal";
+import AutoReactionDemo from "@/components/bot-demos/AutoReactionDemo";
+import QRDemo from "@/components/bot-demos/QRDemo";
+import TranslateDemo from "@/components/bot-demos/TranslateDemo";
+import VoiceDemo from "@/components/bot-demos/VoiceDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -38,6 +43,7 @@ function useTheme() {
 
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
+  { id: "bots", label: "Bot ទាំងអស់" },
 ];
 
 function useActiveSection() {
@@ -217,20 +223,197 @@ function Hero() {
           <span>អ្នករាល់គ្នា</span>
         </h1>
 
-        {/* Buttons */}
+        <p className="text-muted-foreground text-sm md:text-base max-w-md mb-8 leading-relaxed">
+          Telegram Bots ដែលជួយអ្នកឆ្លើយតប, បកប្រែ, ចែករំលែក QR Code, និងច្រើនទៀត — ឥតគិតថ្លៃ។
+        </p>
 
+        {/* Buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-3">
+          <a
+            href={TELEGRAM}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-sm hover:opacity-90 transition shadow-glow"
+          >
+            <Send className="size-4" /> ទំនាក់ទំនង Telegram
+          </a>
+          <a
+            href="#bots"
+            onClick={(e) => smoothScroll(e, "bots")}
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-xl border border-border bg-secondary/60 text-foreground font-semibold text-sm hover:bg-secondary transition"
+          >
+            <Zap className="size-4" /> មើល Bot ទាំងអស់
+          </a>
+        </div>
       </div>
     </section>
   );
 }
 
+const BOTS = [
+  {
+    id: "autoreaction",
+    name: "Auto Reaction Bot",
+    username: "@AutoReaction2026Bot",
+    desc: "React Emoji ដោយស្វ័យប្រវត្តិទៅសារ Telegram — ជ្រើសសន្លប់ Emoji ហើយ Bot នឹង React ជំនួសអ្នក។",
+    img: "/logo-avatar.jpg",
+    telegramLink: MY_BOT_LINK,
+    accentColor: "oklch(0.65 0.22 290)",
+    cardClass: "bot-card-primary",
+    icon: <Zap className="size-5" />,
+    tag: "⚡ Auto Reaction",
+    demo: <AutoReactionDemo />,
+  },
+  {
+    id: "translate",
+    name: "Translate Bot",
+    username: "@SovannradyTransBot",
+    desc: "បកប្រែអត្ថបទរវាងភាសា ខ្មែរ, English, 中文, 日本語 និងច្រើនទៀត — លឿន និងត្រឹមត្រូវ។",
+    img: "/logo-avatar.jpg",
+    telegramLink: TELEGRAM,
+    accentColor: "oklch(0.82 0.15 200)",
+    cardClass: "bot-card-cyan",
+    icon: <Languages className="size-5" />,
+    tag: "🌐 Translate",
+    demo: <TranslateDemo />,
+  },
+  {
+    id: "qr",
+    name: "QR Code Bot",
+    username: "@SovannradyQRBot",
+    desc: "បង្កើត QR Code ពី Link ឬអត្ថបទ, Scan QR Code ពីរូបភាព — ងាយស្រួល និងរហ័ស។",
+    img: "/logo-avatar.jpg",
+    telegramLink: TELEGRAM,
+    accentColor: "oklch(0.78 0.18 55)",
+    cardClass: "bot-card-orange",
+    icon: <QrCode className="size-5" />,
+    tag: "📱 QR Code",
+    demo: <QRDemo />,
+  },
+  {
+    id: "voice",
+    name: "Voice Bot",
+    username: "@SovannradyVoiceBot",
+    desc: "បំប្លែងអត្ថបទជាសំឡេង AI ភាសាខ្មែរ — ជ្រើសសំឡេងបុរស Piseth ឬ ស្ត្រី Sreymom។",
+    img: "/logo-avatar.jpg",
+    telegramLink: TELEGRAM,
+    accentColor: "oklch(0.72 0.19 145)",
+    cardClass: "bot-card-green",
+    icon: <Mic className="size-5" />,
+    tag: "🎙️ Voice",
+    demo: <VoiceDemo />,
+  },
+];
 
+function BotsSection() {
+  const ref = useScrollReveal();
+  const [openBot, setOpenBot] = useState<string | null>(null);
+
+  const activeBot = BOTS.find((b) => b.id === openBot) ?? null;
+
+  return (
+    <section id="bots" className="scroll-mt-24 py-16 px-4">
+      <div ref={ref} className="reveal mx-auto max-w-5xl">
+        <div className="text-center mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <span className="text-gradient">Bot</span> ទាំងអស់
+          </h2>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+            សាកល្បង Demo ឥឡូវ — ឬ ចូល Telegram ដើម្បីប្រើពេញលេញ
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          {BOTS.map((bot, i) => (
+            <div
+              key={bot.id}
+              className={`relative rounded-2xl p-5 bg-gradient-card transition-all duration-300 cursor-pointer hover-lift ${bot.cardClass}`}
+              style={{ transitionDelay: `${i * 60}ms` }}
+            >
+              {/* Tag */}
+              <span
+                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full mb-4"
+                style={{ background: `${bot.accentColor}20`, color: bot.accentColor }}
+              >
+                {bot.tag}
+              </span>
+
+              <div className="flex items-start gap-4 mb-4">
+                {/* Bot logo */}
+                <div
+                  className="relative size-14 shrink-0 rounded-2xl overflow-hidden bot-logo-float"
+                  style={{ ["--bf-dur" as string]: `${4.5 + i * 0.4}s`, ["--bf-delay" as string]: `${i * 0.3}s` }}
+                >
+                  <div
+                    className="absolute -inset-1 rounded-2xl blur-md opacity-60"
+                    style={{ background: bot.accentColor }}
+                  />
+                  <img src={bot.img} alt={bot.name} className="relative size-full object-cover" />
+                </div>
+
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-base leading-tight">{bot.name}</h3>
+                  <p className="text-xs text-muted-foreground mt-0.5">{bot.username}</p>
+                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{bot.desc}</p>
+                </div>
+              </div>
+
+              {/* Actions */}
+              <div className="flex gap-2">
+                <button
+                  onClick={() => setOpenBot(bot.id)}
+                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90 active:scale-95"
+                  style={{ background: bot.accentColor, color: "oklch(0.15 0.04 290)" }}
+                >
+                  {bot.icon} សាកល្បង Demo
+                </button>
+                <a
+                  href={bot.telegramLink}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-secondary/50 text-sm font-medium hover:bg-secondary transition-colors"
+                >
+                  <Send className="size-3.5" />
+                </a>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bot Modals */}
+      {BOTS.map((bot) => (
+        <BotPage
+          key={bot.id}
+          open={openBot === bot.id}
+          onClose={() => setOpenBot(null)}
+          botName={bot.name}
+          botUsername={bot.username}
+          botDesc={bot.desc}
+          botImg={bot.img}
+          telegramLink={bot.telegramLink}
+          accentColor={bot.accentColor}
+        >
+          {bot.demo}
+        </BotPage>
+      ))}
+    </section>
+  );
+}
 
 function Footer() {
   return (
     <footer className="py-10 border-t border-border">
       <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div>២០២៦ លឹម សុវណ្ណរ៉ាឌី</div>
+        <a
+          href={TELEGRAM}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-2 hover:text-foreground transition-colors"
+        >
+          <Send className="size-4" /> ទំនាក់ទំនង
+        </a>
       </div>
     </footer>
   );
@@ -238,10 +421,8 @@ function Footer() {
 
 const OA = [0, 120, 240];
 const IA = [60, 180, 300];
-// Refined petal paths — wider, more rounded Rumdul shape
 const OPETAL = "M100 100 C142 84 146 38 100 12 C54 38 58 84 100 100Z";
 const IPETAL = "M100 100 C126 90 129 60 100 40 C71 60 74 90 100 100Z";
-// Highlight tip on outer petal
 const OTIP   = "M100 40 C118 32 128 18 100 12 C72 18 82 32 100 40Z";
 
 function LotusIconFilled({ className }: { className?: string }) {
@@ -292,19 +473,15 @@ function LotusBackground() {
   const gold = "var(--lotus-color)";
   const S = 200;
   const flowers: Array<{ top: string; left: string; size: number; color: string; opacity: number; delay: string; dur: string; rotate: string; dx: string; dy: string; variant: FlowerVariant }> = [
-    // Row 1 — top
     { top: "-4%",  left: "2%",   size: S, color: gold, opacity: 0.28, delay: "0s",  dur: "42s", rotate: "-20deg", dx: "-6px", dy: "6px",  variant: "detailed" },
     { top: "-5%",  left: "38%",  size: S, color: gold, opacity: 0.22, delay: "7s",  dur: "58s", rotate: "25deg",  dx: "5px",  dy: "-5px", variant: "outline"  },
     { top: "-3%",  left: "74%",  size: S, color: gold, opacity: 0.30, delay: "14s", dur: "46s", rotate: "10deg",  dx: "7px",  dy: "-6px", variant: "filled"   },
-    // Row 2
     { top: "24%",  left: "-4%",  size: S, color: gold, opacity: 0.24, delay: "4s",  dur: "52s", rotate: "-35deg", dx: "-5px", dy: "7px",  variant: "filled"   },
     { top: "23%",  left: "46%",  size: S, color: gold, opacity: 0.18, delay: "20s", dur: "60s", rotate: "50deg",  dx: "6px",  dy: "5px",  variant: "detailed" },
     { top: "25%",  left: "82%",  size: S, color: gold, opacity: 0.26, delay: "10s", dur: "48s", rotate: "-15deg", dx: "-7px", dy: "-5px", variant: "outline"  },
-    // Row 3
     { top: "52%",  left: "4%",   size: S, color: gold, opacity: 0.22, delay: "17s", dur: "54s", rotate: "40deg",  dx: "5px",  dy: "-6px", variant: "outline"  },
     { top: "51%",  left: "40%",  size: S, color: gold, opacity: 0.20, delay: "3s",  dur: "44s", rotate: "-55deg", dx: "-6px", dy: "5px",  variant: "filled"   },
     { top: "53%",  left: "80%",  size: S, color: gold, opacity: 0.24, delay: "25s", dur: "56s", rotate: "70deg",  dx: "6px",  dy: "4px",  variant: "detailed" },
-    // Row 4 — bottom
     { top: "80%",  left: "-2%",  size: S, color: gold, opacity: 0.20, delay: "8s",  dur: "62s", rotate: "-70deg", dx: "5px",  dy: "-4px", variant: "filled"   },
     { top: "79%",  left: "36%",  size: S, color: gold, opacity: 0.16, delay: "22s", dur: "50s", rotate: "-10deg", dx: "-5px", dy: "6px",  variant: "outline"  },
     { top: "81%",  left: "76%",  size: S, color: gold, opacity: 0.22, delay: "13s", dur: "64s", rotate: "60deg",  dx: "-6px", dy: "-5px", variant: "detailed" },
@@ -336,7 +513,6 @@ function LotusBackground() {
     </div>
   );
 }
-
 
 const SNOWFLAKES = Array.from({ length: 35 }, (_, i) => ({
   id: i,
@@ -377,6 +553,7 @@ function Index() {
         <Nav />
         <main>
           <Hero />
+          <BotsSection />
         </main>
         <Footer />
       </div>
