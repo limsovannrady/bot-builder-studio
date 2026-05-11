@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, Heart, Sun, Moon, Menu, X } from "lucide-react";
+import { Send, Sun, Moon, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
@@ -38,7 +38,6 @@ function useTheme() {
 
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
-  { id: "about", label: "អំពីខ្ញុំ" },
 ];
 
 function useActiveSection() {
@@ -73,10 +72,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const AVATAR = "/profile.jpg";
 const TELEGRAM = "https://t.me/limsvannrady";
-const FACEBOOK = "https://www.facebook.com/limsovannrady";
-const TELEGRAM_CHANNEL = "https://t.me/limsovannrady_Channel";
 const MY_BOT_LINK = "https://t.me/AutoReaction2026Bot";
 
 function Nav() {
@@ -222,151 +218,12 @@ function Hero() {
         </h1>
 
         {/* Buttons */}
-        <div className="flex flex-wrap gap-3 justify-center mb-10">
-          <a
-            href="#about"
-            onClick={(e) => smoothScroll(e, "about")}
-            className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors text-sm"
-          >
-            <Send className="size-4 text-[var(--orange)]" /> អំពីខ្ញុំ
-          </a>
-        </div>
 
       </div>
     </section>
   );
 }
 
-function About() {
-  const badgeRef = useScrollReveal();
-  const cardRef  = useScrollReveal();
-  return (
-    <section id="about" className="scroll-mt-24 py-10">
-      <div className="mx-auto max-w-4xl px-4">
-
-        {/* Profile card */}
-        <div ref={cardRef} className="reveal reveal-scale glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
-          {/* Avatar */}
-          <div className="relative shrink-0 flex items-center justify-center">
-            {/* Outer glow bloom */}
-            <div className="absolute inset-0 rounded-full bg-gradient-hero blur-3xl opacity-40 scale-125" />
-
-            {/* Spinning gradient ring */}
-            <div
-              className="absolute rounded-full"
-              style={{
-                inset: "-5px",
-                background: "conic-gradient(from 0deg, oklch(0.52 0.22 290), oklch(0.62 0.16 200), oklch(0.58 0.18 55), oklch(0.52 0.22 290))",
-                animation: "spin-ring 4s linear infinite",
-                borderRadius: "9999px",
-              }}
-            />
-
-            {/* White gap between ring and image */}
-            <div className="absolute rounded-full bg-background" style={{ inset: "3px" }} />
-
-            {/* Second inner pulse ring */}
-            <div
-              className="absolute rounded-full opacity-60"
-              style={{
-                inset: "-12px",
-                background: "conic-gradient(from 180deg, oklch(0.62 0.16 200 / 0.5), transparent 60%, oklch(0.58 0.18 55 / 0.5), transparent 60%)",
-                animation: "spin-ring 8s linear infinite reverse",
-                borderRadius: "9999px",
-              }}
-            />
-
-            {/* Light beam top-left */}
-            <div className="absolute -top-4 -left-2 w-2 h-8 rounded-full bg-gradient-to-b from-[oklch(0.62_0.16_200)] to-transparent opacity-60 rotate-[-30deg] blur-[2px]" />
-            {/* Light beam bottom-right */}
-            <div className="absolute -bottom-4 -right-2 w-2 h-8 rounded-full bg-gradient-to-t from-[oklch(0.58_0.18_55)] to-transparent opacity-60 rotate-[-30deg] blur-[2px]" />
-
-            {/* Sparkle dots */}
-            <div className="absolute -top-2 right-4 size-2 rounded-full bg-[oklch(0.78_0.18_55)] opacity-80 animate-pulse" style={{ animationDuration: "2s" }} />
-            <div className="absolute -bottom-1 left-3 size-1.5 rounded-full bg-[oklch(0.62_0.16_200)] opacity-70 animate-pulse" style={{ animationDuration: "3s" }} />
-            <div className="absolute top-1/2 -right-3 size-1.5 rounded-full bg-[oklch(0.52_0.22_290)] opacity-80 animate-pulse" style={{ animationDuration: "2.5s" }} />
-
-            {/* Profile image */}
-            <div className="relative size-32 md:size-44 rounded-full overflow-hidden shadow-glow z-10">
-              <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
-              {/* Inner light overlay */}
-              <div className="absolute inset-0 rounded-full"
-                style={{ background: "radial-gradient(circle at 30% 25%, oklch(1 0 0 / 0.15), transparent 60%)" }}
-              />
-            </div>
-          </div>
-
-          {/* Info */}
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
-            <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-2">
-              <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span>
-            </h2>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-sm md:max-w-md">
-              {/* Telegram Personal */}
-              <a
-                href={TELEGRAM}
-                target="_blank"
-                rel="noreferrer"
-                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.55_0.24_25/40%)] bg-[oklch(0.55_0.24_25/10%)] hover:bg-[oklch(0.55_0.24_25/20%)] hover:border-[oklch(0.55_0.24_25/70%)] hover:shadow-glow hover:scale-[1.04] transition-all duration-300"
-              >
-                <div className="size-11 rounded-xl bg-[oklch(0.55_0.24_25/15%)] border border-[oklch(0.55_0.24_25/30%)] flex items-center justify-center group-hover:bg-[oklch(0.55_0.24_25/25%)] transition-colors">
-                  <Send className="size-5 text-[oklch(0.70_0.22_25)]" />
-                </div>
-                <div className="text-center">
-                  <p className="text-xs font-bold text-foreground">Telegram</p>
-                  <p className="text-[10px] text-muted-foreground">ផ្ទាល់ខ្លួន</p>
-                </div>
-              </a>
-
-              {/* Facebook */}
-              <a
-                href={FACEBOOK}
-                target="_blank"
-                rel="noreferrer"
-                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.55_0.20_245/40%)] bg-[oklch(0.55_0.20_245/08%)] hover:bg-[oklch(0.55_0.20_245/18%)] hover:border-[oklch(0.55_0.20_245/70%)] hover:scale-[1.04] transition-all duration-300"
-                style={{ boxShadow: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 40px -8px oklch(0.55 0.20 245 / 0.4)")}
-                onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
-              >
-                <div className="size-11 rounded-xl bg-[oklch(0.55_0.20_245/12%)] border border-[oklch(0.55_0.20_245/30%)] flex items-center justify-center group-hover:bg-[oklch(0.55_0.20_245/22%)] transition-colors">
-                  <svg className="size-5 text-[oklch(0.65_0.20_245)]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                  </svg>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs font-bold text-foreground">Facebook</p>
-                  <p className="text-[10px] text-muted-foreground">ទំព័រ</p>
-                </div>
-              </a>
-
-              {/* Telegram Channel */}
-              <a
-                href={TELEGRAM_CHANNEL}
-                target="_blank"
-                rel="noreferrer"
-                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.72_0.19_195/40%)] bg-[oklch(0.72_0.19_195/08%)] hover:bg-[oklch(0.72_0.19_195/18%)] hover:border-[oklch(0.72_0.19_195/70%)] hover:scale-[1.04] transition-all duration-300"
-                style={{ boxShadow: "none" }}
-                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 40px -8px oklch(0.72 0.19 195 / 0.4)")}
-                onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
-              >
-                <div className="size-11 rounded-xl bg-[oklch(0.72_0.19_195/12%)] border border-[oklch(0.72_0.19_195/30%)] flex items-center justify-center group-hover:bg-[oklch(0.72_0.19_195/22%)] transition-colors">
-                  <svg className="size-5 text-[oklch(0.72_0.19_195)]" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.28 13.4l-2.95-.924c-.64-.204-.657-.64.136-.953l11.57-4.461c.537-.194 1.006.131.858.16z"/>
-                  </svg>
-                </div>
-                <div className="text-center">
-                  <p className="text-xs font-bold text-foreground">Channel</p>
-                  <p className="text-[10px] text-muted-foreground">Telegram</p>
-                </div>
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 
 function Footer() {
@@ -520,7 +377,6 @@ function Index() {
         <Nav />
         <main>
           <Hero />
-          <About />
         </main>
         <Footer />
       </div>
