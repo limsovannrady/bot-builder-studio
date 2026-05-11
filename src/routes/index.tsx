@@ -338,8 +338,7 @@ function Bots() {
 
                 {/* Text */}
                 <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-sm leading-tight">{b.name}</h3>
-                  <p className="text-[11px] font-mono mb-0.5" style={{ color: accentColor }}>{b.username}</p>
+                  <h3 className="font-bold text-sm leading-tight mb-0.5">{b.name}</h3>
                   <p className="text-xs text-muted-foreground leading-snug line-clamp-1">{b.desc}</p>
                 </div>
 
