@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import BotModal from "@/components/BotModal";
 import TranslateDemo from "@/components/bot-demos/TranslateDemo";
 import QRDemo from "@/components/bot-demos/QRDemo";
-import AutoReactionDemo from "@/components/bot-demos/AutoReactionDemo";
 import VoiceDemo from "@/components/bot-demos/VoiceDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
@@ -122,7 +121,8 @@ const bots = [
     accent: "primary",
     accentVar: "var(--primary)",
     link: "https://t.me/AutoReaction2026Bot",
-    demo: AutoReactionDemo,
+    demo: null,
+    telegramOnly: true,
   },
   {
     name: "បង្កើតសំឡេង AI",
@@ -137,7 +137,9 @@ const bots = [
   },
 ];
 
-function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: boolean }) {
+const MY_BOT = bots[AUTO_REACTION_INDEX];
+
+function Nav() {
   const active = useActiveSection();
   const { theme, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -147,7 +149,7 @@ function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: b
     setMenuOpen(false);
   };
 
-  const myBotAccent = bots[AUTO_REACTION_INDEX].accentVar;
+  const myBotAccent = MY_BOT.accentVar;
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -170,7 +172,7 @@ function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: b
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1 text-sm">
             {NAV_LINKS.map((l) => {
-              const isActive = active === l.id && !myBotOpen;
+              const isActive = active === l.id;
               return (
                 <a
                   key={l.id}
@@ -191,26 +193,15 @@ function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: b
               );
             })}
 
-            {/* Bot របស់ខ្ញុំ tab */}
-            <button
-              onClick={() => { onOpenMyBot(); setMenuOpen(false); }}
-              className={`relative px-4 py-2 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background text-sm font-medium ${
-                myBotOpen
-                  ? "text-foreground bg-secondary/70"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
-              }`}
-              style={myBotOpen ? { focusVisibleRingColor: myBotAccent } as React.CSSProperties : {}}
+            {/* Bot របស់ខ្ញុំ tab — opens Telegram directly */}
+            <a
+              href={MY_BOT.link}
+              target="_blank"
+              rel="noreferrer"
+              className="relative px-4 py-2 rounded-lg transition-all outline-none text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 flex items-center gap-1.5"
             >
-              <span className="flex items-center gap-1.5">
-                <span>⚡</span> Bot របស់ខ្ញុំ
-              </span>
-              {myBotOpen && (
-                <span
-                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-6 rounded-full"
-                  style={{ background: myBotAccent }}
-                />
-              )}
-            </button>
+              <span>⚡</span> Bot របស់ខ្ញុំ
+            </a>
           </div>
 
           <div className="flex items-center gap-2">
@@ -245,7 +236,7 @@ function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: b
         {menuOpen && (
           <div className="md:hidden mt-2 glass rounded-2xl px-4 py-3 flex flex-col gap-1 animate-fade-up">
             {NAV_LINKS.map((l) => {
-              const isActive = active === l.id && !myBotOpen;
+              const isActive = active === l.id;
               return (
                 <a
                   key={l.id}
@@ -261,17 +252,16 @@ function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: b
                 </a>
               );
             })}
-            {/* Bot របស់ខ្ញុំ — mobile */}
-            <button
-              onClick={() => { onOpenMyBot(); setMenuOpen(false); }}
-              className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors text-left flex items-center gap-2 ${
-                myBotOpen
-                  ? "text-foreground bg-secondary/70"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
-              }`}
+            {/* Bot របស់ខ្ញុំ — mobile, opens Telegram */}
+            <a
+              href={MY_BOT.link}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="px-4 py-2.5 rounded-xl text-sm font-medium transition-colors text-left flex items-center gap-2 text-muted-foreground hover:text-foreground hover:bg-secondary/50"
             >
               <span>⚡</span> Bot របស់ខ្ញុំ
-            </button>
+            </a>
           </div>
         )}
       </div>
@@ -316,6 +306,61 @@ function Hero() {
   );
 }
 
+function BotCard({ b, i, onOpenBot }: { b: typeof bots[0]; i: number; onOpenBot: (i: number) => void }) {
+  const accentColor = b.accentVar;
+  const glowStyle = {
+    border: `1px solid ${accentColor}30`,
+    boxShadow: `0 0 0 0 ${accentColor}00`,
+    transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+    animationDelay: `${i * 0.08}s`,
+  };
+
+  const onEnter = (e: React.MouseEvent<HTMLElement>) => {
+    (e.currentTarget as HTMLElement).style.boxShadow = `0 0 32px -4px ${accentColor}55, 0 0 64px -12px ${accentColor}30, inset 0 0 24px -8px ${accentColor}18`;
+    (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}70`;
+  };
+  const onLeave = (e: React.MouseEvent<HTMLElement>) => {
+    (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accentColor}00`;
+    (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}30`;
+  };
+
+  const inner = (
+    <>
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+        style={{ background: `radial-gradient(circle at 50% 30%, ${accentColor}18, transparent 70%)` }} />
+      <div className="relative size-16 rounded-2xl overflow-hidden shrink-0 z-10">
+        <div className="absolute -inset-1 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"
+          style={{ background: accentColor }} />
+        <img src={b.img} alt={b.name} className="relative size-full object-cover group-hover:scale-110 transition-transform duration-500" />
+      </div>
+      <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
+      <p className="text-[10px] text-muted-foreground text-center leading-snug z-10 line-clamp-2">{b.desc}</p>
+      <div className="z-10 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -mb-1"
+        style={{ background: `${accentColor}22`, color: accentColor }}>
+        {b.telegramOnly ? <><Send className="size-3" /> Telegram</> : <>សាកល្បង <ChevronRight className="size-3" /></>}
+      </div>
+    </>
+  );
+
+  if (b.telegramOnly) {
+    return (
+      <a key={b.name} href={b.link} target="_blank" rel="noreferrer"
+        className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up"
+        style={glowStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+        {inner}
+      </a>
+    );
+  }
+
+  return (
+    <button key={b.name} onClick={() => onOpenBot(i)}
+      className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up text-left w-full"
+      style={glowStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>
+      {inner}
+    </button>
+  );
+}
+
 function Bots({ onOpenBot }: { onOpenBot: (i: number) => void }) {
   const headRef = useScrollReveal();
   const listRef = useScrollReveal();
@@ -331,56 +376,8 @@ function Bots({ onOpenBot }: { onOpenBot: (i: number) => void }) {
             ស្វែងយល់ និងសាកល្បង Telegram bots ឆ្លាតវៃរបស់ខ្ញុំ ឥតគិតថ្លៃ
           </p>
         </div>
-
         <div ref={listRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto max-w-3xl">
-          {bots.map((b, i) => {
-            const accentColor = b.accentVar;
-            return (
-              <button
-                key={b.name}
-                onClick={() => onOpenBot(i)}
-                className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up text-left w-full"
-                style={{
-                  animationDelay: `${i * 0.08}s`,
-                  border: `1px solid ${accentColor}30`,
-                  boxShadow: `0 0 0 0 ${accentColor}00`,
-                  transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
-                }}
-                onMouseEnter={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 32px -4px ${accentColor}55, 0 0 64px -12px ${accentColor}30, inset 0 0 24px -8px ${accentColor}18`;
-                  (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}70`;
-                }}
-                onMouseLeave={e => {
-                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accentColor}00`;
-                  (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}30`;
-                }}
-              >
-                <div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-                  style={{ background: `radial-gradient(circle at 50% 30%, ${accentColor}18, transparent 70%)` }}
-                />
-
-                <div className="relative size-16 rounded-2xl overflow-hidden shrink-0 z-10">
-                  <div
-                    className="absolute -inset-1 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"
-                    style={{ background: accentColor }}
-                  />
-                  <img src={b.img} alt={b.name} className="relative size-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                </div>
-
-                <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
-
-                <p className="text-[10px] text-muted-foreground text-center leading-snug z-10 line-clamp-2">{b.desc}</p>
-
-                <div
-                  className="z-10 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -mb-1"
-                  style={{ background: `${accentColor}22`, color: accentColor }}
-                >
-                  សាកល្បង <ChevronRight className="size-3" />
-                </div>
-              </button>
-            );
-          })}
+          {bots.map((b, i) => <BotCard key={b.name} b={b} i={i} onOpenBot={onOpenBot} />)}
         </div>
       </div>
     </section>
@@ -664,17 +661,13 @@ function Snow() {
 
 function Index() {
   const [activeBot, setActiveBot] = useState<number | null>(null);
-  const openBot = activeBot !== null ? bots[activeBot] : null;
 
   return (
     <div className="min-h-screen">
       <Snow />
       <LotusBackground />
       <div className="relative" style={{ zIndex: 2 }}>
-        <Nav
-          onOpenMyBot={() => setActiveBot(AUTO_REACTION_INDEX)}
-          myBotOpen={activeBot === AUTO_REACTION_INDEX}
-        />
+        <Nav />
         <main>
           <Hero />
           <Bots onOpenBot={setActiveBot} />
@@ -683,21 +676,25 @@ function Index() {
         <Footer />
       </div>
 
-      {bots.map((b, i) => (
-        <BotModal
-          key={b.name}
-          open={activeBot === i}
-          onClose={() => setActiveBot(null)}
-          botName={b.name}
-          botUsername={b.username}
-          botDesc={b.desc}
-          botImg={b.img}
-          telegramLink={b.link}
-          accentColor={b.accentVar}
-        >
-          {activeBot === i && <b.demo />}
-        </BotModal>
-      ))}
+      {bots.map((b, i) => {
+        if (b.telegramOnly || !b.demo) return null;
+        const Demo = b.demo;
+        return (
+          <BotModal
+            key={b.name}
+            open={activeBot === i}
+            onClose={() => setActiveBot(null)}
+            botName={b.name}
+            botUsername={b.username}
+            botDesc={b.desc}
+            botImg={b.img}
+            telegramLink={b.link}
+            accentColor={b.accentVar}
+          >
+            {activeBot === i && <Demo />}
+          </BotModal>
+        );
+      })}
     </div>
   );
 }
