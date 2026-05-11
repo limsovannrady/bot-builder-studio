@@ -82,6 +82,7 @@ const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
 const BOT_4  = "https://i.ibb.co/p8HrfN5/x.jpg";
 const TELEGRAM = "https://t.me/limsvannrady";
 const FACEBOOK = "https://www.facebook.com/limsovannrady";
+const TELEGRAM_CHANNEL = "https://t.me/limsovannrady";
 
 const bots = [
   {
@@ -377,25 +378,63 @@ function About() {
             <p className="text-sm text-muted-foreground/70 leading-relaxed mb-6">
               ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
             </p>
-            <div className="flex flex-wrap gap-3 justify-center md:justify-start">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-sm md:max-w-md">
+              {/* Telegram Personal */}
               <a
                 href={TELEGRAM}
                 target="_blank"
                 rel="noreferrer"
-                className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform text-sm"
+                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.55_0.24_25/40%)] bg-[oklch(0.55_0.24_25/10%)] hover:bg-[oklch(0.55_0.24_25/20%)] hover:border-[oklch(0.55_0.24_25/70%)] hover:shadow-glow hover:scale-[1.04] transition-all duration-300"
               >
-                <Send className="size-4" /> Telegram
+                <div className="size-11 rounded-xl bg-[oklch(0.55_0.24_25/15%)] border border-[oklch(0.55_0.24_25/30%)] flex items-center justify-center group-hover:bg-[oklch(0.55_0.24_25/25%)] transition-colors">
+                  <Send className="size-5 text-[oklch(0.70_0.22_25)]" />
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-foreground">Telegram</p>
+                  <p className="text-[10px] text-muted-foreground">ផ្ទាល់ខ្លួន</p>
+                </div>
               </a>
+
+              {/* Facebook */}
               <a
                 href={FACEBOOK}
                 target="_blank"
                 rel="noreferrer"
-                className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass border border-border text-foreground font-semibold hover:scale-[1.03] transition-transform text-sm"
+                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.55_0.20_245/40%)] bg-[oklch(0.55_0.20_245/08%)] hover:bg-[oklch(0.55_0.20_245/18%)] hover:border-[oklch(0.55_0.20_245/70%)] hover:scale-[1.04] transition-all duration-300"
+                style={{ boxShadow: "none" }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 40px -8px oklch(0.55 0.20 245 / 0.4)")}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
               >
-                <svg className="size-4" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                </svg>
-                Facebook
+                <div className="size-11 rounded-xl bg-[oklch(0.55_0.20_245/12%)] border border-[oklch(0.55_0.20_245/30%)] flex items-center justify-center group-hover:bg-[oklch(0.55_0.20_245/22%)] transition-colors">
+                  <svg className="size-5 text-[oklch(0.65_0.20_245)]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                  </svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-foreground">Facebook</p>
+                  <p className="text-[10px] text-muted-foreground">ទំព័រ</p>
+                </div>
+              </a>
+
+              {/* Telegram Channel */}
+              <a
+                href={TELEGRAM_CHANNEL}
+                target="_blank"
+                rel="noreferrer"
+                className="focus-ring group flex flex-col items-center gap-2 px-4 py-4 rounded-2xl border border-[oklch(0.72_0.19_195/40%)] bg-[oklch(0.72_0.19_195/08%)] hover:bg-[oklch(0.72_0.19_195/18%)] hover:border-[oklch(0.72_0.19_195/70%)] hover:scale-[1.04] transition-all duration-300"
+                style={{ boxShadow: "none" }}
+                onMouseEnter={e => (e.currentTarget.style.boxShadow = "0 0 40px -8px oklch(0.72 0.19 195 / 0.4)")}
+                onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
+              >
+                <div className="size-11 rounded-xl bg-[oklch(0.72_0.19_195/12%)] border border-[oklch(0.72_0.19_195/30%)] flex items-center justify-center group-hover:bg-[oklch(0.72_0.19_195/22%)] transition-colors">
+                  <svg className="size-5 text-[oklch(0.72_0.19_195)]" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.28 13.4l-2.95-.924c-.64-.204-.657-.64.136-.953l11.57-4.461c.537-.194 1.006.131.858.16z"/>
+                  </svg>
+                </div>
+                <div className="text-center">
+                  <p className="text-xs font-bold text-foreground">Channel</p>
+                  <p className="text-[10px] text-muted-foreground">Telegram</p>
+                </div>
               </a>
             </div>
           </div>
