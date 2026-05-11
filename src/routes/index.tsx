@@ -326,7 +326,13 @@ function Bots() {
                 <div className="absolute left-0 inset-y-0 w-0.5 rounded-full transition-all duration-300 group-hover:w-1" style={{ background: accentColor }} />
 
                 {/* Thumbnail */}
-                <div className="relative shrink-0 size-14 rounded-xl overflow-hidden">
+                <div
+                  className="relative shrink-0 size-14 rounded-xl overflow-hidden bot-logo-float"
+                  style={{
+                    ["--bf-dur" as string]: `${4.5 + i * 0.7}s`,
+                    ["--bf-delay" as string]: `${i * 0.9}s`,
+                  }}
+                >
                   <img src={b.img} alt={b.name} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" />
                   <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/30" />
                 </div>

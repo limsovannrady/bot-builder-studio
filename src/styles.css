@@ -252,6 +252,17 @@
   50% { box-shadow: 0 0 70px -5px oklch(0.78 0.16 200 / 0.7); }
 }
 .animate-float { animation: float 6s ease-in-out infinite; }
+
+/* ── Bot logo float ── */
+@keyframes bot-float {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  30%       { transform: translateY(-5px) rotate(1.5deg) scale(1.03); }
+  60%       { transform: translateY(-3px) rotate(-1deg) scale(1.015); }
+}
+.bot-logo-float {
+  animation: bot-float var(--bf-dur, 5s) ease-in-out infinite;
+  animation-delay: var(--bf-delay, 0s);
+}
 .animate-fade-up { animation: fade-up 0.45s ease-out both; }
 .animate-glow { animation: glow-pulse 4s ease-in-out infinite; }
 
