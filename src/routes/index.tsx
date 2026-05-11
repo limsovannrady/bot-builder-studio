@@ -116,9 +116,11 @@ function Nav() {
             aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរ៉ាឌី"
             className="focus-ring flex items-center gap-2 font-bold rounded-lg"
           >
-            <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
-              <Bot className="size-4 text-white" aria-hidden="true" />
-            </div>
+            <img
+              src="/logo-avatar.jpg"
+              alt="logo"
+              className="size-8 rounded-lg object-cover shadow-glow"
+            />
             <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
 
