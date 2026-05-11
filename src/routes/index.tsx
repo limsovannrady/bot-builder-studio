@@ -60,7 +60,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const AVATAR = "https://i.ibb.co/RTRWzWt7/x.jpg";
+const AVATAR = "/profile.jpg";
 const BOT_TTS = "https://i.ibb.co/BHLg2TzD/x.jpg";
 const BOT_TRANS = "https://i.ibb.co/rGWPY8K2/x.jpg";
 const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
