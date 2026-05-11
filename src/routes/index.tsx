@@ -289,7 +289,7 @@ function Bots() {
           </p>
         </div>
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {bots.map((b, i) => {
             const Icon = b.icon;
             const cardClass =
@@ -310,67 +310,48 @@ function Bots() {
                 : b.accent === "green"
                 ? "bg-[oklch(0.72_0.19_145/15%)] text-[oklch(0.72_0.19_145)]"
                 : "bg-[oklch(0.62_0.19_245/15%)] text-[var(--primary)]";
-            const glowOverlay =
-              b.accent === "cyan"
-                ? "from-[oklch(0.82_0.15_200/25%)]"
-                : b.accent === "orange"
-                ? "from-[oklch(0.78_0.18_55/25%)]"
-                : b.accent === "green"
-                ? "from-[oklch(0.72_0.19_145/25%)]"
-                : "from-[oklch(0.62_0.19_245/25%)]";
             return (
               <a
                 key={b.name}
                 href={b.link}
                 target="_blank"
                 rel="noreferrer"
-                className={`group relative bg-gradient-card rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 animate-fade-up ${cardClass}`}
-                style={{ animationDelay: `${i * 0.12}s` }}
+                className={`group relative bg-gradient-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 animate-fade-up ${cardClass}`}
+                style={{ animationDelay: `${i * 0.1}s` }}
               >
-                {/* Glow blur blob behind card */}
+                {/* Glow blob */}
                 <div
-                  className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
+                  className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
                   style={{ background: `radial-gradient(ellipse at 50% 0%, ${accentColor} 0%, transparent 70%)` }}
                 />
 
                 {/* Image */}
-                <div className="relative h-36 overflow-hidden">
+                <div className="relative h-24 overflow-hidden">
                   <img
                     src={b.img}
                     alt={b.name}
                     className="size-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
-                  {/* gradient overlay bottom */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
-                  {/* accent tint overlay on hover */}
-                  <div className={`absolute inset-0 bg-gradient-to-t ${glowOverlay} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  {/* Icon badge */}
-                  <div className={`absolute top-3 right-3 size-8 rounded-xl ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center shadow-lg`}>
-                    <Icon className="size-3.5" />
-                  </div>
-                  {/* Shine line at top */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
                   <div
                     className="absolute top-0 inset-x-0 h-px opacity-60"
                     style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
                   />
+                  <div className={`absolute top-2 right-2 size-6 rounded-lg ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center`}>
+                    <Icon className="size-3" />
+                  </div>
                 </div>
 
                 {/* Content */}
-                <div className="p-4">
-                  <h3 className="text-base font-bold mb-0.5 leading-tight">{b.name}</h3>
-                  <p className="text-xs font-mono mb-2" style={{ color: accentColor }}>{b.username}</p>
-                  <p className="text-xs text-muted-foreground leading-relaxed mb-3">{b.desc}</p>
-
-                  {/* CTA row */}
-                  <div className="flex items-center justify-between pt-3 border-t border-white/5">
-                    <span className="text-xs font-semibold" style={{ color: accentColor }}>
-                      សាកល្បងឥឡូវ
-                    </span>
+                <div className="p-3">
+                  <h3 className="text-sm font-bold leading-tight mb-0.5">{b.name}</h3>
+                  <p className="text-[10px] font-mono" style={{ color: accentColor }}>{b.username}</p>
+                  <div className="flex items-center justify-end mt-2 pt-2 border-t border-white/5">
                     <div
-                      className="size-7 rounded-lg grid place-items-center transition-transform duration-200 group-hover:translate-x-1"
+                      className="size-6 rounded-md grid place-items-center transition-transform duration-200 group-hover:translate-x-0.5"
                       style={{ background: `${accentColor}22`, color: accentColor }}
                     >
-                      <Send className="size-3" />
+                      <Send className="size-2.5" />
                     </div>
                   </div>
                 </div>
