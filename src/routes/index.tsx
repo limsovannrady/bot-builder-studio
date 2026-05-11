@@ -578,9 +578,11 @@ function Work() {
         {/* Company badge */}
         <div className="flex justify-center mb-8">
           <div className="glass rounded-2xl px-6 py-4 flex items-center gap-4">
-            <div className="size-12 rounded-xl bg-orange-500/10 border border-orange-500/20 grid place-items-center shrink-0">
-              <Zap className="size-5 text-orange-400" />
-            </div>
+            <img
+              src="https://st-img.e-gets.com/MARKETING/d358f02abbd9ea9b336f86c9f66c7beb.png!840.jpg"
+              alt="E-GetS Logo"
+              className="size-12 rounded-xl object-contain shrink-0 bg-white p-1"
+            />
             <div>
               <p className="font-bold text-sm">E-GetS Technology Co., Ltd.</p>
               <p className="text-xs text-muted-foreground mt-0.5">Sihanoukville, Cambodia</p>
