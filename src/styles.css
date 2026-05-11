@@ -95,6 +95,14 @@
   .shadow-glow { box-shadow: var(--shadow-glow); }
   .shadow-orange { box-shadow: var(--shadow-orange); }
   .shadow-cyan { box-shadow: var(--shadow-cyan); }
+  .focus-ring {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    outline: 2px solid var(--cyan);
+    outline-offset: 3px;
+    border-radius: 0.75rem;
+  }
   .glass {
     background: oklch(0.23 0.035 252 / 60%);
     backdrop-filter: blur(16px);
