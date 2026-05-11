@@ -484,18 +484,18 @@ type FlowerVariant = "filled" | "outline" | "detailed";
 function LotusBackground() {
   const c = "var(--lotus-color)";
   const flowers: Array<{ top: string; left: string; size: number; color: string; opacity: number; delay: string; dur: string; rotate: string; dx: string; dy: string; variant: FlowerVariant }> = [
-    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.32, delay: "0s",   dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px", variant: "filled"   },
-    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.28, delay: "4s",   dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px",  variant: "detailed" },
-    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.28, delay: "8s",   dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px",  variant: "filled"   },
-    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.25, delay: "2s",   dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px", variant: "outline"  },
-    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.25, delay: "6s",   dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px",  variant: "detailed" },
-    { top: "42%",  left: "88%",  size: 170, color: c, opacity: 0.22, delay: "3s",   dur: "24s", rotate: "60deg",  dx: "-10px", dy: "8px",   variant: "outline"  },
-    { top: "15%",  left: "42%",  size: 140, color: c, opacity: 0.18, delay: "7s",   dur: "32s", rotate: "25deg",  dx: "8px",   dy: "-12px", variant: "outline"  },
-    { top: "68%",  left: "48%",  size: 210, color: c, opacity: 0.22, delay: "1s",   dur: "18s", rotate: "-50deg", dx: "14px",  dy: "6px",   variant: "detailed" },
-    { top: "88%",  left: "72%",  size: 180, color: c, opacity: 0.20, delay: "5s",   dur: "25s", rotate: "80deg",  dx: "-8px",  dy: "-10px", variant: "filled"   },
-    { top: "35%",  left: "28%",  size: 120, color: c, opacity: 0.16, delay: "9s",   dur: "35s", rotate: "-15deg", dx: "6px",   dy: "10px",  variant: "outline"  },
-    { top: "-3%",  left: "22%",  size: 260, color: c, opacity: 0.20, delay: "11s",  dur: "29s", rotate: "50deg",  dx: "-14px", dy: "8px",   variant: "detailed" },
-    { top: "52%",  left: "-4%",  size: 150, color: c, opacity: 0.18, delay: "13s",  dur: "23s", rotate: "-70deg", dx: "10px",  dy: "-8px",  variant: "filled"   },
+    { top: "-8%",  left: "72%",  size: 420, color: c, opacity: 0.30, delay: "0s",   dur: "40s", rotate: "15deg",  dx: "10px",  dy: "-8px",  variant: "filled"   },
+    { top: "22%",  left: "-8%",  size: 340, color: c, opacity: 0.26, delay: "6s",   dur: "48s", rotate: "-20deg", dx: "-8px",  dy: "8px",   variant: "detailed" },
+    { top: "62%",  left: "80%",  size: 300, color: c, opacity: 0.26, delay: "12s",  dur: "44s", rotate: "40deg",  dx: "10px",  dy: "6px",   variant: "filled"   },
+    { top: "83%",  left: "8%",   size: 220, color: c, opacity: 0.23, delay: "3s",   dur: "52s", rotate: "-8deg",  dx: "-6px",  dy: "-10px", variant: "outline"  },
+    { top: "5%",   left: "5%",   size: 190, color: c, opacity: 0.23, delay: "9s",   dur: "46s", rotate: "-35deg", dx: "6px",   dy: "8px",   variant: "detailed" },
+    { top: "45%",  left: "91%",  size: 160, color: c, opacity: 0.20, delay: "15s",  dur: "50s", rotate: "60deg",  dx: "-6px",  dy: "6px",   variant: "outline"  },
+    { top: "10%",  left: "50%",  size: 130, color: c, opacity: 0.16, delay: "20s",  dur: "56s", rotate: "25deg",  dx: "5px",   dy: "-6px",  variant: "outline"  },
+    { top: "72%",  left: "42%",  size: 200, color: c, opacity: 0.20, delay: "5s",   dur: "42s", rotate: "-50deg", dx: "8px",   dy: "5px",   variant: "detailed" },
+    { top: "90%",  left: "65%",  size: 170, color: c, opacity: 0.18, delay: "18s",  dur: "54s", rotate: "80deg",  dx: "-5px",  dy: "-6px",  variant: "filled"   },
+    { top: "38%",  left: "18%",  size: 115, color: c, opacity: 0.14, delay: "24s",  dur: "60s", rotate: "-15deg", dx: "4px",   dy: "6px",   variant: "outline"  },
+    { top: "-4%",  left: "32%",  size: 250, color: c, opacity: 0.18, delay: "30s",  dur: "58s", rotate: "50deg",  dx: "-7px",  dy: "5px",   variant: "detailed" },
+    { top: "54%",  left: "-3%",  size: 145, color: c, opacity: 0.16, delay: "10s",  dur: "62s", rotate: "-70deg", dx: "6px",   dy: "-5px",  variant: "filled"   },
   ];
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">

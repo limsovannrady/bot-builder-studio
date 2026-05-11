@@ -231,7 +231,7 @@
 }
 @keyframes rumdul-glow {
   0%, 100% { opacity: var(--lo, 0.10); }
-  50%       { opacity: calc(var(--lo, 0.10) * 1.9); }
+  50%       { opacity: calc(var(--lo, 0.10) * 1.5); }
 }
 .lotus-float {
   animation:
