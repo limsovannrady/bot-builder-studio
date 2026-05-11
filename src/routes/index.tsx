@@ -504,22 +504,60 @@ function LotusBackground() {
   );
 }
 
-const WORK_IMAGES = [
-  { src: "/work1.jpg",  caption: "ទទួលរង្វាន់ពី E-GetS Annual Party" },
+const COL1 = [
+  { src: "/work1.jpg",  caption: "ទទួលរង្វាន់ E-GetS Annual Party" },
+  { src: "/work4.jpg",  caption: "ពិធីប្រគល់រង្វាន់ជាមួយប្រធាន" },
+  { src: "/work7.jpg",  caption: "ក្រុមការងារ E-GetS" },
+  { src: "/work10.jpg", caption: "វគ្គបណ្ដុះបណ្ដាល Sihanoukville" },
+];
+const COL2 = [
   { src: "/work2.jpg",  caption: "ពិធីប្រគល់រង្វាន់ E-GetS" },
   { src: "/work5.jpg",  caption: "E-GetS Annual Party 2025" },
-  { src: "/work4.jpg",  caption: "ពិធីប្រគល់រង្វាន់ជាមួយប្រធាន" },
-  { src: "/work9.jpg",  caption: "ការងារប្រចាំថ្ងៃ E-GetS" },
-  { src: "/work10.jpg", caption: "វគ្គបណ្ដុះបណ្ដាល E-GetS Sihanoukville" },
-  { src: "/work7.jpg",  caption: "ក្រុមការងារ E-GetS" },
-  { src: "/work3.jpg",  caption: "ក្រុម Rider E-GetS ត្រៀមខ្លួន" },
-  { src: "/work6.jpg",  caption: "សកម្មភាពសម្អាតបរិស្ថាន" },
   { src: "/work8.jpg",  caption: "សកម្មភាពសម្អាតជាមួយក្រុម" },
 ];
+const COL3 = [
+  { src: "/work3.jpg",  caption: "ក្រុម Rider E-GetS ត្រៀមខ្លួន" },
+  { src: "/work6.jpg",  caption: "សកម្មភាពសម្អាតបរិស្ថាន" },
+  { src: "/work9.jpg",  caption: "ការងារប្រចាំថ្ងៃ E-GetS" },
+];
+const ALL_WORK = [...COL1, ...COL2, ...COL3];
+
+function MarqueeCol({ images, duration, onClick }: {
+  images: { src: string; caption: string }[];
+  duration: number;
+  onClick: (img: { src: string; caption: string }) => void;
+}) {
+  const doubled = [...images, ...images];
+  return (
+    <div className="marquee-wrap overflow-hidden flex-1 h-[480px]">
+      <div className="marquee-col flex flex-col gap-3" style={{ animationDuration: `${duration}s` }}>
+        {doubled.map((img, i) => (
+          <button
+            key={i}
+            onClick={() => onClick(img)}
+            className="group relative w-full rounded-2xl overflow-hidden shrink-0 focus:outline-none"
+            style={{ aspectRatio: "4/3" }}
+          >
+            <img
+              src={img.src}
+              alt={img.caption}
+              className="size-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2.5">
+              <p className="text-white text-xs leading-tight font-medium">{img.caption}</p>
+            </div>
+            <div className="absolute inset-0 rounded-2xl ring-2 ring-white/0 group-hover:ring-white/30 transition-all duration-300" />
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
 
 function Work() {
   const headRef = useScrollReveal();
-  const [selected, setSelected] = useState<number | null>(null);
+  const [selected, setSelected] = useState<{ src: string; caption: string } | null>(null);
+  const selectedIdx = selected ? ALL_WORK.findIndex(w => w.src === selected.src) : -1;
 
   return (
     <section id="work" className="scroll-mt-24 py-10">
@@ -539,8 +577,8 @@ function Work() {
         </div>
 
         {/* Company badge */}
-        <div className="flex justify-center mb-6">
-          <div className="glass rounded-2xl px-6 py-4 flex items-center gap-4 max-w-sm w-full">
+        <div className="flex justify-center mb-8">
+          <div className="glass rounded-2xl px-6 py-4 flex items-center gap-4">
             <div className="size-12 rounded-xl bg-orange-500/10 border border-orange-500/20 grid place-items-center shrink-0">
               <Zap className="size-5 text-orange-400" />
             </div>
@@ -551,31 +589,17 @@ function Work() {
           </div>
         </div>
 
-        {/* Photo grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
-          {WORK_IMAGES.map((img, i) => (
-            <button
-              key={i}
-              onClick={() => setSelected(i)}
-              className="group relative aspect-square rounded-2xl overflow-hidden glass focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyan)] animate-fade-up"
-              style={{ animationDelay: `${i * 0.05}s` }}
-            >
-              <img
-                src={img.src}
-                alt={img.caption}
-                className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
-                <p className="text-white text-[10px] leading-tight font-medium">{img.caption}</p>
-              </div>
-            </button>
-          ))}
+        {/* Marquee columns */}
+        <div className="flex gap-3 items-start">
+          <MarqueeCol images={COL1} duration={18} onClick={setSelected} />
+          <MarqueeCol images={COL2} duration={24} onClick={setSelected} />
+          <MarqueeCol images={COL3} duration={20} onClick={setSelected} />
         </div>
 
         {/* Lightbox */}
         {selected !== null && (
           <div
-            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            className="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center p-4"
             onClick={() => setSelected(null)}
           >
             <div
@@ -583,21 +607,20 @@ function Work() {
               onClick={(e) => e.stopPropagation()}
             >
               <img
-                src={WORK_IMAGES[selected].src}
-                alt={WORK_IMAGES[selected].caption}
+                src={selected.src}
+                alt={selected.caption}
                 className="w-full object-contain max-h-[80vh]"
               />
               <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-3">
-                <p className="text-white text-sm font-medium">{WORK_IMAGES[selected].caption}</p>
+                <p className="text-white text-sm font-medium">{selected.caption}</p>
               </div>
-              {/* Prev / Next */}
               <button
-                onClick={() => setSelected((s) => (s! > 0 ? s! - 1 : WORK_IMAGES.length - 1))}
-                className="absolute left-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition"
+                onClick={() => setSelected(ALL_WORK[(selectedIdx - 1 + ALL_WORK.length) % ALL_WORK.length])}
+                className="absolute left-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition text-xl"
               >‹</button>
               <button
-                onClick={() => setSelected((s) => (s! < WORK_IMAGES.length - 1 ? s! + 1 : 0))}
-                className="absolute right-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition"
+                onClick={() => setSelected(ALL_WORK[(selectedIdx + 1) % ALL_WORK.length])}
+                className="absolute right-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition text-xl"
               >›</button>
               <button
                 onClick={() => setSelected(null)}
