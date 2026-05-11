@@ -1,19 +1,29 @@
 import { useState, useRef, useEffect } from "react";
-import { Play, Square, Volume2, Loader2 } from "lucide-react";
+import { Play, Square, Volume2, Loader2, Mic } from "lucide-react";
 
-const VOICE_PRESETS = [
-  { lang: "km",    label: "ខ្មែរ 🇰🇭",      sample: "សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។" },
-  { lang: "en",    label: "English 🇺🇸",     sample: "Hello! I am Sovannrady's AI Voice Bot." },
-  { lang: "zh-CN", label: "中文 🇨🇳",         sample: "你好！我是Sovannrady的AI语音机器人。" },
-  { lang: "ja",    label: "日本語 🇯🇵",       sample: "こんにちは！SovannradyのAI音声ボットです。" },
-  { lang: "ko",    label: "한국어 🇰🇷",       sample: "안녕하세요! Sovannrady의 AI 음성 봇입니다." },
-  { lang: "th",    label: "ไทย 🇹🇭",         sample: "สวัสดี! ฉันคือ AI Voice Bot ของ Sovannrady" },
-  { lang: "fr",    label: "Français 🇫🇷",    sample: "Bonjour! Je suis le robot vocal IA de Sovannrady." },
-  { lang: "vi",    label: "Tiếng Việt 🇻🇳",  sample: "Xin chào! Tôi là bot giọng nói AI của Sovannrady." },
-];
+const VOICES = [
+  {
+    id: "km-KH-PisethNeural",
+    name: "Piseth",
+    gender: "male",
+    label: "បុរស",
+    emoji: "👨",
+    sample: "សួស្ដី! ខ្ញុំឈ្មោះ Piseth ជា AI Voice Bot របស់ Sovannrady។",
+  },
+  {
+    id: "km-KH-SreymomNeural",
+    name: "Sreymom",
+    gender: "female",
+    label: "ស្ត្រី",
+    emoji: "👩",
+    sample: "សួស្ដី! ខ្ញុំឈ្មោះ Sreymom ជា AI Voice Bot របស់ Sovannrady។",
+  },
+] as const;
 
-function buildTTSUrl(text: string, lang: string, slow: boolean) {
-  return `/api/tts?text=${encodeURIComponent(text)}&lang=${lang}&slow=${slow}`;
+type Voice = (typeof VOICES)[number];
+
+function buildTTSUrl(text: string, voice: string) {
+  return `/api/tts?text=${encodeURIComponent(text)}&voice=${encodeURIComponent(voice)}`;
 }
 
 function splitText(text: string, max = 180): string[] {
@@ -30,9 +40,8 @@ function splitText(text: string, max = 180): string[] {
 }
 
 export default function VoiceDemo() {
-  const [text, setText] = useState("សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។");
-  const [preset, setPreset] = useState(VOICE_PRESETS[0]);
-  const [slow, setSlow] = useState(false);
+  const [text, setText] = useState<string>(VOICES[0].sample);
+  const [voice, setVoice] = useState<Voice>(VOICES[0]);
   const [playing, setPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -54,7 +63,7 @@ export default function VoiceDemo() {
 
   async function playChunk(chunk: string): Promise<void> {
     return new Promise((resolve, reject) => {
-      const url = buildTTSUrl(chunk, preset.lang, slow);
+      const url = buildTTSUrl(chunk, voice.id);
       const audio = new Audio(url);
       audioRef.current = audio;
       audio.oncanplay = () => { setLoading(false); setPlaying(true); };
@@ -70,7 +79,6 @@ export default function VoiceDemo() {
     if (!text.trim()) return;
     setError("");
     setLoading(true);
-
     const chunks = splitText(text);
     try {
       for (const chunk of chunks) {
@@ -89,62 +97,56 @@ export default function VoiceDemo() {
     }
   }
 
-  function pickPreset(p: typeof VOICE_PRESETS[0]) {
+  function pickVoice(v: Voice) {
     stop();
-    setPreset(p);
-    setText(p.sample);
+    setVoice(v);
+    setText(v.sample);
     setError("");
   }
 
+  const accent = "#22c55e";
+
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-5">
+
+      {/* Voice selector */}
       <div>
-        <label className="text-xs text-muted-foreground mb-2 block">ជ្រើសរើសភាសា</label>
-        <div className="grid grid-cols-4 gap-2">
-          {VOICE_PRESETS.map(p => (
-            <button
-              key={p.lang}
-              onClick={() => pickPreset(p)}
-              className={`rounded-xl py-2 px-1 text-xs font-medium transition-all ${
-                preset.lang === p.lang
-                  ? "bg-green-500/20 border-2 border-green-500 text-green-400"
-                  : "bg-secondary/40 border border-border hover:bg-secondary text-muted-foreground hover:text-foreground"
-              }`}
-            >
-              {p.label}
-            </button>
-          ))}
+        <label className="text-xs text-muted-foreground mb-2 block">ជ្រើសរើសសំឡេង</label>
+        <div className="grid grid-cols-2 gap-3">
+          {VOICES.map((v) => {
+            const active = voice.id === v.id;
+            return (
+              <button
+                key={v.id}
+                onClick={() => pickVoice(v)}
+                className={`relative flex flex-col items-center gap-2 rounded-2xl py-4 px-3 border-2 transition-all duration-200 ${
+                  active
+                    ? "border-green-500 bg-green-500/10 text-green-400"
+                    : "border-border bg-secondary/30 text-muted-foreground hover:border-green-500/40 hover:bg-secondary/60 hover:text-foreground"
+                }`}
+              >
+                {active && (
+                  <span className="absolute top-2 right-2 size-2 rounded-full bg-green-500 animate-pulse" />
+                )}
+                <span className="text-3xl">{v.emoji}</span>
+                <span className="font-bold text-sm">{v.name}</span>
+                <span className="text-[10px] opacity-70">{v.label} · Neural</span>
+              </button>
+            );
+          })}
         </div>
       </div>
 
+      {/* Text area */}
       <textarea
         value={text}
-        onChange={e => { setText(e.target.value); if (playing) stop(); }}
+        onChange={(e) => { setText(e.target.value); if (playing) stop(); }}
         rows={4}
         placeholder="វាយអត្ថបទដែលចង់ស្ដាប់..."
         className="w-full rounded-xl border border-border bg-secondary/30 px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-muted-foreground/60"
       />
 
-      <div className="flex items-center gap-3 px-1">
-        <span className="text-xs text-muted-foreground">ល្បឿន:</span>
-        <button
-          onClick={() => setSlow(false)}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
-            !slow ? "bg-green-500/20 border-green-500 text-green-400" : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground hover:bg-secondary"
-          }`}
-        >
-          ធម្មតា
-        </button>
-        <button
-          onClick={() => setSlow(true)}
-          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
-            slow ? "bg-green-500/20 border-green-500 text-green-400" : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground hover:bg-secondary"
-          }`}
-        >
-          យឺត
-        </button>
-      </div>
-
+      {/* Play / stop button */}
       <button
         onClick={playing || loading ? stop : speak}
         disabled={!text.trim()}
@@ -159,21 +161,23 @@ export default function VoiceDemo() {
         ) : playing ? (
           <><Square className="size-4 fill-current" /> បញ្ឈប់</>
         ) : (
-          <><Play className="size-4 fill-current" /> ស្ដាប់សំឡេង</>
+          <><Mic className="size-4" /> ស្ដាប់សំឡេង {voice.name}</>
         )}
       </button>
 
+      {/* Error */}
       {error && (
         <p className="text-xs text-red-400 text-center rounded-xl border border-red-500/20 bg-red-500/10 px-3 py-2">
           {error}
         </p>
       )}
 
+      {/* Now playing indicator */}
       {playing && (
         <div className="flex items-center justify-center gap-3 py-3 rounded-xl bg-green-500/10 border border-green-500/20">
           <Volume2 className="size-5 text-green-400 animate-pulse" />
           <div className="flex gap-1 items-end h-5">
-            {[1, 2, 3, 4, 5].map(i => (
+            {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
                 className="w-1 bg-green-400 rounded-full"
@@ -185,7 +189,9 @@ export default function VoiceDemo() {
               />
             ))}
           </div>
-          <span className="text-xs text-green-400">កំពុងចាក់សំឡេង...</span>
+          <span className="text-xs text-green-400">
+            {voice.name} · {voice.label}...
+          </span>
         </div>
       )}
 
