@@ -106,7 +106,8 @@ function Nav() {
                   key={l.id}
                   href={`#${l.id}`}
                   onClick={(e) => smoothScroll(e, l.id)}
-                  className={`relative px-4 py-2 rounded-lg transition-colors ${
+                  aria-current={isActive ? "page" : undefined}
+                  className={`relative px-4 py-2 rounded-lg transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyan)] focus-visible:ring-offset-2 focus-visible:ring-offset-background ${
                     isActive
                       ? "text-foreground bg-secondary/70"
                       : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
