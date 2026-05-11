@@ -111,7 +111,7 @@ const bots = [
     link: "https://t.me/AutoReaction2026Bot",
   },
   {
-    name: "Sovannrady Bot",
+    name: "បង្កើតសំឡេង Ai",
     username: "@limsovannradybot",
     desc: "Bot ពហុមុខងារ ស្វែងរក ឆ្លើយ និងជួយដោះស្រាយបញ្ហារបស់អ្នក",
     img: BOT_4,
