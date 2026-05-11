@@ -422,36 +422,80 @@ function Footer() {
   );
 }
 
-function LotusIcon({ className }: { className?: string }) {
-  // រំដួល (Rumdul) — Cambodia's national flower
-  // 3 large outer petals + 3 smaller inner petals (offset 60°) + round center bud
-  // Outer petal: wide oval, rounded tip
-  const outer = "M100 100 C138 87 142 46 100 20 C58 46 62 87 100 100Z";
-  // Inner petal: shorter, slightly narrower — forms the inner cup
-  const inner = "M100 100 C122 92 125 68 100 48 C75 68 78 92 100 100Z";
+const OUTER = "M100 100 C138 87 142 46 100 20 C58 46 62 87 100 100Z";
+const INNER = "M100 100 C122 92 125 68 100 48 C75 68 78 92 100 100Z";
+const OUTER_ANGLES = [0, 120, 240];
+const INNER_ANGLES = [60, 180, 300];
 
-  const outerAngles = [0, 120, 240];
-  const innerAngles = [60, 180, 300];
-
+function LotusIconFilled({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {outerAngles.map(a => <path key={`o${a}`} d={outer} transform={`rotate(${a} 100 100)`} opacity={0.75} />)}
-      {innerAngles.map(a => <path key={`i${a}`} d={inner} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
-      {/* Center bud — the rounded dome of the Rumdul flower */}
+      {OUTER_ANGLES.map(a => <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} opacity={0.75} />)}
+      {INNER_ANGLES.map(a => <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
       <circle cx="100" cy="100" r="14" opacity={1.0} />
       <circle cx="100" cy="100" r="8"  opacity={0.80} />
     </svg>
   );
 }
 
+function LotusIconOutline({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="3.5" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {OUTER_ANGLES.map(a => <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} opacity={0.85} />)}
+      {INNER_ANGLES.map(a => <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
+      <circle cx="100" cy="100" r="30" strokeDasharray="5 6" strokeWidth="2" opacity={0.45} />
+      <circle cx="100" cy="100" r="14" fill="currentColor" stroke="none" opacity={0.75} />
+      <circle cx="100" cy="100" r="6"  fill="currentColor" stroke="none" opacity={0.50} />
+    </svg>
+  );
+}
+
+function LotusIconDetailed({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {OUTER_ANGLES.map(a => (
+        <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.68} />
+      ))}
+      {OUTER_ANGLES.map(a => (
+        <line key={`v${a}`} x1="100" y1="88" x2="100" y2="28" transform={`rotate(${a} 100 100)`}
+          stroke="currentColor" strokeWidth="1.8" opacity={0.38} />
+      ))}
+      {OUTER_ANGLES.map(a => (
+        <circle key={`d${a}`} cx="100" cy="22" r="3.5" transform={`rotate(${a} 100 100)`}
+          fill="currentColor" opacity={0.60} />
+      ))}
+      {INNER_ANGLES.map(a => (
+        <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.92} />
+      ))}
+      {INNER_ANGLES.map(a => (
+        <circle key={`id${a}`} cx="100" cy="50" r="2.5" transform={`rotate(${a} 100 100)`}
+          fill="currentColor" opacity={0.55} />
+      ))}
+      <circle cx="100" cy="100" r="36" fill="none" stroke="currentColor" strokeWidth="1.5"
+        strokeDasharray="3 6" opacity={0.32} />
+      <circle cx="100" cy="100" r="14" fill="currentColor" opacity={1.0} />
+      <circle cx="100" cy="100" r="7"  fill="currentColor" opacity={0.55} />
+    </svg>
+  );
+}
+
+type FlowerVariant = "filled" | "outline" | "detailed";
+
 function LotusBackground() {
   const c = "var(--lotus-color)";
-  const flowers = [
-    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.35, delay: "0s",  dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px" },
-    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.30, delay: "4s",  dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px"  },
-    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.28, delay: "8s",  dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px"  },
-    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.25, delay: "2s",  dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px" },
-    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.25, delay: "6s",  dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px"  },
+  const flowers: Array<{ top: string; left: string; size: number; color: string; opacity: number; delay: string; dur: string; rotate: string; dx: string; dy: string; variant: FlowerVariant }> = [
+    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.32, delay: "0s",   dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px", variant: "filled"   },
+    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.28, delay: "4s",   dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px",  variant: "detailed" },
+    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.28, delay: "8s",   dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px",  variant: "filled"   },
+    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.25, delay: "2s",   dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px", variant: "outline"  },
+    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.25, delay: "6s",   dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px",  variant: "detailed" },
+    { top: "42%",  left: "88%",  size: 170, color: c, opacity: 0.22, delay: "3s",   dur: "24s", rotate: "60deg",  dx: "-10px", dy: "8px",   variant: "outline"  },
+    { top: "15%",  left: "42%",  size: 140, color: c, opacity: 0.18, delay: "7s",   dur: "32s", rotate: "25deg",  dx: "8px",   dy: "-12px", variant: "outline"  },
+    { top: "68%",  left: "48%",  size: 210, color: c, opacity: 0.22, delay: "1s",   dur: "18s", rotate: "-50deg", dx: "14px",  dy: "6px",   variant: "detailed" },
+    { top: "88%",  left: "72%",  size: 180, color: c, opacity: 0.20, delay: "5s",   dur: "25s", rotate: "80deg",  dx: "-8px",  dy: "-10px", variant: "filled"   },
+    { top: "35%",  left: "28%",  size: 120, color: c, opacity: 0.16, delay: "9s",   dur: "35s", rotate: "-15deg", dx: "6px",   dy: "10px",  variant: "outline"  },
+    { top: "-3%",  left: "22%",  size: 260, color: c, opacity: 0.20, delay: "11s",  dur: "29s", rotate: "50deg",  dx: "-14px", dy: "8px",   variant: "detailed" },
+    { top: "52%",  left: "-4%",  size: 150, color: c, opacity: 0.18, delay: "13s",  dur: "23s", rotate: "-70deg", dx: "10px",  dy: "-8px",  variant: "filled"   },
   ];
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">
@@ -472,7 +516,9 @@ function LotusBackground() {
             animationDelay: f.delay,
           }}
         >
-          <LotusIcon className="size-full" />
+          {f.variant === "filled"   && <LotusIconFilled   className="size-full" />}
+          {f.variant === "outline"  && <LotusIconOutline  className="size-full" />}
+          {f.variant === "detailed" && <LotusIconDetailed className="size-full" />}
         </div>
       ))}
     </div>
