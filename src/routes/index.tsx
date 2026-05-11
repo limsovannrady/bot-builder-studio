@@ -491,11 +491,11 @@ function LotusIcon({ className }: { className?: string }) {
 function LotusBackground() {
   const c = "var(--lotus-color)";
   const flowers = [
-    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.13, delay: "0s",  dur: "22s", rotate: "15deg"  },
-    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.11, delay: "4s",  dur: "26s", rotate: "-20deg" },
-    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.11, delay: "8s",  dur: "20s", rotate: "40deg"  },
-    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.10, delay: "2s",  dur: "30s", rotate: "-8deg"  },
-    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.10, delay: "6s",  dur: "28s", rotate: "-35deg" },
+    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.13, delay: "0s",  dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px" },
+    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.11, delay: "4s",  dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px"  },
+    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.11, delay: "8s",  dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px"  },
+    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.10, delay: "2s",  dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px" },
+    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.10, delay: "6s",  dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px"  },
   ];
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">
@@ -511,6 +511,8 @@ function LotusBackground() {
             ["--lo" as string]: f.opacity,
             ["--lr" as string]: f.rotate,
             ["--ld" as string]: f.dur,
+            ["--dx" as string]: f.dx,
+            ["--dy" as string]: f.dy,
             animationDelay: f.delay,
           }}
         >
