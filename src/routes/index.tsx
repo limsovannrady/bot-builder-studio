@@ -366,15 +366,6 @@ function About() {
             <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-2">
               <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span>
             </h2>
-            <p className="text-base md:text-lg text-muted-foreground font-medium mb-4">
-              អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
-            </p>
-            <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
-              ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
-            </p>
-            <p className="text-sm text-muted-foreground/70 leading-relaxed mb-5">
-              ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
-            </p>
 
             {/* Skills */}
             <div className="w-full mb-5">
