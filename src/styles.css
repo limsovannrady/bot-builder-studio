@@ -37,7 +37,9 @@
 
 :root {
   --radius: 0.875rem;
-  --lotus-color: oklch(0.82 0.17 82);
+  --lotus-color:  oklch(0.84 0.18 82);
+  --lotus-rose:   oklch(0.80 0.14 22);
+  --lotus-jade:   oklch(0.76 0.13 155);
   /* Dark theme (default) */
   --background: oklch(0.18 0.03 250);
   --foreground: oklch(0.97 0.01 250);

@@ -428,30 +428,36 @@ function Footer() {
   );
 }
 
-const OUTER = "M100 100 C138 87 142 46 100 20 C58 46 62 87 100 100Z";
-const INNER = "M100 100 C122 92 125 68 100 48 C75 68 78 92 100 100Z";
-const OUTER_ANGLES = [0, 120, 240];
-const INNER_ANGLES = [60, 180, 300];
+const OA = [0, 120, 240];
+const IA = [60, 180, 300];
+// Refined petal paths — wider, more rounded Rumdul shape
+const OPETAL = "M100 100 C142 84 146 38 100 12 C54 38 58 84 100 100Z";
+const IPETAL = "M100 100 C126 90 129 60 100 40 C71 60 74 90 100 100Z";
+// Highlight tip on outer petal
+const OTIP   = "M100 40 C118 32 128 18 100 12 C72 18 82 32 100 40Z";
 
 function LotusIconFilled({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {OUTER_ANGLES.map(a => <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} opacity={0.75} />)}
-      {INNER_ANGLES.map(a => <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
-      <circle cx="100" cy="100" r="14" opacity={1.0} />
-      <circle cx="100" cy="100" r="8"  opacity={0.80} />
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {OA.map(a => <path key={`o${a}`} d={OPETAL} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.72} />)}
+      {OA.map(a => <path key={`t${a}`} d={OTIP}   transform={`rotate(${a} 100 100)`} fill="white"        opacity={0.28} />)}
+      {IA.map(a => <path key={`i${a}`} d={IPETAL} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.94} />)}
+      {IA.map(a => <path key={`h${a}`} d={IPETAL} transform={`rotate(${a} 100 100) scale(0.55) translate(82 82)`} fill="white" opacity={0.15} />)}
+      <circle cx="100" cy="100" r="15" fill="currentColor" opacity={1.0} />
+      <circle cx="100" cy="100" r="8"  fill="white"        opacity={0.35} />
     </svg>
   );
 }
 
 function LotusIconOutline({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 200 200" fill="none" stroke="currentColor" strokeWidth="3.5" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {OUTER_ANGLES.map(a => <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} opacity={0.85} />)}
-      {INNER_ANGLES.map(a => <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
-      <circle cx="100" cy="100" r="30" strokeDasharray="5 6" strokeWidth="2" opacity={0.45} />
-      <circle cx="100" cy="100" r="14" fill="currentColor" stroke="none" opacity={0.75} />
-      <circle cx="100" cy="100" r="6"  fill="currentColor" stroke="none" opacity={0.50} />
+    <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {OA.map(a => <path key={`o${a}`} d={OPETAL} transform={`rotate(${a} 100 100)`} fill="none" stroke="currentColor" strokeWidth="3" opacity={0.80} />)}
+      {OA.map(a => <path key={`t${a}`} d={OTIP}   transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.22} />)}
+      {IA.map(a => <path key={`i${a}`} d={IPETAL} transform={`rotate(${a} 100 100)`} fill="none" stroke="currentColor" strokeWidth="2.5" opacity={0.90} />)}
+      <circle cx="100" cy="100" r="32" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="4 5" opacity={0.40} />
+      <circle cx="100" cy="100" r="15" fill="currentColor" opacity={0.80} />
+      <circle cx="100" cy="100" r="7"  fill="white"        opacity={0.30} />
     </svg>
   );
 }
@@ -459,28 +465,15 @@ function LotusIconOutline({ className }: { className?: string }) {
 function LotusIconDetailed({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {OUTER_ANGLES.map(a => (
-        <path key={`o${a}`} d={OUTER} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.68} />
-      ))}
-      {OUTER_ANGLES.map(a => (
-        <line key={`v${a}`} x1="100" y1="88" x2="100" y2="28" transform={`rotate(${a} 100 100)`}
-          stroke="currentColor" strokeWidth="1.8" opacity={0.38} />
-      ))}
-      {OUTER_ANGLES.map(a => (
-        <circle key={`d${a}`} cx="100" cy="22" r="3.5" transform={`rotate(${a} 100 100)`}
-          fill="currentColor" opacity={0.60} />
-      ))}
-      {INNER_ANGLES.map(a => (
-        <path key={`i${a}`} d={INNER} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.92} />
-      ))}
-      {INNER_ANGLES.map(a => (
-        <circle key={`id${a}`} cx="100" cy="50" r="2.5" transform={`rotate(${a} 100 100)`}
-          fill="currentColor" opacity={0.55} />
-      ))}
-      <circle cx="100" cy="100" r="36" fill="none" stroke="currentColor" strokeWidth="1.5"
-        strokeDasharray="3 6" opacity={0.32} />
-      <circle cx="100" cy="100" r="14" fill="currentColor" opacity={1.0} />
-      <circle cx="100" cy="100" r="7"  fill="currentColor" opacity={0.55} />
+      {OA.map(a => <path key={`o${a}`} d={OPETAL} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.65} />)}
+      {OA.map(a => <path key={`t${a}`} d={OTIP}   transform={`rotate(${a} 100 100)`} fill="white"        opacity={0.30} />)}
+      {OA.map(a => <line key={`v${a}`} x1="100" y1="86" x2="100" y2="22" transform={`rotate(${a} 100 100)`} stroke="currentColor" strokeWidth="1.5" opacity={0.30} />)}
+      {OA.map(a => <circle key={`d${a}`} cx="100" cy="14" r="3.5" transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.55} />)}
+      {IA.map(a => <path key={`i${a}`} d={IPETAL} transform={`rotate(${a} 100 100)`} fill="currentColor" opacity={0.92} />)}
+      {IA.map(a => <circle key={`id${a}`} cx="100" cy="42" r="2.5" transform={`rotate(${a} 100 100)`} fill="white" opacity={0.40} />)}
+      <circle cx="100" cy="100" r="38" fill="none" stroke="currentColor" strokeWidth="1.2" strokeDasharray="3 5" opacity={0.28} />
+      <circle cx="100" cy="100" r="15" fill="currentColor" opacity={1.0} />
+      <circle cx="100" cy="100" r="7"  fill="white"        opacity={0.38} />
     </svg>
   );
 }
@@ -488,20 +481,23 @@ function LotusIconDetailed({ className }: { className?: string }) {
 type FlowerVariant = "filled" | "outline" | "detailed";
 
 function LotusBackground() {
-  const c = "var(--lotus-color)";
+  const gold = "var(--lotus-color)";
+  const rose = "var(--lotus-rose)";
+  const jade = "var(--lotus-jade)";
+  const S = 200; // uniform size
   const flowers: Array<{ top: string; left: string; size: number; color: string; opacity: number; delay: string; dur: string; rotate: string; dx: string; dy: string; variant: FlowerVariant }> = [
-    { top: "-8%",  left: "72%",  size: 420, color: c, opacity: 0.30, delay: "0s",   dur: "40s", rotate: "15deg",  dx: "10px",  dy: "-8px",  variant: "filled"   },
-    { top: "22%",  left: "-8%",  size: 340, color: c, opacity: 0.26, delay: "6s",   dur: "48s", rotate: "-20deg", dx: "-8px",  dy: "8px",   variant: "detailed" },
-    { top: "62%",  left: "80%",  size: 300, color: c, opacity: 0.26, delay: "12s",  dur: "44s", rotate: "40deg",  dx: "10px",  dy: "6px",   variant: "filled"   },
-    { top: "83%",  left: "8%",   size: 220, color: c, opacity: 0.23, delay: "3s",   dur: "52s", rotate: "-8deg",  dx: "-6px",  dy: "-10px", variant: "outline"  },
-    { top: "5%",   left: "5%",   size: 190, color: c, opacity: 0.23, delay: "9s",   dur: "46s", rotate: "-35deg", dx: "6px",   dy: "8px",   variant: "detailed" },
-    { top: "45%",  left: "91%",  size: 160, color: c, opacity: 0.20, delay: "15s",  dur: "50s", rotate: "60deg",  dx: "-6px",  dy: "6px",   variant: "outline"  },
-    { top: "10%",  left: "50%",  size: 130, color: c, opacity: 0.16, delay: "20s",  dur: "56s", rotate: "25deg",  dx: "5px",   dy: "-6px",  variant: "outline"  },
-    { top: "72%",  left: "42%",  size: 200, color: c, opacity: 0.20, delay: "5s",   dur: "42s", rotate: "-50deg", dx: "8px",   dy: "5px",   variant: "detailed" },
-    { top: "90%",  left: "65%",  size: 170, color: c, opacity: 0.18, delay: "18s",  dur: "54s", rotate: "80deg",  dx: "-5px",  dy: "-6px",  variant: "filled"   },
-    { top: "38%",  left: "18%",  size: 115, color: c, opacity: 0.14, delay: "24s",  dur: "60s", rotate: "-15deg", dx: "4px",   dy: "6px",   variant: "outline"  },
-    { top: "-4%",  left: "32%",  size: 250, color: c, opacity: 0.18, delay: "30s",  dur: "58s", rotate: "50deg",  dx: "-7px",  dy: "5px",   variant: "detailed" },
-    { top: "54%",  left: "-3%",  size: 145, color: c, opacity: 0.16, delay: "10s",  dur: "62s", rotate: "-70deg", dx: "6px",   dy: "-5px",  variant: "filled"   },
+    { top: "-6%",  left: "70%",  size: S, color: gold, opacity: 0.30, delay: "0s",  dur: "42s", rotate: "15deg",  dx: "8px",  dy: "-6px", variant: "filled"   },
+    { top: "18%",  left: "-4%",  size: S, color: rose, opacity: 0.28, delay: "5s",  dur: "50s", rotate: "-20deg", dx: "-7px", dy: "7px",  variant: "detailed" },
+    { top: "40%",  left: "86%",  size: S, color: jade, opacity: 0.26, delay: "11s", dur: "46s", rotate: "40deg",  dx: "8px",  dy: "5px",  variant: "filled"   },
+    { top: "62%",  left: "6%",   size: S, color: gold, opacity: 0.24, delay: "3s",  dur: "54s", rotate: "-8deg",  dx: "-6px", dy: "-7px", variant: "outline"  },
+    { top: "3%",   left: "3%",   size: S, color: jade, opacity: 0.22, delay: "8s",  dur: "48s", rotate: "-35deg", dx: "5px",  dy: "6px",  variant: "detailed" },
+    { top: "80%",  left: "78%",  size: S, color: rose, opacity: 0.22, delay: "14s", dur: "52s", rotate: "60deg",  dx: "-6px", dy: "5px",  variant: "outline"  },
+    { top: "8%",   left: "48%",  size: S, color: rose, opacity: 0.18, delay: "19s", dur: "58s", rotate: "25deg",  dx: "5px",  dy: "-5px", variant: "outline"  },
+    { top: "55%",  left: "44%",  size: S, color: jade, opacity: 0.20, delay: "4s",  dur: "44s", rotate: "-50deg", dx: "7px",  dy: "4px",  variant: "detailed" },
+    { top: "88%",  left: "55%",  size: S, color: gold, opacity: 0.20, delay: "16s", dur: "56s", rotate: "80deg",  dx: "-5px", dy: "-5px", variant: "filled"   },
+    { top: "32%",  left: "22%",  size: S, color: rose, opacity: 0.16, delay: "22s", dur: "62s", rotate: "-15deg", dx: "4px",  dy: "5px",  variant: "outline"  },
+    { top: "-3%",  left: "30%",  size: S, color: jade, opacity: 0.18, delay: "28s", dur: "60s", rotate: "50deg",  dx: "-6px", dy: "4px",  variant: "detailed" },
+    { top: "72%",  left: "-2%",  size: S, color: gold, opacity: 0.18, delay: "9s",  dur: "64s", rotate: "-70deg", dx: "5px",  dy: "-4px", variant: "filled"   },
   ];
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">
