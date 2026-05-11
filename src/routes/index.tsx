@@ -47,6 +47,8 @@ const NAV_LINKS = [
   { id: "about", label: "អំពីខ្ញុំ" },
 ];
 
+const AUTO_REACTION_INDEX = 2;
+
 function useActiveSection() {
   const [active, setActive] = useState("home");
   useEffect(() => {
@@ -135,7 +137,7 @@ const bots = [
   },
 ];
 
-function Nav() {
+function Nav({ onOpenMyBot, myBotOpen }: { onOpenMyBot: () => void; myBotOpen: boolean }) {
   const active = useActiveSection();
   const { theme, toggle } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -144,6 +146,8 @@ function Nav() {
     smoothScroll(e, id);
     setMenuOpen(false);
   };
+
+  const myBotAccent = bots[AUTO_REACTION_INDEX].accentVar;
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -166,7 +170,7 @@ function Nav() {
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1 text-sm">
             {NAV_LINKS.map((l) => {
-              const isActive = active === l.id;
+              const isActive = active === l.id && !myBotOpen;
               return (
                 <a
                   key={l.id}
@@ -186,6 +190,27 @@ function Nav() {
                 </a>
               );
             })}
+
+            {/* Bot របស់ខ្ញុំ tab */}
+            <button
+              onClick={() => { onOpenMyBot(); setMenuOpen(false); }}
+              className={`relative px-4 py-2 rounded-lg transition-all outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-offset-background text-sm font-medium ${
+                myBotOpen
+                  ? "text-foreground bg-secondary/70"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+              }`}
+              style={myBotOpen ? { focusVisibleRingColor: myBotAccent } as React.CSSProperties : {}}
+            >
+              <span className="flex items-center gap-1.5">
+                <span>⚡</span> Bot របស់ខ្ញុំ
+              </span>
+              {myBotOpen && (
+                <span
+                  className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-6 rounded-full"
+                  style={{ background: myBotAccent }}
+                />
+              )}
+            </button>
           </div>
 
           <div className="flex items-center gap-2">
@@ -220,7 +245,7 @@ function Nav() {
         {menuOpen && (
           <div className="md:hidden mt-2 glass rounded-2xl px-4 py-3 flex flex-col gap-1 animate-fade-up">
             {NAV_LINKS.map((l) => {
-              const isActive = active === l.id;
+              const isActive = active === l.id && !myBotOpen;
               return (
                 <a
                   key={l.id}
@@ -236,6 +261,17 @@ function Nav() {
                 </a>
               );
             })}
+            {/* Bot របស់ខ្ញុំ — mobile */}
+            <button
+              onClick={() => { onOpenMyBot(); setMenuOpen(false); }}
+              className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors text-left flex items-center gap-2 ${
+                myBotOpen
+                  ? "text-foreground bg-secondary/70"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+              }`}
+            >
+              <span>⚡</span> Bot របស់ខ្ញុំ
+            </button>
           </div>
         )}
       </div>
@@ -635,7 +671,10 @@ function Index() {
       <Snow />
       <LotusBackground />
       <div className="relative" style={{ zIndex: 2 }}>
-        <Nav />
+        <Nav
+          onOpenMyBot={() => setActiveBot(AUTO_REACTION_INDEX)}
+          myBotOpen={activeBot === AUTO_REACTION_INDEX}
+        />
         <main>
           <Hero />
           <Bots onOpenBot={setActiveBot} />
