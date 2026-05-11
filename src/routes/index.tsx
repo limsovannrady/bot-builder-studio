@@ -388,28 +388,6 @@ function About() {
   );
 }
 
-function Contact() {
-  return (
-    <section id="contact" className="scroll-mt-24 py-20">
-      <div className="mx-auto max-w-3xl px-4">
-        <div className="bg-gradient-hero rounded-3xl p-10 md:p-14 text-center shadow-glow relative overflow-hidden">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
-          <div className="relative">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
-              ចង់សហការ ឬមានសំណួរ?
-            </h2>
-            <p className="text-white/90 text-lg mb-8 max-w-xl mx-auto">
-              ផ្ញើសារមកខ្ញុំតាម Telegram — ខ្ញុំនឹងឆ្លើយតបយ៉ាងឆាប់រហ័ស
-            </p>
-            <a href={TELEGRAM} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-7 py-4 rounded-xl bg-white text-primary font-bold hover:scale-[1.03] transition shadow-orange">
-              <Send className="size-5" /> ទាក់ទងតាម Telegram
-            </a>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function Footer() {
   return (
@@ -488,7 +466,6 @@ function Index() {
           <Hero />
           <Bots />
           <About />
-          <Contact />
         </main>
         <Footer />
       </div>
