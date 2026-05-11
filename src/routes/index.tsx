@@ -86,7 +86,7 @@ const bots = [
   {
     name: "បកប្រែភាសា",
     username: "@GoogleTranslate2026_Bot",
-    desc: "បំលែងអត្ថបទទៅជាសំឡេងធម្មជាតិភ្លាមៗ ជាមួយគុណភាពច្បាស់",
+    desc: "",
     img: BOT_TTS,
     icon: Mic,
     accent: "cyan",
@@ -397,7 +397,7 @@ function About() {
               អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
             </p>
             <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
-              ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
+              ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
             </p>
             <p className="text-sm text-muted-foreground/70 leading-relaxed mb-6">
               ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
