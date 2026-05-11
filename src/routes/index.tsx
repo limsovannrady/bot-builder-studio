@@ -285,14 +285,9 @@ function Bots() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="mx-auto max-w-2xl flex flex-col gap-3">
           {bots.map((b, i) => {
             const Icon = b.icon;
-            const cardClass =
-              b.accent === "cyan"   ? "bot-card-cyan" :
-              b.accent === "orange" ? "bot-card-orange" :
-              b.accent === "green"  ? "bot-card-green" :
-              "bot-card-primary";
             const accentColor =
               b.accent === "cyan"   ? "var(--cyan)" :
               b.accent === "orange" ? "var(--orange)" :
@@ -312,44 +307,36 @@ function Bots() {
                 href={b.link}
                 target="_blank"
                 rel="noreferrer"
-                className={`group relative bg-gradient-card rounded-2xl overflow-hidden transition-all duration-300 hover:-translate-y-1 animate-fade-up ${cardClass}`}
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className="group relative glass rounded-2xl overflow-hidden flex items-center gap-4 p-3 transition-all duration-300 hover:-translate-y-0.5 animate-fade-up"
+                style={{ animationDelay: `${i * 0.08}s` }}
               >
-                {/* Glow blob */}
-                <div
-                  className="absolute -inset-px rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
-                  style={{ background: `radial-gradient(ellipse at 50% 0%, ${accentColor} 0%, transparent 70%)` }}
-                />
+                {/* Left accent bar */}
+                <div className="absolute left-0 inset-y-0 w-0.5 rounded-full transition-all duration-300 group-hover:w-1" style={{ background: accentColor }} />
 
-                {/* Image */}
-                <div className="relative h-24 overflow-hidden">
-                  <img
-                    src={b.img}
-                    alt={b.name}
-                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                  <div
-                    className="absolute top-0 inset-x-0 h-px opacity-60"
-                    style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
-                  />
-                  <div className={`absolute top-2 right-2 size-6 rounded-lg ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center`}>
-                    <Icon className="size-3" />
-                  </div>
+                {/* Thumbnail */}
+                <div className="relative shrink-0 size-14 rounded-xl overflow-hidden">
+                  <img src={b.img} alt={b.name} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/30" />
                 </div>
 
-                {/* Content */}
-                <div className="p-3">
-                  <h3 className="text-sm font-bold leading-tight mb-0.5">{b.name}</h3>
-                  <p className="text-[10px] font-mono" style={{ color: accentColor }}>{b.username}</p>
-                  <div className="flex items-center justify-end mt-2 pt-2 border-t border-white/5">
-                    <div
-                      className="size-6 rounded-md grid place-items-center transition-transform duration-200 group-hover:translate-x-0.5"
-                      style={{ background: `${accentColor}22`, color: accentColor }}
-                    >
-                      <Send className="size-2.5" />
-                    </div>
-                  </div>
+                {/* Icon badge */}
+                <div className={`shrink-0 size-9 rounded-xl ${iconBg} border border-white/10 grid place-items-center`}>
+                  <Icon className="size-4" />
+                </div>
+
+                {/* Text */}
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-bold text-sm leading-tight">{b.name}</h3>
+                  <p className="text-[11px] font-mono mb-0.5" style={{ color: accentColor }}>{b.username}</p>
+                  <p className="text-xs text-muted-foreground leading-snug line-clamp-1">{b.desc}</p>
+                </div>
+
+                {/* Arrow */}
+                <div
+                  className="shrink-0 size-8 rounded-xl grid place-items-center transition-transform duration-200 group-hover:translate-x-0.5"
+                  style={{ background: `${accentColor}22`, color: accentColor }}
+                >
+                  <Send className="size-3.5" />
                 </div>
               </a>
             );
