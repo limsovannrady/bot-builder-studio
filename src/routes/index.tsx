@@ -85,12 +85,12 @@ const TELEGRAM = "https://t.me/limsvannrady";
 const bots = [
   {
     name: "បកប្រែភាសា",
-    username: "@limsvannrady",
+    username: "@GoogleTranslate2026_Bot",
     desc: "បំលែងអត្ថបទទៅជាសំឡេងធម្មជាតិភ្លាមៗ ជាមួយគុណភាពច្បាស់",
     img: BOT_TTS,
     icon: Mic,
     accent: "cyan",
-    link: "https://t.me/limsvannrady",
+    link: "https://t.me/GoogleTranslate2026_Bot",
   },
   {
     name: "BotTranslate",
