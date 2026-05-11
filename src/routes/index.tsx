@@ -412,11 +412,11 @@ function LotusIcon({ className }: { className?: string }) {
 
   return (
     <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {outerAngles.map(a => <path key={`o${a}`} d={outer} transform={`rotate(${a} 100 100)`} opacity={0.45} />)}
-      {innerAngles.map(a => <path key={`i${a}`} d={inner} transform={`rotate(${a} 100 100)`} opacity={0.72} />)}
+      {outerAngles.map(a => <path key={`o${a}`} d={outer} transform={`rotate(${a} 100 100)`} opacity={0.75} />)}
+      {innerAngles.map(a => <path key={`i${a}`} d={inner} transform={`rotate(${a} 100 100)`} opacity={0.95} />)}
       {/* Center bud — the rounded dome of the Rumdul flower */}
-      <circle cx="100" cy="100" r="14" opacity={0.92} />
-      <circle cx="100" cy="100" r="8"  opacity={0.55} />
+      <circle cx="100" cy="100" r="14" opacity={1.0} />
+      <circle cx="100" cy="100" r="8"  opacity={0.80} />
     </svg>
   );
 }
@@ -424,11 +424,11 @@ function LotusIcon({ className }: { className?: string }) {
 function LotusBackground() {
   const c = "var(--lotus-color)";
   const flowers = [
-    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.13, delay: "0s",  dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px" },
-    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.11, delay: "4s",  dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px"  },
-    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.11, delay: "8s",  dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px"  },
-    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.10, delay: "2s",  dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px" },
-    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.10, delay: "6s",  dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px"  },
+    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.35, delay: "0s",  dur: "22s", rotate: "15deg",  dx: "18px",  dy: "-14px" },
+    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.30, delay: "4s",  dur: "26s", rotate: "-20deg", dx: "-16px", dy: "12px"  },
+    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.28, delay: "8s",  dur: "20s", rotate: "40deg",  dx: "20px",  dy: "10px"  },
+    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.25, delay: "2s",  dur: "30s", rotate: "-8deg",  dx: "-12px", dy: "-18px" },
+    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.25, delay: "6s",  dur: "28s", rotate: "-35deg", dx: "10px",  dy: "16px"  },
   ];
   return (
     <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">
