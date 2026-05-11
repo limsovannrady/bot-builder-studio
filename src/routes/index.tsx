@@ -179,22 +179,34 @@ function Hero() {
             ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
           </p>
           <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-            <a href="#bots" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform">
-              <Bot className="size-5" /> សាកល្បង Bots របស់ខ្ញុំ
+            <a
+              href="#bots"
+              onClick={(e) => smoothScroll(e, "bots")}
+              aria-label="រំកិលទៅផ្នែក Bots ដើម្បីសាកល្បង"
+              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform"
+            >
+              <Bot className="size-5" aria-hidden="true" /> សាកល្បង Bots របស់ខ្ញុំ
             </a>
-            <a href={TELEGRAM} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors">
-              <Send className="size-5 text-[var(--orange)]" /> ទាក់ទងតាម Telegram
+            <a
+              href={TELEGRAM}
+              target="_blank"
+              rel="noreferrer"
+              aria-label="ទាក់ទងតាម Telegram (បើកក្នុងផ្ទាំងថ្មី)"
+              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors"
+            >
+              <Send className="size-5 text-[var(--orange)]" aria-hidden="true" /> ទាក់ទងតាម Telegram
             </a>
           </div>
 
-          <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
+          <dl className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
             {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
               <div key={s.l} className="glass rounded-xl p-3 text-center">
-                <div className="text-xl font-bold text-gradient">{s.n}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.l}</div>
+                <dt className="sr-only">{s.l}</dt>
+                <dd className="text-xl font-bold text-gradient">{s.n}</dd>
+                <div className="text-xs text-muted-foreground mt-1" aria-hidden="true">{s.l}</div>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
       </div>
     </section>
