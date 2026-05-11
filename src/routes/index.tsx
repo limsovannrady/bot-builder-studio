@@ -1,10 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X, ChevronRight } from "lucide-react";
+import { Send, Heart, Sun, Moon, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import BotModal from "@/components/BotModal";
-import TranslateDemo from "@/components/bot-demos/TranslateDemo";
-import QRDemo from "@/components/bot-demos/QRDemo";
-import VoiceDemo from "@/components/bot-demos/VoiceDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -42,11 +38,8 @@ function useTheme() {
 
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
-  { id: "bots", label: "Bots" },
   { id: "about", label: "អំពីខ្ញុំ" },
 ];
-
-const AUTO_REACTION_INDEX = 2;
 
 function useActiveSection() {
   const [active, setActive] = useState("home");
@@ -81,63 +74,10 @@ export const Route = createFileRoute("/")({
 });
 
 const AVATAR = "/profile.jpg";
-const BOT_TTS = "https://i.ibb.co/BHLg2TzD/x.jpg";
-const BOT_TRANS = "https://i.ibb.co/rGWPY8K2/x.jpg";
-const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
-const BOT_4  = "https://i.ibb.co/p8HrfN5/x.jpg";
 const TELEGRAM = "https://t.me/limsvannrady";
 const FACEBOOK = "https://www.facebook.com/limsovannrady";
 const TELEGRAM_CHANNEL = "https://t.me/limsovannrady_Channel";
-
-const bots = [
-  {
-    name: "បកប្រែភាសា",
-    username: "@GoogleTranslate2026_Bot",
-    desc: "បកប្រែអត្ថបទរវាងភាសាជាង ៨",
-    img: BOT_TTS,
-    icon: Languages,
-    accent: "cyan",
-    accentVar: "var(--cyan)",
-    link: "https://t.me/GoogleTranslate2026_Bot",
-    demo: TranslateDemo,
-  },
-  {
-    name: "Create QR & Scan",
-    username: "@CreateQR_ScanBot",
-    desc: "បង្កើត QR Code និង Scan QR ពីរូបភាព",
-    img: BOT_TRANS,
-    icon: Mic,
-    accent: "orange",
-    accentVar: "var(--orange)",
-    link: "https://t.me/CreateQR_ScanBot",
-    demo: QRDemo,
-  },
-  {
-    name: "Auto Reaction",
-    username: "@AutoReaction2026Bot",
-    desc: "ដាក់ Emoji Reaction ដោយស្វ័យប្រវត្តិ",
-    img: BOT_AI,
-    icon: Sparkles,
-    accent: "primary",
-    accentVar: "var(--primary)",
-    link: "https://t.me/AutoReaction2026Bot",
-    demo: null,
-    telegramOnly: true,
-  },
-  {
-    name: "បង្កើតសំឡេង AI",
-    username: "@limsovannradybot",
-    desc: "បំលែងអត្ថបទទៅជាសំឡេង AI",
-    img: BOT_4,
-    icon: Bot,
-    accent: "green",
-    accentVar: "oklch(0.72 0.19 145)",
-    link: "https://t.me/limsovannradybot",
-    demo: VoiceDemo,
-  },
-];
-
-const MY_BOT = bots[AUTO_REACTION_INDEX];
+const MY_BOT_LINK = "https://t.me/AutoReaction2026Bot";
 
 function Nav() {
   const active = useActiveSection();
@@ -148,8 +88,6 @@ function Nav() {
     smoothScroll(e, id);
     setMenuOpen(false);
   };
-
-  const myBotAccent = MY_BOT.accentVar;
 
   return (
     <header className="fixed top-0 inset-x-0 z-50">
@@ -195,7 +133,7 @@ function Nav() {
 
             {/* Bot របស់ខ្ញុំ tab — opens Telegram directly */}
             <a
-              href={MY_BOT.link}
+              href={MY_BOT_LINK}
               target="_blank"
               rel="noreferrer"
               className="relative px-4 py-2 rounded-lg transition-all outline-none text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/60 flex items-center gap-1.5"
@@ -254,7 +192,7 @@ function Nav() {
             })}
             {/* Bot របស់ខ្ញុំ — mobile, opens Telegram */}
             <a
-              href={MY_BOT.link}
+              href={MY_BOT_LINK}
               target="_blank"
               rel="noreferrer"
               onClick={() => setMenuOpen(false)}
@@ -286,18 +224,11 @@ function Hero() {
         {/* Buttons */}
         <div className="flex flex-wrap gap-3 justify-center mb-10">
           <a
-            href="#bots"
-            onClick={(e) => smoothScroll(e, "bots")}
-            className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform text-sm"
-          >
-            <Bot className="size-4" /> សាកល្បង Bots
-          </a>
-          <a
             href="#about"
             onClick={(e) => smoothScroll(e, "about")}
             className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors text-sm"
           >
-            <MessageCircle className="size-4 text-[var(--orange)]" /> អំពីខ្ញុំ
+            <Send className="size-4 text-[var(--orange)]" /> អំពីខ្ញុំ
           </a>
         </div>
 
@@ -305,85 +236,6 @@ function Hero() {
     </section>
   );
 }
-
-function BotCard({ b, i, onOpenBot }: { b: typeof bots[0]; i: number; onOpenBot: (i: number) => void }) {
-  const accentColor = b.accentVar;
-  const glowStyle = {
-    border: `1px solid ${accentColor}30`,
-    boxShadow: `0 0 0 0 ${accentColor}00`,
-    transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
-    animationDelay: `${i * 0.08}s`,
-  };
-
-  const onEnter = (e: React.MouseEvent<HTMLElement>) => {
-    (e.currentTarget as HTMLElement).style.boxShadow = `0 0 32px -4px ${accentColor}55, 0 0 64px -12px ${accentColor}30, inset 0 0 24px -8px ${accentColor}18`;
-    (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}70`;
-  };
-  const onLeave = (e: React.MouseEvent<HTMLElement>) => {
-    (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accentColor}00`;
-    (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}30`;
-  };
-
-  const inner = (
-    <>
-      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
-        style={{ background: `radial-gradient(circle at 50% 30%, ${accentColor}18, transparent 70%)` }} />
-      <div className="relative size-16 rounded-2xl overflow-hidden shrink-0 z-10">
-        <div className="absolute -inset-1 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"
-          style={{ background: accentColor }} />
-        <img src={b.img} alt={b.name} className="relative size-full object-cover group-hover:scale-110 transition-transform duration-500" />
-      </div>
-      <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
-      <p className="text-[10px] text-muted-foreground text-center leading-snug z-10 line-clamp-2">{b.desc}</p>
-      <div className="z-10 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -mb-1"
-        style={{ background: `${accentColor}22`, color: accentColor }}>
-        {b.telegramOnly ? <><Send className="size-3" /> Telegram</> : <>សាកល្បង <ChevronRight className="size-3" /></>}
-      </div>
-    </>
-  );
-
-  if (b.telegramOnly) {
-    return (
-      <a key={b.name} href={b.link} target="_blank" rel="noreferrer"
-        className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up"
-        style={glowStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-        {inner}
-      </a>
-    );
-  }
-
-  return (
-    <button key={b.name} onClick={() => onOpenBot(i)}
-      className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up text-left w-full"
-      style={glowStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>
-      {inner}
-    </button>
-  );
-}
-
-function Bots({ onOpenBot }: { onOpenBot: (i: number) => void }) {
-  const headRef = useScrollReveal();
-  const listRef = useScrollReveal();
-
-  return (
-    <section id="bots" className="scroll-mt-24 py-10">
-      <div className="mx-auto max-w-6xl px-4">
-        <div ref={headRef} className="reveal text-center mb-8">
-          <h2 className="text-3xl md:text-5xl font-bold mb-3">
-            Bots <span className="text-gradient">ដែលខ្ញុំបានបង្កើត</span>
-          </h2>
-          <p className="text-muted-foreground max-w-xl mx-auto">
-            ស្វែងយល់ និងសាកល្បង Telegram bots ឆ្លាតវៃរបស់ខ្ញុំ ឥតគិតថ្លៃ
-          </p>
-        </div>
-        <div ref={listRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto max-w-3xl">
-          {bots.map((b, i) => <BotCard key={b.name} b={b} i={i} onOpenBot={onOpenBot} />)}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 
 function About() {
   const badgeRef = useScrollReveal();
@@ -660,8 +512,6 @@ function Snow() {
 }
 
 function Index() {
-  const [activeBot, setActiveBot] = useState<number | null>(null);
-
   return (
     <div className="min-h-screen">
       <Snow />
@@ -670,31 +520,10 @@ function Index() {
         <Nav />
         <main>
           <Hero />
-          <Bots onOpenBot={setActiveBot} />
           <About />
         </main>
         <Footer />
       </div>
-
-      {bots.map((b, i) => {
-        if (b.telegramOnly || !b.demo) return null;
-        const Demo = b.demo;
-        return (
-          <BotModal
-            key={b.name}
-            open={activeBot === i}
-            onClose={() => setActiveBot(null)}
-            botName={b.name}
-            botUsername={b.username}
-            botDesc={b.desc}
-            botImg={b.img}
-            telegramLink={b.link}
-            accentColor={b.accentVar}
-          >
-            {activeBot === i && <Demo />}
-          </BotModal>
-        );
-      })}
     </div>
   );
 }
