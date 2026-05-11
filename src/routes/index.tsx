@@ -383,23 +383,6 @@ function Bots() {
   );
 }
 
-function QrSection() {
-  const qr = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&bgcolor=23-30-50&color=ffffff&margin=10&data=${encodeURIComponent(TELEGRAM)}`;
-  return (
-    <section className="py-20">
-      <div className="mx-auto max-w-5xl px-4">
-        <div className="bg-gradient-card glass rounded-3xl p-8 md:p-12 flex justify-center">
-          <div className="relative p-4 bg-white rounded-2xl shadow-glow animate-float">
-            <img src={qr} alt="QR Code" className="size-56 md:size-64" />
-            <div className="absolute -top-3 -right-3 size-12 rounded-full bg-gradient-hero grid place-items-center shadow-orange">
-              <Send className="size-5 text-white" />
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
 function About() {
   return (
@@ -523,7 +506,6 @@ function Index() {
         <main>
           <Hero />
           <Bots />
-          <QrSection />
           <About />
           <Contact />
         </main>
