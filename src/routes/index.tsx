@@ -286,35 +286,85 @@ function Bots() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-6">
+        <div className="grid md:grid-cols-3 gap-8">
           {bots.map((b, i) => {
             const Icon = b.icon;
-            const accentClass =
-              b.accent === "cyan" ? "shadow-cyan ring-[var(--cyan)]/40" :
-              b.accent === "orange" ? "shadow-orange ring-[var(--orange)]/40" :
-              "shadow-glow ring-primary/40";
+            const cardClass =
+              b.accent === "cyan" ? "bot-card-cyan" :
+              b.accent === "orange" ? "bot-card-orange" :
+              "bot-card-primary";
+            const accentColor =
+              b.accent === "cyan" ? "var(--cyan)" :
+              b.accent === "orange" ? "var(--orange)" :
+              "var(--primary)";
+            const iconBg =
+              b.accent === "cyan"
+                ? "bg-[oklch(0.82_0.15_200/15%)] text-[var(--cyan)]"
+                : b.accent === "orange"
+                ? "bg-[oklch(0.78_0.18_55/15%)] text-[var(--orange)]"
+                : "bg-[oklch(0.62_0.19_245/15%)] text-[var(--primary)]";
+            const glowOverlay =
+              b.accent === "cyan"
+                ? "from-[oklch(0.82_0.15_200/25%)]"
+                : b.accent === "orange"
+                ? "from-[oklch(0.78_0.18_55/25%)]"
+                : "from-[oklch(0.62_0.19_245/25%)]";
             return (
               <a
                 key={b.name}
                 href={b.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group bg-gradient-card rounded-2xl overflow-hidden border border-border hover:border-primary/50 transition-all hover:-translate-y-1 animate-fade-up"
-                style={{ animationDelay: `${i * 0.1}s` }}
+                className={`group relative bg-gradient-card rounded-3xl overflow-hidden transition-all duration-300 hover:-translate-y-2 animate-fade-up ${cardClass}`}
+                style={{ animationDelay: `${i * 0.12}s` }}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <img src={b.img} alt={b.name} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/40 to-transparent" />
-                  <div className={`absolute top-3 right-3 size-10 rounded-xl bg-gradient-hero grid place-items-center ${accentClass}`}>
-                    <Icon className="size-5 text-white" />
+                {/* Glow blur blob behind card */}
+                <div
+                  className="absolute -inset-px rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-xl -z-10"
+                  style={{ background: `radial-gradient(ellipse at 50% 0%, ${accentColor} 0%, transparent 70%)` }}
+                />
+
+                {/* Image */}
+                <div className="relative h-52 overflow-hidden">
+                  <img
+                    src={b.img}
+                    alt={b.name}
+                    className="size-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
+                  {/* gradient overlay bottom */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-card via-card/50 to-transparent" />
+                  {/* accent tint overlay on hover */}
+                  <div className={`absolute inset-0 bg-gradient-to-t ${glowOverlay} to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
+                  {/* Icon badge */}
+                  <div className={`absolute top-4 right-4 size-11 rounded-2xl ${iconBg} backdrop-blur-md border border-white/10 grid place-items-center shadow-lg`}>
+                    <Icon className="size-5" />
                   </div>
+                  {/* Shine line at top */}
+                  <div
+                    className="absolute top-0 inset-x-0 h-px opacity-60"
+                    style={{ background: `linear-gradient(90deg, transparent, ${accentColor}, transparent)` }}
+                  />
                 </div>
-                <div className="p-6">
-                  <h3 className="text-xl font-bold mb-1">{b.name}</h3>
-                  <p className="text-sm text-[var(--cyan)] font-mono mb-3">{b.username}</p>
-                  <p className="text-sm text-muted-foreground leading-relaxed mb-4">{b.desc}</p>
-                  <div className="flex items-center gap-2 text-sm font-medium text-[var(--orange)] group-hover:gap-3 transition-all">
-                    សាកល្បងឥឡូវ <Send className="size-4" />
+
+                {/* Content */}
+                <div className="p-6 pt-5">
+                  <h3 className="text-lg font-bold mb-1 leading-tight">{b.name}</h3>
+                  <p className="text-xs font-mono mb-3" style={{ color: accentColor }}>{b.username}</p>
+                  <p className="text-sm text-muted-foreground leading-relaxed mb-5">{b.desc}</p>
+
+                  {/* CTA row */}
+                  <div
+                    className="flex items-center justify-between pt-4 border-t border-white/5"
+                  >
+                    <span className="text-sm font-semibold transition-all duration-200" style={{ color: accentColor }}>
+                      សាកល្បងឥឡូវ
+                    </span>
+                    <div
+                      className="size-8 rounded-xl grid place-items-center transition-transform duration-200 group-hover:translate-x-1"
+                      style={{ background: `${accentColor}22`, color: accentColor }}
+                    >
+                      <Send className="size-3.5" />
+                    </div>
                   </div>
                 </div>
               </a>

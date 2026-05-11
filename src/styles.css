@@ -154,6 +154,54 @@
     background: oklch(0.98 0.008 250 / 75%);
     border: 1px solid oklch(0.7 0.03 252 / 25%);
   }
+  .bot-card-cyan {
+    border: 1px solid oklch(0.82 0.15 200 / 35%);
+    box-shadow:
+      0 0 0 1px oklch(0.82 0.15 200 / 10%),
+      0 8px 32px -4px oklch(0.82 0.15 200 / 20%),
+      0 0 60px -12px oklch(0.82 0.15 200 / 30%),
+      inset 0 1px 0 oklch(1 0 0 / 8%);
+  }
+  .bot-card-cyan:hover {
+    border-color: oklch(0.82 0.15 200 / 65%);
+    box-shadow:
+      0 0 0 1px oklch(0.82 0.15 200 / 20%),
+      0 16px 48px -4px oklch(0.82 0.15 200 / 30%),
+      0 0 80px -8px oklch(0.82 0.15 200 / 45%),
+      inset 0 1px 0 oklch(1 0 0 / 12%);
+  }
+  .bot-card-orange {
+    border: 1px solid oklch(0.78 0.18 55 / 35%);
+    box-shadow:
+      0 0 0 1px oklch(0.78 0.18 55 / 10%),
+      0 8px 32px -4px oklch(0.78 0.18 55 / 20%),
+      0 0 60px -12px oklch(0.78 0.18 55 / 30%),
+      inset 0 1px 0 oklch(1 0 0 / 8%);
+  }
+  .bot-card-orange:hover {
+    border-color: oklch(0.78 0.18 55 / 65%);
+    box-shadow:
+      0 0 0 1px oklch(0.78 0.18 55 / 20%),
+      0 16px 48px -4px oklch(0.78 0.18 55 / 30%),
+      0 0 80px -8px oklch(0.78 0.18 55 / 45%),
+      inset 0 1px 0 oklch(1 0 0 / 12%);
+  }
+  .bot-card-primary {
+    border: 1px solid oklch(0.62 0.19 245 / 35%);
+    box-shadow:
+      0 0 0 1px oklch(0.62 0.19 245 / 10%),
+      0 8px 32px -4px oklch(0.62 0.19 245 / 20%),
+      0 0 60px -12px oklch(0.62 0.19 245 / 30%),
+      inset 0 1px 0 oklch(1 0 0 / 8%);
+  }
+  .bot-card-primary:hover {
+    border-color: oklch(0.62 0.19 245 / 65%);
+    box-shadow:
+      0 0 0 1px oklch(0.62 0.19 245 / 20%),
+      0 16px 48px -4px oklch(0.62 0.19 245 / 30%),
+      0 0 80px -8px oklch(0.62 0.19 245 / 45%),
+      inset 0 1px 0 oklch(1 0 0 / 12%);
+  }
 }
 
 @keyframes float {
