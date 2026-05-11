@@ -403,28 +403,12 @@ function QrSection() {
   return (
     <section className="py-20">
       <div className="mx-auto max-w-5xl px-4">
-        <div className="bg-gradient-card glass rounded-3xl p-8 md:p-12 grid md:grid-cols-2 gap-10 items-center">
-          <div className="flex justify-center">
-            <div className="relative p-4 bg-white rounded-2xl shadow-glow animate-float">
-              <img src={qr} alt="QR Code" className="size-56 md:size-64" />
-              <div className="absolute -top-3 -right-3 size-12 rounded-full bg-gradient-hero grid place-items-center shadow-orange">
-                <Send className="size-5 text-white" />
-              </div>
+        <div className="bg-gradient-card glass rounded-3xl p-8 md:p-12 flex justify-center">
+          <div className="relative p-4 bg-white rounded-2xl shadow-glow animate-float">
+            <img src={qr} alt="QR Code" className="size-56 md:size-64" />
+            <div className="absolute -top-3 -right-3 size-12 rounded-full bg-gradient-hero grid place-items-center shadow-orange">
+              <Send className="size-5 text-white" />
             </div>
-          </div>
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-[var(--orange)]/10 text-[var(--orange)] text-xs mb-4">
-              <Zap className="size-3.5" /> ងាយស្រួល
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              ស្កេនដើម្បី <span className="text-gradient">សាកល្បង Bots</span> ភ្លាមៗ
-            </h2>
-            <p className="text-muted-foreground mb-6 leading-relaxed">
-              ប្រើទូរស័ព្ទរបស់អ្នកស្កេន QR Code នេះ ដើម្បីបើក Telegram ហើយចាប់ផ្ដើមសន្ទនាជាមួយ bots របស់ខ្ញុំភ្លាមៗ ដោយឥតគិតថ្លៃ។
-            </p>
-            <a href={TELEGRAM} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition">
-              <MessageCircle className="size-5" /> បើក Telegram
-            </a>
           </div>
         </div>
       </div>
