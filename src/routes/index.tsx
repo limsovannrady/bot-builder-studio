@@ -507,20 +507,18 @@ function LotusBackground() {
 const COL1 = [
   { src: "/work1.jpg",  caption: "ទទួលរង្វាន់ E-GetS Annual Party" },
   { src: "/work4.jpg",  caption: "ពិធីប្រគល់រង្វាន់ជាមួយប្រធាន" },
+  { src: "/work5.jpg",  caption: "E-GetS Annual Party 2025" },
   { src: "/work7.jpg",  caption: "ក្រុមការងារ E-GetS" },
   { src: "/work10.jpg", caption: "វគ្គបណ្ដុះបណ្ដាល Sihanoukville" },
 ];
 const COL2 = [
   { src: "/work2.jpg",  caption: "ពិធីប្រគល់រង្វាន់ E-GetS" },
-  { src: "/work5.jpg",  caption: "E-GetS Annual Party 2025" },
-  { src: "/work8.jpg",  caption: "សកម្មភាពសម្អាតជាមួយក្រុម" },
-];
-const COL3 = [
   { src: "/work3.jpg",  caption: "ក្រុម Rider E-GetS ត្រៀមខ្លួន" },
   { src: "/work6.jpg",  caption: "សកម្មភាពសម្អាតបរិស្ថាន" },
+  { src: "/work8.jpg",  caption: "សកម្មភាពសម្អាតជាមួយក្រុម" },
   { src: "/work9.jpg",  caption: "ការងារប្រចាំថ្ងៃ E-GetS" },
 ];
-const ALL_WORK = [...COL1, ...COL2, ...COL3];
+const ALL_WORK = [...COL1, ...COL2];
 
 function MarqueeCol({ images, duration, onClick }: {
   images: { src: string; caption: string }[];
@@ -529,7 +527,7 @@ function MarqueeCol({ images, duration, onClick }: {
 }) {
   const doubled = [...images, ...images];
   return (
-    <div className="marquee-wrap overflow-hidden flex-1 h-[480px]">
+    <div className="marquee-wrap overflow-hidden flex-1 h-[600px]">
       <div className="marquee-col flex flex-col gap-3" style={{ animationDuration: `${duration}s` }}>
         {doubled.map((img, i) => (
           <button
@@ -590,10 +588,9 @@ function Work() {
         </div>
 
         {/* Marquee columns */}
-        <div className="flex gap-3 items-start">
-          <MarqueeCol images={COL1} duration={18} onClick={setSelected} />
-          <MarqueeCol images={COL2} duration={24} onClick={setSelected} />
-          <MarqueeCol images={COL3} duration={20} onClick={setSelected} />
+        <div className="flex gap-4 items-start">
+          <MarqueeCol images={COL1} duration={22} onClick={setSelected} />
+          <MarqueeCol images={COL2} duration={28} onClick={setSelected} />
         </div>
 
         {/* Lightbox */}
