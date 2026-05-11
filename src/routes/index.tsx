@@ -64,6 +64,7 @@ const AVATAR = "https://i.ibb.co/RTRWzWt7/x.jpg";
 const BOT_TTS = "https://i.ibb.co/BHLg2TzD/x.jpg";
 const BOT_TRANS = "https://i.ibb.co/rGWPY8K2/x.jpg";
 const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
+const BOT_4  = "https://i.ibb.co/p8HrfN5/x.jpg";
 const TELEGRAM = "https://t.me/limsvannrady";
 
 const bots = [
@@ -93,6 +94,15 @@ const bots = [
     icon: Sparkles,
     accent: "primary",
     link: "https://t.me/limsvannrady",
+  },
+  {
+    name: "Sovannrady Bot",
+    username: "@limsovannradybot",
+    desc: "Bot ពហុមុខងារ ស្វែងរក ឆ្លើយ និងជួយដោះស្រាយបញ្ហារបស់អ្នក",
+    img: BOT_4,
+    icon: Bot,
+    accent: "green",
+    link: "https://t.me/limsovannradybot",
   },
 ];
 
@@ -288,28 +298,34 @@ function Bots() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-5">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {bots.map((b, i) => {
             const Icon = b.icon;
             const cardClass =
-              b.accent === "cyan" ? "bot-card-cyan" :
+              b.accent === "cyan"   ? "bot-card-cyan" :
               b.accent === "orange" ? "bot-card-orange" :
+              b.accent === "green"  ? "bot-card-green" :
               "bot-card-primary";
             const accentColor =
-              b.accent === "cyan" ? "var(--cyan)" :
+              b.accent === "cyan"   ? "var(--cyan)" :
               b.accent === "orange" ? "var(--orange)" :
+              b.accent === "green"  ? "oklch(0.72 0.19 145)" :
               "var(--primary)";
             const iconBg =
               b.accent === "cyan"
                 ? "bg-[oklch(0.82_0.15_200/15%)] text-[var(--cyan)]"
                 : b.accent === "orange"
                 ? "bg-[oklch(0.78_0.18_55/15%)] text-[var(--orange)]"
+                : b.accent === "green"
+                ? "bg-[oklch(0.72_0.19_145/15%)] text-[oklch(0.72_0.19_145)]"
                 : "bg-[oklch(0.62_0.19_245/15%)] text-[var(--primary)]";
             const glowOverlay =
               b.accent === "cyan"
                 ? "from-[oklch(0.82_0.15_200/25%)]"
                 : b.accent === "orange"
                 ? "from-[oklch(0.78_0.18_55/25%)]"
+                : b.accent === "green"
+                ? "from-[oklch(0.72_0.19_145/25%)]"
                 : "from-[oklch(0.62_0.19_245/25%)]";
             return (
               <a
