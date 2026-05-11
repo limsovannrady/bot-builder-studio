@@ -417,7 +417,7 @@ function Footer() {
   return (
     <footer className="py-10 border-t border-border">
       <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-        <div>© 2026 លឹម សុវណ្ណរ៉ាឌី — រក្សាសិទ្ធិគ្រប់យ៉ាង</div>
+        <div>២០២៦ លឹម សុវណ្ណរ៉ាឌី</div>
       </div>
     </footer>
   );
