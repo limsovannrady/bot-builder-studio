@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon } from "lucide-react";
+import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 
 function useTheme() {
@@ -99,6 +99,13 @@ const bots = [
 function Nav() {
   const active = useActiveSection();
   const { theme, toggle } = useTheme();
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    smoothScroll(e, id);
+    setMenuOpen(false);
+  };
+
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-6xl px-4 py-4">
@@ -114,6 +121,8 @@ function Nav() {
             </div>
             <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
+
+          {/* Desktop links */}
           <div className="hidden md:flex items-center gap-1 text-sm">
             {NAV_LINKS.map((l) => {
               const isActive = active === l.id;
@@ -137,6 +146,7 @@ function Nav() {
               );
             })}
           </div>
+
           <div className="flex items-center gap-2">
             <button
               onClick={toggle}
@@ -149,13 +159,53 @@ function Nav() {
               href={TELEGRAM}
               target="_blank"
               rel="noreferrer"
-              aria-label="បើក Telegram channel នៅក្នុងផ្ទាំងថ្មី"
               className="focus-ring hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition"
             >
-              <Send className="size-4" aria-hidden="true" /> Telegram
+              <Send className="size-4" /> Telegram
             </a>
+            {/* Hamburger button — mobile only */}
+            <button
+              onClick={() => setMenuOpen((o) => !o)}
+              aria-label={menuOpen ? "បិទម៉ឺនុយ" : "បើកម៉ឺនុយ"}
+              aria-expanded={menuOpen}
+              className="focus-ring md:hidden size-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {menuOpen ? <X className="size-4" /> : <Menu className="size-4" />}
+            </button>
           </div>
         </nav>
+
+        {/* Mobile dropdown */}
+        {menuOpen && (
+          <div className="md:hidden mt-2 glass rounded-2xl px-4 py-3 flex flex-col gap-1 animate-fade-up">
+            {NAV_LINKS.map((l) => {
+              const isActive = active === l.id;
+              return (
+                <a
+                  key={l.id}
+                  href={`#${l.id}`}
+                  onClick={(e) => handleNavClick(e, l.id)}
+                  className={`px-4 py-2.5 rounded-xl text-sm font-medium transition-colors ${
+                    isActive
+                      ? "text-foreground bg-secondary/70"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                  }`}
+                >
+                  {l.label}
+                </a>
+              );
+            })}
+            <a
+              href={TELEGRAM}
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMenuOpen(false)}
+              className="mt-1 px-4 py-2.5 rounded-xl text-sm font-medium bg-primary text-primary-foreground text-center hover:opacity-90 transition flex items-center justify-center gap-2"
+            >
+              <Send className="size-4" /> Telegram
+            </a>
+          </div>
+        )}
       </div>
     </header>
   );
