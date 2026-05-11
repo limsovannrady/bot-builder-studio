@@ -1,5 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const NAV_LINKS = [
+  { id: "home", label: "ទំព័រដើម" },
+  { id: "bots", label: "Bots" },
+  { id: "about", label: "អំពីខ្ញុំ" },
+  { id: "contact", label: "ទាក់ទង" },
+];
+
+function useActiveSection() {
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    const sections = NAV_LINKS.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+  return active;
+}
+
+function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+  }
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -51,27 +87,38 @@ const bots = [
 ];
 
 function Nav() {
+  const active = useActiveSection();
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-6xl px-4 py-4">
         <nav className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 font-bold">
+          <a href="#home" onClick={(e) => smoothScroll(e, "home")} className="flex items-center gap-2 font-bold">
             <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
               <Bot className="size-4 text-white" />
             </div>
             <span className="text-gradient">សុវណ្ណរដ្យ</span>
           </a>
           <div className="hidden md:flex items-center gap-1 text-sm">
-            {[
-              { href: "#home", label: "ទំព័រដើម" },
-              { href: "#bots", label: "Bots" },
-              { href: "#about", label: "អំពីខ្ញុំ" },
-              { href: "#contact", label: "ទាក់ទង" },
-            ].map((l) => (
-              <a key={l.href} href={l.href} className="px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors">
-                {l.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((l) => {
+              const isActive = active === l.id;
+              return (
+                <a
+                  key={l.id}
+                  href={`#${l.id}`}
+                  onClick={(e) => smoothScroll(e, l.id)}
+                  className={`relative px-4 py-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "text-foreground bg-secondary/70"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  }`}
+                >
+                  {l.label}
+                  {isActive && (
+                    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-6 rounded-full bg-gradient-hero" />
+                  )}
+                </a>
+              );
+            })}
           </div>
           <a href={TELEGRAM} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition">
             <Send className="size-4" /> Telegram
@@ -84,7 +131,7 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="pt-32 md:pt-40 pb-20">
+    <section id="home" className="scroll-mt-24 pt-32 md:pt-40 pb-20">
       <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-12 items-center">
         <div className="order-2 md:order-1 flex justify-center md:justify-start animate-fade-up">
           <div className="relative">
@@ -139,7 +186,7 @@ function Hero() {
 
 function Bots() {
   return (
-    <section id="bots" className="py-20">
+    <section id="bots" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-6xl px-4">
         <div className="text-center mb-14 animate-fade-up">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
@@ -230,7 +277,7 @@ function QrSection() {
 
 function About() {
   return (
-    <section id="about" className="py-20">
+    <section id="about" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-4xl px-4 text-center animate-fade-up">
         <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
           <Heart className="size-3.5 text-[var(--orange)]" />
@@ -269,7 +316,7 @@ function About() {
 
 function Contact() {
   return (
-    <section id="contact" className="py-20">
+    <section id="contact" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-3xl px-4">
         <div className="bg-gradient-hero rounded-3xl p-10 md:p-14 text-center shadow-glow relative overflow-hidden">
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.2),transparent_50%)]" />
