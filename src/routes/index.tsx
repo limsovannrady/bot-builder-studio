@@ -82,7 +82,7 @@ const BOT_AI = "https://i.ibb.co/GQjZdsng/x.jpg";
 const BOT_4  = "https://i.ibb.co/p8HrfN5/x.jpg";
 const TELEGRAM = "https://t.me/limsvannrady";
 const FACEBOOK = "https://www.facebook.com/limsovannrady";
-const TELEGRAM_CHANNEL = "https://t.me/limsovannrady";
+const TELEGRAM_CHANNEL = "https://t.me/limsovannrady_Channel";
 
 const bots = [
   {
