@@ -295,20 +295,43 @@ function Bots() {
                 href={b.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-up"
-                style={{ animationDelay: `${i * 0.08}s` }}
+                className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up"
+                style={{
+                  animationDelay: `${i * 0.08}s`,
+                  border: `1px solid ${accentColor}30`,
+                  boxShadow: `0 0 0 0 ${accentColor}00`,
+                  transition: "transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease",
+                }}
+                onMouseEnter={e => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 32px -4px ${accentColor}55, 0 0 64px -12px ${accentColor}30, inset 0 0 24px -8px ${accentColor}18`;
+                  (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}70`;
+                }}
+                onMouseLeave={e => {
+                  (e.currentTarget as HTMLElement).style.boxShadow = `0 0 0 0 ${accentColor}00`;
+                  (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}30`;
+                }}
               >
-                {/* Thumbnail */}
-                <div className="relative size-16 rounded-2xl overflow-hidden shrink-0">
-                  <img src={b.img} alt={b.name} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                {/* Ambient glow background */}
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
+                  style={{ background: `radial-gradient(circle at 50% 30%, ${accentColor}18, transparent 70%)` }}
+                />
+
+                {/* Thumbnail with glow ring */}
+                <div className="relative size-16 rounded-2xl overflow-hidden shrink-0 z-10">
+                  <div
+                    className="absolute -inset-1 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"
+                    style={{ background: accentColor }}
+                  />
+                  <img src={b.img} alt={b.name} className="relative size-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
 
                 {/* Name */}
-                <h3 className="font-semibold text-sm text-center leading-snug">{b.name}</h3>
+                <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
 
                 {/* Open button */}
                 <div
-                  className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-200 group-hover:opacity-90"
+                  className="relative z-10 flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-200"
                   style={{ background: `${accentColor}22`, color: accentColor }}
                 >
                   <Send className="size-3" />
