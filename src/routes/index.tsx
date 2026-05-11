@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X } from "lucide-react";
+import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart, Sun, Moon, Menu, X, Code2, Cpu, Globe, QrCode, Volume2, Repeat2 } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
@@ -375,9 +375,40 @@ function About() {
             <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
               ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
             </p>
-            <p className="text-sm text-muted-foreground/70 leading-relaxed mb-6">
+            <p className="text-sm text-muted-foreground/70 leading-relaxed mb-5">
               ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
             </p>
+
+            {/* Skills */}
+            <div className="w-full mb-5">
+              <p className="text-xs font-semibold text-muted-foreground uppercase tracking-widest mb-3 text-center md:text-left">Tech Stack</p>
+              <div className="flex flex-wrap gap-2 justify-center md:justify-start">
+                {[
+                  { label: "Python",          icon: Code2,   color: "oklch(0.72 0.19 250)" },
+                  { label: "Telegram API",    icon: Bot,     color: "oklch(0.62 0.18 200)" },
+                  { label: "JavaScript",      icon: Cpu,     color: "oklch(0.78 0.18 92)"  },
+                  { label: "AI / LLM",        icon: Sparkles,color: "oklch(0.72 0.19 290)" },
+                  { label: "QR Code",         icon: QrCode,  color: "oklch(0.68 0.16 55)"  },
+                  { label: "Text to Voice",   icon: Volume2, color: "oklch(0.68 0.18 145)" },
+                  { label: "Translation",     icon: Globe,   color: "oklch(0.62 0.16 210)" },
+                  { label: "Auto Reaction",   icon: Repeat2, color: "oklch(0.70 0.22 25)"  },
+                ].map(({ label, icon: Icon, color }) => (
+                  <div
+                    key={label}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-all duration-200 hover:scale-105"
+                    style={{
+                      background: `color-mix(in oklch, ${color} 12%, transparent)`,
+                      borderColor: `color-mix(in oklch, ${color} 35%, transparent)`,
+                      color,
+                    }}
+                  >
+                    <Icon className="size-3" />
+                    {label}
+                  </div>
+                ))}
+              </div>
+            </div>
+
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 w-full max-w-sm md:max-w-md">
               {/* Telegram Personal */}
               <a
