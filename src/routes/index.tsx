@@ -39,6 +39,7 @@ function useTheme() {
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
   { id: "bots", label: "Bots" },
+  { id: "work", label: "ការងារ" },
   { id: "about", label: "អំពីខ្ញុំ" },
   { id: "contact", label: "ទាក់ទង" },
 ];
@@ -503,6 +504,113 @@ function LotusBackground() {
   );
 }
 
+const WORK_IMAGES = [
+  { src: "/work1.jpg",  caption: "ទទួលរង្វាន់ពី E-GetS Annual Party" },
+  { src: "/work2.jpg",  caption: "ពិធីប្រគល់រង្វាន់ E-GetS" },
+  { src: "/work5.jpg",  caption: "E-GetS Annual Party 2025" },
+  { src: "/work4.jpg",  caption: "ពិធីប្រគល់រង្វាន់ជាមួយប្រធាន" },
+  { src: "/work9.jpg",  caption: "ការងារប្រចាំថ្ងៃ E-GetS" },
+  { src: "/work10.jpg", caption: "វគ្គបណ្ដុះបណ្ដាល E-GetS Sihanoukville" },
+  { src: "/work7.jpg",  caption: "ក្រុមការងារ E-GetS" },
+  { src: "/work3.jpg",  caption: "ក្រុម Rider E-GetS ត្រៀមខ្លួន" },
+  { src: "/work6.jpg",  caption: "សកម្មភាពសម្អាតបរិស្ថាន" },
+  { src: "/work8.jpg",  caption: "សកម្មភាពសម្អាតជាមួយក្រុម" },
+];
+
+function Work() {
+  const headRef = useScrollReveal();
+  const [selected, setSelected] = useState<number | null>(null);
+
+  return (
+    <section id="work" className="scroll-mt-24 py-10">
+      <div className="mx-auto max-w-6xl px-4">
+        {/* Header */}
+        <div ref={headRef} className="reveal text-center mb-8">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
+            <Zap className="size-3.5 text-[var(--orange)]" />
+            <span className="text-muted-foreground">Work History</span>
+          </div>
+          <h2 className="text-3xl md:text-5xl font-bold mb-3">
+            <span className="text-gradient">ប្រវត្តិ</span>ការងារ
+          </h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">
+            បទពិសោធន៍ការងាររបស់ខ្ញុំនៅ E-GetS Technology Co., Ltd.
+          </p>
+        </div>
+
+        {/* Company badge */}
+        <div className="flex justify-center mb-6">
+          <div className="glass rounded-2xl px-6 py-4 flex items-center gap-4 max-w-sm w-full">
+            <div className="size-12 rounded-xl bg-orange-500/10 border border-orange-500/20 grid place-items-center shrink-0">
+              <Zap className="size-5 text-orange-400" />
+            </div>
+            <div>
+              <p className="font-bold text-sm">E-GetS Technology Co., Ltd.</p>
+              <p className="text-xs text-muted-foreground mt-0.5">Sihanoukville, Cambodia</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Photo grid */}
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+          {WORK_IMAGES.map((img, i) => (
+            <button
+              key={i}
+              onClick={() => setSelected(i)}
+              className="group relative aspect-square rounded-2xl overflow-hidden glass focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cyan)] animate-fade-up"
+              style={{ animationDelay: `${i * 0.05}s` }}
+            >
+              <img
+                src={img.src}
+                alt={img.caption}
+                className="size-full object-cover transition-transform duration-500 group-hover:scale-110"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2">
+                <p className="text-white text-[10px] leading-tight font-medium">{img.caption}</p>
+              </div>
+            </button>
+          ))}
+        </div>
+
+        {/* Lightbox */}
+        {selected !== null && (
+          <div
+            className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setSelected(null)}
+          >
+            <div
+              className="relative max-w-2xl w-full rounded-2xl overflow-hidden shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img
+                src={WORK_IMAGES[selected].src}
+                alt={WORK_IMAGES[selected].caption}
+                className="w-full object-contain max-h-[80vh]"
+              />
+              <div className="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent px-4 py-3">
+                <p className="text-white text-sm font-medium">{WORK_IMAGES[selected].caption}</p>
+              </div>
+              {/* Prev / Next */}
+              <button
+                onClick={() => setSelected((s) => (s! > 0 ? s! - 1 : WORK_IMAGES.length - 1))}
+                className="absolute left-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition"
+              >‹</button>
+              <button
+                onClick={() => setSelected((s) => (s! < WORK_IMAGES.length - 1 ? s! + 1 : 0))}
+                className="absolute right-2 top-1/2 -translate-y-1/2 size-9 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition"
+              >›</button>
+              <button
+                onClick={() => setSelected(null)}
+                className="absolute top-2 right-2 size-8 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-black/70 transition text-lg leading-none"
+              >×</button>
+            </div>
+          </div>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen">
@@ -512,6 +620,7 @@ function Index() {
         <main>
           <Hero />
           <Bots />
+          <Work />
           <About />
         </main>
         <Footer />
