@@ -329,14 +329,6 @@ function Bots() {
                 {/* Name */}
                 <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
 
-                {/* Open button */}
-                <div
-                  className="relative z-10 flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-200"
-                  style={{ background: `${accentColor}22`, color: accentColor }}
-                >
-                  <Send className="size-3" />
-                  Open
-                </div>
               </a>
             );
           })}
