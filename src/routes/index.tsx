@@ -482,36 +482,40 @@ function Footer() {
   );
 }
 
-function LotusPetal({ angle, length, width, opacity }: { angle: number; length: number; width: number; opacity: number }) {
-  const hw = width / 2;
-  const d = `M 100 100 C ${100 - hw * 1.5} ${100 - length * 0.22} ${100 - hw * 1.15} ${100 - length * 0.68} 100 ${100 - length} C ${100 + hw * 1.15} ${100 - length * 0.68} ${100 + hw * 1.5} ${100 - length * 0.22} 100 100 Z`;
-  return <path d={d} transform={`rotate(${angle} 100 100)`} opacity={opacity} />;
-}
-
 function LotusIcon({ className }: { className?: string }) {
-  const outerAngles = Array.from({ length: 8 }, (_, i) => i * 45);
-  const midAngles   = Array.from({ length: 8 }, (_, i) => i * 45 + 22.5);
-  const innerAngles = Array.from({ length: 8 }, (_, i) => i * 45);
+  // Petal with explicitly ROUNDED tip using quadratic bezier — clearly lotus, not star
+  // Outer: long petal, rounded tip, wide belly
+  const p1 = "M100 100 C118 88 120 62 109 34 Q104 22 100 24 Q96 22 91 34 C80 62 82 88 100 100Z";
+  // Mid: medium petal, same rounded tip
+  const p2 = "M100 100 C115 91 116 72 107 50 Q103 40 100 42 Q97 40 93 50 C84 72 85 91 100 100Z";
+  // Inner: short, round-tipped
+  const p3 = "M100 100 C110 94 111 83 105 68 Q102 61 100 62 Q98 61 95 68 C89 83 90 94 100 100Z";
+
+  const outer = Array.from({ length: 8 }, (_, i) => i * 45);
+  const mid   = Array.from({ length: 8 }, (_, i) => i * 45 + 22.5);
+  const inner = Array.from({ length: 8 }, (_, i) => i * 45);
+
   return (
     <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
-      {outerAngles.map(a => <LotusPetal key={`o${a}`} angle={a} length={70} width={30} opacity={0.50} />)}
-      {midAngles.map(a  => <LotusPetal key={`m${a}`} angle={a} length={52} width={24} opacity={0.65} />)}
-      {innerAngles.map(a => <LotusPetal key={`i${a}`} angle={a} length={32} width={16} opacity={0.80} />)}
-      <circle cx="100" cy="100" r="9" opacity={0.90} />
+      {outer.map(a => <path key={`o${a}`} d={p1} transform={`rotate(${a} 100 100)`} opacity={0.48} />)}
+      {mid.map(a   => <path key={`m${a}`} d={p2} transform={`rotate(${a} 100 100)`} opacity={0.66} />)}
+      {inner.map(a => <path key={`i${a}`} d={p3} transform={`rotate(${a} 100 100)`} opacity={0.85} />)}
+      <circle cx="100" cy="100" r="8" opacity={0.96} />
     </svg>
   );
 }
 
 function LotusBackground() {
+  const c = "var(--lotus-color)";
   const flowers = [
-    { top: "-8%",  left: "68%",  size: 480, color: "var(--cyan)",    opacity: 0.045, delay: "0s",  dur: "22s", rotate: "15deg"  },
-    { top: "28%",  left: "-10%", size: 360, color: "var(--orange)",  opacity: 0.040, delay: "4s",  dur: "26s", rotate: "-20deg" },
-    { top: "60%",  left: "78%",  size: 320, color: "var(--primary)", opacity: 0.040, delay: "8s",  dur: "20s", rotate: "40deg"  },
-    { top: "82%",  left: "15%",  size: 240, color: "var(--cyan)",    opacity: 0.035, delay: "2s",  dur: "30s", rotate: "-8deg"  },
-    { top: "10%",  left: "3%",   size: 200, color: "var(--primary)", opacity: 0.035, delay: "6s",  dur: "28s", rotate: "-35deg" },
+    { top: "-6%",  left: "66%",  size: 480, color: c, opacity: 0.13, delay: "0s",  dur: "22s", rotate: "15deg"  },
+    { top: "26%",  left: "-9%",  size: 360, color: c, opacity: 0.11, delay: "4s",  dur: "26s", rotate: "-20deg" },
+    { top: "58%",  left: "76%",  size: 320, color: c, opacity: 0.11, delay: "8s",  dur: "20s", rotate: "40deg"  },
+    { top: "80%",  left: "13%",  size: 240, color: c, opacity: 0.10, delay: "2s",  dur: "30s", rotate: "-8deg"  },
+    { top: "8%",   left: "2%",   size: 200, color: c, opacity: 0.10, delay: "6s",  dur: "28s", rotate: "-35deg" },
   ];
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+    <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 1 }} aria-hidden="true">
       {flowers.map((f, i) => (
         <div
           key={i}
@@ -520,11 +524,11 @@ function LotusBackground() {
             top: f.top, left: f.left,
             width: f.size, height: f.size,
             color: f.color,
+            opacity: f.opacity,
             ["--lo" as string]: f.opacity,
             ["--lr" as string]: f.rotate,
             ["--ld" as string]: f.dur,
             animationDelay: f.delay,
-            filter: `blur(${i < 3 ? 1 : 0.5}px)`,
           }}
         >
           <LotusIcon className="size-full" />
@@ -538,15 +542,17 @@ function Index() {
   return (
     <div className="min-h-screen">
       <LotusBackground />
-      <Nav />
-      <main>
-        <Hero />
-        <Bots />
-        <QrSection />
-        <About />
-        <Contact />
-      </main>
-      <Footer />
+      <div className="relative" style={{ zIndex: 2 }}>
+        <Nav />
+        <main>
+          <Hero />
+          <Bots />
+          <QrSection />
+          <About />
+          <Contact />
+        </main>
+        <Footer />
+      </div>
     </div>
   );
 }
