@@ -513,6 +513,7 @@ const COL1 = [
 ];
 const COL2 = [
   { src: "/work2.jpg",  caption: "ពិធីប្រគល់រង្វាន់ E-GetS" },
+  { src: "/work11.jpg", caption: "គំរូ 3D E-GetS Rider" },
   { src: "/work3.jpg",  caption: "ក្រុម Rider E-GetS ត្រៀមខ្លួន" },
   { src: "/work6.jpg",  caption: "សកម្មភាពសម្អាតបរិស្ថាន" },
   { src: "/work8.jpg",  caption: "សកម្មភាពសម្អាតជាមួយក្រុម" },
