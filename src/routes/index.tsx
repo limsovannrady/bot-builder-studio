@@ -280,12 +280,9 @@ function Hero() {
   );
 }
 
-function Bots() {
+function Bots({ onOpenBot }: { onOpenBot: (i: number) => void }) {
   const headRef = useScrollReveal();
   const listRef = useScrollReveal();
-  const [activeBot, setActiveBot] = useState<number | null>(null);
-
-  const openBot = activeBot !== null ? bots[activeBot] : null;
 
   return (
     <section id="bots" className="scroll-mt-24 py-10">
@@ -305,7 +302,7 @@ function Bots() {
             return (
               <button
                 key={b.name}
-                onClick={() => setActiveBot(i)}
+                onClick={() => onOpenBot(i)}
                 className="group relative glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-2 animate-fade-up text-left w-full"
                 style={{
                   animationDelay: `${i * 0.08}s`,
@@ -322,13 +319,11 @@ function Bots() {
                   (e.currentTarget as HTMLElement).style.borderColor = `${accentColor}30`;
                 }}
               >
-                {/* Ambient glow background */}
                 <div
                   className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl"
                   style={{ background: `radial-gradient(circle at 50% 30%, ${accentColor}18, transparent 70%)` }}
                 />
 
-                {/* Thumbnail with glow ring */}
                 <div className="relative size-16 rounded-2xl overflow-hidden shrink-0 z-10">
                   <div
                     className="absolute -inset-1 rounded-2xl blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300"
@@ -337,13 +332,10 @@ function Bots() {
                   <img src={b.img} alt={b.name} className="relative size-full object-cover group-hover:scale-110 transition-transform duration-500" />
                 </div>
 
-                {/* Name */}
                 <h3 className="font-semibold text-sm text-center leading-snug z-10">{b.name}</h3>
 
-                {/* Desc */}
                 <p className="text-[10px] text-muted-foreground text-center leading-snug z-10 line-clamp-2">{b.desc}</p>
 
-                {/* Try button */}
                 <div
                   className="z-10 flex items-center gap-1 text-[10px] font-semibold px-2.5 py-1 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 -mb-1"
                   style={{ background: `${accentColor}22`, color: accentColor }}
@@ -355,20 +347,6 @@ function Bots() {
           })}
         </div>
       </div>
-
-      {openBot && (
-        <BotModal
-          open={activeBot !== null}
-          onClose={() => setActiveBot(null)}
-          botName={openBot.name}
-          botUsername={openBot.username}
-          botImg={openBot.img}
-          telegramLink={openBot.link}
-          accentColor={openBot.accentVar}
-        >
-          <openBot.demo />
-        </BotModal>
-      )}
     </section>
   );
 }
@@ -649,6 +627,9 @@ function Snow() {
 }
 
 function Index() {
+  const [activeBot, setActiveBot] = useState<number | null>(null);
+  const openBot = activeBot !== null ? bots[activeBot] : null;
+
   return (
     <div className="min-h-screen">
       <Snow />
@@ -657,11 +638,27 @@ function Index() {
         <Nav />
         <main>
           <Hero />
-          <Bots />
+          <Bots onOpenBot={setActiveBot} />
           <About />
         </main>
         <Footer />
       </div>
+
+      {bots.map((b, i) => (
+        <BotModal
+          key={b.name}
+          open={activeBot === i}
+          onClose={() => setActiveBot(null)}
+          botName={b.name}
+          botUsername={b.username}
+          botDesc={b.desc}
+          botImg={b.img}
+          telegramLink={b.link}
+          accentColor={b.accentVar}
+        >
+          {activeBot === i && <b.demo />}
+        </BotModal>
+      ))}
     </div>
   );
 }

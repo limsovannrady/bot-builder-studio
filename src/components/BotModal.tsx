@@ -1,22 +1,21 @@
-import { useEffect, useRef, type ReactNode } from "react";
-import { X, Send } from "lucide-react";
+import { useEffect, type ReactNode } from "react";
+import { ArrowLeft, Send } from "lucide-react";
 
-interface BotModalProps {
+interface BotPageProps {
   open: boolean;
   onClose: () => void;
   botName: string;
   botUsername: string;
+  botDesc: string;
   botImg: string;
   telegramLink: string;
   accentColor: string;
   children: ReactNode;
 }
 
-export default function BotModal({
-  open, onClose, botName, botUsername, botImg, telegramLink, accentColor, children,
-}: BotModalProps) {
-  const overlayRef = useRef<HTMLDivElement>(null);
-
+export default function BotPage({
+  open, onClose, botName, botUsername, botDesc, botImg, telegramLink, accentColor, children,
+}: BotPageProps) {
   useEffect(() => {
     if (!open) return;
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -28,54 +27,66 @@ export default function BotModal({
     };
   }, [open, onClose]);
 
-  if (!open) return null;
-
   return (
     <div
-      ref={overlayRef}
-      className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-0 sm:p-4"
-      onClick={e => { if (e.target === overlayRef.current) onClose(); }}
+      className="fixed inset-0 z-[200] flex flex-col"
+      style={{
+        background: "var(--background)",
+        transform: open ? "translateX(0)" : "translateX(100%)",
+        transition: "transform 0.35s cubic-bezier(0.4, 0, 0.2, 1)",
+        visibility: open ? "visible" : "hidden",
+      }}
     >
-      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-
+      {/* Top bar */}
       <div
-        className="relative w-full sm:max-w-lg max-h-[92dvh] sm:max-h-[88vh] rounded-t-3xl sm:rounded-3xl flex flex-col overflow-hidden shadow-2xl"
+        className="shrink-0 flex items-center gap-3 px-4 py-3 border-b border-border"
         style={{
-          background: "var(--card)",
-          border: `1px solid ${accentColor}40`,
-          boxShadow: `0 0 60px -10px ${accentColor}30`,
+          background: `linear-gradient(135deg, ${accentColor}15, var(--background) 60%)`,
         }}
       >
-        <div
-          className="shrink-0 flex items-center gap-3 px-5 py-4 border-b border-border"
-          style={{ background: `linear-gradient(135deg, ${accentColor}12, transparent)` }}
+        <button
+          onClick={onClose}
+          className="shrink-0 flex items-center gap-2 px-3 py-2 rounded-xl border border-border bg-secondary/50 hover:bg-secondary text-sm font-medium transition-colors"
         >
-          <div className="relative size-11 rounded-2xl overflow-hidden shrink-0">
-            <div className="absolute -inset-1 rounded-2xl blur-md opacity-60" style={{ background: accentColor }} />
+          <ArrowLeft className="size-4" />
+          <span className="hidden sm:inline">ត្រឡប់ក្រោយ</span>
+        </button>
+
+        <div className="flex items-center gap-3 flex-1 min-w-0">
+          <div className="relative size-10 rounded-2xl overflow-hidden shrink-0">
+            <div
+              className="absolute -inset-1 rounded-2xl blur-md opacity-50"
+              style={{ background: accentColor }}
+            />
             <img src={botImg} alt={botName} className="relative size-full object-cover" />
           </div>
-          <div className="flex-1 min-w-0">
-            <h3 className="font-bold text-base leading-tight">{botName}</h3>
-            <p className="text-xs text-muted-foreground truncate">{botUsername}</p>
+          <div className="min-w-0">
+            <h2 className="font-bold text-sm sm:text-base leading-tight truncate">{botName}</h2>
+            <p className="text-[11px] text-muted-foreground truncate">{botUsername}</p>
           </div>
-          <a
-            href={telegramLink}
-            target="_blank"
-            rel="noreferrer"
-            className="shrink-0 flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-semibold text-white transition hover:opacity-80"
-            style={{ background: accentColor }}
-          >
-            <Send className="size-3.5" /> Telegram
-          </a>
-          <button
-            onClick={onClose}
-            className="shrink-0 size-8 rounded-xl bg-secondary/60 flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
-          >
-            <X className="size-4" />
-          </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <a
+          href={telegramLink}
+          target="_blank"
+          rel="noreferrer"
+          className="shrink-0 flex items-center gap-1.5 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-80 active:scale-95"
+          style={{ background: accentColor }}
+        >
+          <Send className="size-3.5" />
+          <span>Telegram</span>
+        </a>
+      </div>
+
+      {/* Accent strip */}
+      <div className="h-0.5 shrink-0" style={{ background: `linear-gradient(90deg, ${accentColor}, transparent)` }} />
+
+      {/* Scrollable content */}
+      <div className="flex-1 overflow-y-auto">
+        <div className="mx-auto max-w-lg px-4 py-6">
+          {botDesc && (
+            <p className="text-sm text-muted-foreground mb-5 text-center">{botDesc}</p>
+          )}
           {children}
         </div>
       </div>
