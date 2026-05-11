@@ -482,9 +482,62 @@ function Footer() {
   );
 }
 
+function LotusPetal({ angle, length, width, opacity }: { angle: number; length: number; width: number; opacity: number }) {
+  const hw = width / 2;
+  const d = `M 100 100 C ${100 - hw * 1.5} ${100 - length * 0.22} ${100 - hw * 1.15} ${100 - length * 0.68} 100 ${100 - length} C ${100 + hw * 1.15} ${100 - length * 0.68} ${100 + hw * 1.5} ${100 - length * 0.22} 100 100 Z`;
+  return <path d={d} transform={`rotate(${angle} 100 100)`} opacity={opacity} />;
+}
+
+function LotusIcon({ className }: { className?: string }) {
+  const outerAngles = Array.from({ length: 8 }, (_, i) => i * 45);
+  const midAngles   = Array.from({ length: 8 }, (_, i) => i * 45 + 22.5);
+  const innerAngles = Array.from({ length: 8 }, (_, i) => i * 45);
+  return (
+    <svg viewBox="0 0 200 200" fill="currentColor" xmlns="http://www.w3.org/2000/svg" className={className}>
+      {outerAngles.map(a => <LotusPetal key={`o${a}`} angle={a} length={70} width={30} opacity={0.50} />)}
+      {midAngles.map(a  => <LotusPetal key={`m${a}`} angle={a} length={52} width={24} opacity={0.65} />)}
+      {innerAngles.map(a => <LotusPetal key={`i${a}`} angle={a} length={32} width={16} opacity={0.80} />)}
+      <circle cx="100" cy="100" r="9" opacity={0.90} />
+    </svg>
+  );
+}
+
+function LotusBackground() {
+  const flowers = [
+    { top: "-8%",  left: "68%",  size: 480, color: "var(--cyan)",    opacity: 0.045, delay: "0s",  dur: "22s", rotate: "15deg"  },
+    { top: "28%",  left: "-10%", size: 360, color: "var(--orange)",  opacity: 0.040, delay: "4s",  dur: "26s", rotate: "-20deg" },
+    { top: "60%",  left: "78%",  size: 320, color: "var(--primary)", opacity: 0.040, delay: "8s",  dur: "20s", rotate: "40deg"  },
+    { top: "82%",  left: "15%",  size: 240, color: "var(--cyan)",    opacity: 0.035, delay: "2s",  dur: "30s", rotate: "-8deg"  },
+    { top: "10%",  left: "3%",   size: 200, color: "var(--primary)", opacity: 0.035, delay: "6s",  dur: "28s", rotate: "-35deg" },
+  ];
+  return (
+    <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10" aria-hidden="true">
+      {flowers.map((f, i) => (
+        <div
+          key={i}
+          className="lotus-float absolute"
+          style={{
+            top: f.top, left: f.left,
+            width: f.size, height: f.size,
+            color: f.color,
+            ["--lo" as string]: f.opacity,
+            ["--lr" as string]: f.rotate,
+            ["--ld" as string]: f.dur,
+            animationDelay: f.delay,
+            filter: `blur(${i < 3 ? 1 : 0.5}px)`,
+          }}
+        >
+          <LotusIcon className="size-full" />
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function Index() {
   return (
     <div className="min-h-screen">
+      <LotusBackground />
       <Nav />
       <main>
         <Hero />
