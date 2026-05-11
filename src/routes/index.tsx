@@ -134,57 +134,57 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="scroll-mt-24 pt-32 md:pt-40 pb-20">
-      <div className="mx-auto max-w-6xl px-4 grid md:grid-cols-2 gap-12 items-center">
-        <div className="order-2 md:order-1 flex justify-center md:justify-start animate-fade-up">
-          <div className="relative">
-            <div className="absolute -inset-6 bg-gradient-hero rounded-full blur-3xl opacity-40 animate-glow" />
-            <div className="relative size-64 md:size-80 rounded-full overflow-hidden ring-4 ring-primary/40 shadow-glow animate-float">
-              <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
+    <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
+      <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center animate-fade-up">
+
+        {/* Profile photo */}
+        <div className="relative mb-6">
+          <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
+          <div className="relative size-28 md:size-36 rounded-full overflow-hidden ring-2 ring-primary/50 shadow-glow">
+            <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
+          </div>
+        </div>
+
+        {/* Name & title */}
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-2">
+          <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span>
+        </h1>
+        <p className="text-base md:text-lg text-muted-foreground font-medium mb-2">
+          អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
+        </p>
+        <p className="text-sm text-muted-foreground/80 mb-8 leading-relaxed max-w-lg">
+          ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
+        </p>
+
+        {/* Buttons */}
+        <div className="flex flex-wrap gap-3 justify-center mb-10">
+          <a
+            href="#bots"
+            onClick={(e) => smoothScroll(e, "bots")}
+            className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform text-sm"
+          >
+            <Bot className="size-4" /> សាកល្បង Bots
+          </a>
+          <a
+            href={TELEGRAM}
+            target="_blank"
+            rel="noreferrer"
+            className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors text-sm"
+          >
+            <Send className="size-4 text-[var(--orange)]" /> ទាក់ទងតាម Telegram
+          </a>
+        </div>
+
+        {/* Stats */}
+        <div className="grid grid-cols-3 gap-3 w-full max-w-sm">
+          {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
+            <div key={s.l} className="glass rounded-xl py-3 px-2 text-center">
+              <div className="text-lg font-bold text-gradient">{s.n}</div>
+              <div className="text-xs text-muted-foreground mt-0.5">{s.l}</div>
             </div>
-          </div>
+          ))}
         </div>
 
-        <div className="order-1 md:order-2 text-center md:text-left animate-fade-up" style={{ animationDelay: "0.1s" }}>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
-            សួស្តី! ខ្ញុំឈ្មោះ <br />
-            <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span> 👋
-          </h1>
-          <p className="text-lg md:text-xl text-muted-foreground mb-3 font-medium">
-            អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
-          </p>
-          <p className="text-base text-muted-foreground/90 mb-8 leading-relaxed max-w-xl">
-            ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
-          </p>
-          <div className="flex flex-wrap gap-3 justify-center md:justify-start">
-            <a
-              href="#bots"
-              onClick={(e) => smoothScroll(e, "bots")}
-              aria-label="រំកិលទៅផ្នែក Bots ដើម្បីសាកល្បង"
-              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform"
-            >
-              <Bot className="size-5" aria-hidden="true" /> សាកល្បង Bots របស់ខ្ញុំ
-            </a>
-            <a
-              href={TELEGRAM}
-              target="_blank"
-              rel="noreferrer"
-              aria-label="ទាក់ទងតាម Telegram (បើកក្នុងផ្ទាំងថ្មី)"
-              className="focus-ring inline-flex items-center gap-2 px-6 py-3 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors"
-            >
-              <Send className="size-5 text-[var(--orange)]" aria-hidden="true" /> ទាក់ទងតាម Telegram
-            </a>
-          </div>
-
-          <div className="grid grid-cols-3 gap-4 mt-10 max-w-md mx-auto md:mx-0">
-            {[{n:"3+",l:"Bots"},{n:"1K+",l:"អ្នកប្រើ"},{n:"24/7",l:"ដំណើរការ"}].map((s) => (
-              <div key={s.l} className="glass rounded-xl p-3 text-center">
-                <div className="text-xl font-bold text-gradient">{s.n}</div>
-                <div className="text-xs text-muted-foreground mt-1">{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </section>
   );
