@@ -86,13 +86,13 @@ function Nav() {
           <a
             href="#home"
             onClick={(e) => smoothScroll(e, "home")}
-            aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរដ្យ"
+            aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរ៉ាឌី"
             className="focus-ring flex items-center gap-2 font-bold rounded-lg"
           >
             <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
               <Bot className="size-4 text-white" aria-hidden="true" />
             </div>
-            <span className="text-gradient">សុវណ្ណរដ្យ</span>
+            <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
           <div className="hidden md:flex items-center gap-1 text-sm">
             {NAV_LINKS.map((l) => {
@@ -140,7 +140,7 @@ function Hero() {
           <div className="relative">
             <div className="absolute -inset-6 bg-gradient-hero rounded-full blur-3xl opacity-40 animate-glow" />
             <div className="relative size-64 md:size-80 rounded-full overflow-hidden ring-4 ring-primary/40 shadow-glow animate-float">
-              <img src={AVATAR} alt="លីម សុវណ្ណរដ្យ" className="size-full object-cover" />
+              <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
             </div>
           </div>
         </div>
@@ -148,7 +148,7 @@ function Hero() {
         <div className="order-1 md:order-2 text-center md:text-left animate-fade-up" style={{ animationDelay: "0.1s" }}>
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4">
             សួស្តី! ខ្ញុំឈ្មោះ <br />
-            <span className="text-gradient">លីម សុវណ្ណរដ្យ</span> 👋
+            <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span> 👋
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-3 font-medium">
             អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
@@ -348,7 +348,7 @@ function Footer() {
   return (
     <footer className="py-10 border-t border-border">
       <div className="mx-auto max-w-6xl px-4 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-        <div>© 2026 លីម សុវណ្ណរដ្យ — រក្សាសិទ្ធិគ្រប់យ៉ាង</div>
+        <div>© 2026 លឹម សុវណ្ណរ៉ាឌី — រក្សាសិទ្ធិគ្រប់យ៉ាង</div>
       </div>
     </footer>
   );
