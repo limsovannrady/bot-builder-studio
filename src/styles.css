@@ -70,11 +70,14 @@
 
 @layer base {
   * { border-color: var(--color-border); }
-  html { scroll-behavior: smooth; }
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Kantumruy Pro', sans-serif;
+  }
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-sans);
+    font-family: 'Kantumruy Pro', sans-serif;
     background-image:
       radial-gradient(circle at 15% 20%, oklch(0.62 0.19 245 / 0.18), transparent 45%),
       radial-gradient(circle at 85% 70%, oklch(0.78 0.18 55 / 0.12), transparent 50%),
