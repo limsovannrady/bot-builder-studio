@@ -38,15 +38,6 @@ function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
 }
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "លីម សុវណ្ណរដ្យ — អ្នកអភិវឌ្ឍន៍ Telegram Bot" },
-      { name: "description", content: "បង្កើត Telegram bots ដ៏ឆ្លាតវៃ — បំលែងអត្ថបទទៅសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើន។" },
-      { property: "og:title", content: "លីម សុវណ្ណរដ្យ — Telegram Bot Developer" },
-      { property: "og:description", content: "បង្កើត Telegram bots ដ៏ឆ្លាតវៃ និងមានអានុភាព។" },
-      { property: "og:image", content: "https://i.ibb.co/RTRWzWt7/x.jpg" },
-    ],
-  }),
   component: Index,
 });
 
