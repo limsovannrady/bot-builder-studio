@@ -1,5 +1,41 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Bot, Send, Sparkles, MessageCircle, Mic, Languages, Zap, Heart } from "lucide-react";
+import { useEffect, useState } from "react";
+
+const NAV_LINKS = [
+  { id: "home", label: "ទំព័រដើម" },
+  { id: "bots", label: "Bots" },
+  { id: "about", label: "អំពីខ្ញុំ" },
+  { id: "contact", label: "ទាក់ទង" },
+];
+
+function useActiveSection() {
+  const [active, setActive] = useState("home");
+  useEffect(() => {
+    const sections = NAV_LINKS.map((l) => document.getElementById(l.id)).filter(Boolean) as HTMLElement[];
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+        if (visible[0]) setActive(visible[0].target.id);
+      },
+      { rootMargin: "-40% 0px -50% 0px", threshold: [0, 0.25, 0.5, 0.75, 1] }
+    );
+    sections.forEach((s) => observer.observe(s));
+    return () => observer.disconnect();
+  }, []);
+  return active;
+}
+
+function smoothScroll(e: React.MouseEvent<HTMLAnchorElement>, id: string) {
+  e.preventDefault();
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth", block: "start" });
+    history.replaceState(null, "", `#${id}`);
+  }
+}
 
 export const Route = createFileRoute("/")({
   head: () => ({
