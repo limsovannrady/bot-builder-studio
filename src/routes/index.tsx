@@ -216,7 +216,7 @@ function Nav() {
 function Hero() {
   return (
     <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
-      <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center animate-fade-up">
+      <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center">
 
         {/* Profile photo */}
         <div className="relative mb-6">
@@ -275,7 +275,7 @@ function Bots() {
   return (
     <section id="bots" className="scroll-mt-24 py-20">
       <div className="mx-auto max-w-6xl px-4">
-        <div className="text-center mb-14 animate-fade-up">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
             <Bot className="size-3.5 text-[var(--cyan)]" />
             <span className="text-muted-foreground">My Bots</span>
