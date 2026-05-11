@@ -2,37 +2,47 @@ import { useState, useRef, useEffect } from "react";
 import { Play, Square, Volume2, Loader2 } from "lucide-react";
 
 const VOICE_PRESETS = [
-  { lang: "km",    gtts: "km",    label: "ខ្មែរ 🇰🇭",      sample: "សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។" },
-  { lang: "en",    gtts: "en",    label: "English 🇺🇸",     sample: "Hello! I am Sovannrady's AI Voice Bot." },
-  { lang: "zh-CN", gtts: "zh-CN", label: "中文 🇨🇳",         sample: "你好！我是Sovannrady的AI语音机器人。" },
-  { lang: "ja",    gtts: "ja",    label: "日本語 🇯🇵",       sample: "こんにちは！SovannradyのAI音声ボットです。" },
-  { lang: "ko",    gtts: "ko",    label: "한국어 🇰🇷",       sample: "안녕하세요! Sovannrady의 AI 음성 봇입니다." },
-  { lang: "th",    gtts: "th",    label: "ไทย 🇹🇭",         sample: "สวัสดี! ฉันคือ AI Voice Bot ของ Sovannrady" },
-  { lang: "fr",    gtts: "fr",    label: "Français 🇫🇷",    sample: "Bonjour! Je suis le robot vocal IA de Sovannrady." },
-  { lang: "vi",    gtts: "vi",    label: "Tiếng Việt 🇻🇳",  sample: "Xin chào! Tôi là bot giọng nói AI của Sovannrady." },
+  { lang: "km",    label: "ខ្មែរ 🇰🇭",      sample: "សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។" },
+  { lang: "en",    label: "English 🇺🇸",     sample: "Hello! I am Sovannrady's AI Voice Bot." },
+  { lang: "zh-CN", label: "中文 🇨🇳",         sample: "你好！我是Sovannrady的AI语音机器人。" },
+  { lang: "ja",    label: "日本語 🇯🇵",       sample: "こんにちは！SovannradyのAI音声ボットです。" },
+  { lang: "ko",    label: "한국어 🇰🇷",       sample: "안녕하세요! Sovannrady의 AI 음성 봇입니다." },
+  { lang: "th",    label: "ไทย 🇹🇭",         sample: "สวัสดี! ฉันคือ AI Voice Bot ของ Sovannrady" },
+  { lang: "fr",    label: "Français 🇫🇷",    sample: "Bonjour! Je suis le robot vocal IA de Sovannrady." },
+  { lang: "vi",    label: "Tiếng Việt 🇻🇳",  sample: "Xin chào! Tôi là bot giọng nói AI của Sovannrady." },
 ];
 
-function buildGoogleTTSUrl(text: string, lang: string, speed: number) {
-  const slow = speed < 0.8 ? "true" : "false";
-  return `https://translate.google.com/translate_tts?ie=UTF-8&q=${encodeURIComponent(text)}&tl=${lang}&client=tw-ob&slow=${slow}`;
+function buildTTSUrl(text: string, lang: string, slow: boolean) {
+  return `/api/tts?text=${encodeURIComponent(text)}&lang=${lang}&slow=${slow}`;
+}
+
+function splitText(text: string, max = 180): string[] {
+  if (text.length <= max) return [text];
+  const parts: string[] = [];
+  let rest = text;
+  while (rest.length > 0) {
+    let cut = rest.lastIndexOf(" ", max);
+    if (cut <= 0 || rest.length <= max) cut = Math.min(max, rest.length);
+    parts.push(rest.slice(0, cut).trim());
+    rest = rest.slice(cut).trim();
+  }
+  return parts.filter(Boolean);
 }
 
 export default function VoiceDemo() {
   const [text, setText] = useState("សួស្ដី! ខ្ញុំគឺជា AI Voice Bot របស់ Sovannrady។");
   const [preset, setPreset] = useState(VOICE_PRESETS[0]);
-  const [speed, setSpeed] = useState(1);
+  const [slow, setSlow] = useState(false);
   const [playing, setPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const stopRef = useRef(false);
 
-  useEffect(() => {
-    return () => {
-      audioRef.current?.pause();
-    };
-  }, []);
+  useEffect(() => () => { stop(); }, []);
 
   function stop() {
+    stopRef.current = true;
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current.src = "";
@@ -42,59 +52,40 @@ export default function VoiceDemo() {
     setLoading(false);
   }
 
+  async function playChunk(chunk: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const url = buildTTSUrl(chunk, preset.lang, slow);
+      const audio = new Audio(url);
+      audioRef.current = audio;
+      audio.oncanplay = () => { setLoading(false); setPlaying(true); };
+      audio.onended = () => resolve();
+      audio.onerror = () => reject(new Error("audio_error"));
+      audio.play().catch(reject);
+    });
+  }
+
   async function speak() {
-    if (!text.trim()) return;
     stop();
+    stopRef.current = false;
+    if (!text.trim()) return;
     setError("");
     setLoading(true);
 
-    const chunks = splitText(text, 180);
-    await playChunks(chunks, 0);
-  }
-
-  function splitText(t: string, max: number): string[] {
-    if (t.length <= max) return [t];
-    const parts: string[] = [];
-    let remaining = t;
-    while (remaining.length > 0) {
-      let cut = remaining.lastIndexOf(" ", max);
-      if (cut <= 0 || remaining.length <= max) cut = Math.min(max, remaining.length);
-      parts.push(remaining.slice(0, cut).trim());
-      remaining = remaining.slice(cut).trim();
-    }
-    return parts.filter(Boolean);
-  }
-
-  async function playChunks(chunks: string[], idx: number) {
-    if (idx >= chunks.length) {
-      setPlaying(false);
-      setLoading(false);
-      return;
-    }
-
-    const url = buildGoogleTTSUrl(chunks[idx], preset.gtts, speed);
-    const audio = new Audio(url);
-    audioRef.current = audio;
-
-    audio.oncanplay = () => {
-      setLoading(false);
-      setPlaying(true);
-    };
-    audio.onended = () => {
-      playChunks(chunks, idx + 1);
-    };
-    audio.onerror = () => {
-      setError("មិនអាចចាក់សំឡេងបានទេ សូមព្យាយាមម្ដងទៀត");
-      setPlaying(false);
-      setLoading(false);
-    };
-
+    const chunks = splitText(text);
     try {
-      await audio.play();
+      for (const chunk of chunks) {
+        if (stopRef.current) break;
+        await playChunk(chunk);
+      }
     } catch {
-      setError("Browser រារាំងការចាក់ Audio ។ សូម Allow Audio ក្នុង browser settings។");
-      setPlaying(false);
-      setLoading(false);
+      if (!stopRef.current) {
+        setError("មិនអាចចាក់សំឡេងបាន។ សូមពិនិត្យការតភ្ជាប់អ៊ីនធឺណិត ហើយព្យាយាមម្ដងទៀត។");
+      }
+    } finally {
+      if (!stopRef.current) {
+        setPlaying(false);
+        setLoading(false);
+      }
     }
   }
 
@@ -134,20 +125,24 @@ export default function VoiceDemo() {
         className="w-full rounded-xl border border-border bg-secondary/30 px-4 py-3 text-sm resize-none focus:outline-none focus:ring-2 focus:ring-green-500 placeholder:text-muted-foreground/60"
       />
 
-      <div>
-        <label className="text-xs text-muted-foreground mb-1 flex justify-between">
-          <span>ល្បឿន</span>
-          <span className="text-foreground">{speed < 0.8 ? "យឺត" : speed >= 1.5 ? "លឿន" : "ធម្មតា"}</span>
-        </label>
-        <input
-          type="range" min="0.5" max="2" step="0.5"
-          value={speed}
-          onChange={e => setSpeed(Number(e.target.value))}
-          className="w-full accent-green-500"
-        />
-        <div className="flex justify-between text-[10px] text-muted-foreground/60 mt-0.5">
-          <span>យឺត</span><span>ធម្មតា</span><span>លឿន</span>
-        </div>
+      <div className="flex items-center gap-3 px-1">
+        <span className="text-xs text-muted-foreground">ល្បឿន:</span>
+        <button
+          onClick={() => setSlow(false)}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+            !slow ? "bg-green-500/20 border-green-500 text-green-400" : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground hover:bg-secondary"
+          }`}
+        >
+          ធម្មតា
+        </button>
+        <button
+          onClick={() => setSlow(true)}
+          className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all border ${
+            slow ? "bg-green-500/20 border-green-500 text-green-400" : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground hover:bg-secondary"
+          }`}
+        >
+          យឺត
+        </button>
       </div>
 
       <button
