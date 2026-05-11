@@ -297,63 +297,37 @@ function Bots() {
           </p>
         </div>
 
-        <div ref={listRef} className="reveal mx-auto max-w-2xl flex flex-col gap-3">
+        <div ref={listRef} className="reveal grid grid-cols-2 md:grid-cols-4 gap-4 mx-auto max-w-3xl">
           {bots.map((b, i) => {
-            const Icon = b.icon;
             const accentColor =
               b.accent === "cyan"   ? "var(--cyan)" :
               b.accent === "orange" ? "var(--orange)" :
               b.accent === "green"  ? "oklch(0.72 0.19 145)" :
               "var(--primary)";
-            const iconBg =
-              b.accent === "cyan"
-                ? "bg-[oklch(0.82_0.15_200/15%)] text-[var(--cyan)]"
-                : b.accent === "orange"
-                ? "bg-[oklch(0.78_0.18_55/15%)] text-[var(--orange)]"
-                : b.accent === "green"
-                ? "bg-[oklch(0.72_0.19_145/15%)] text-[oklch(0.72_0.19_145)]"
-                : "bg-[oklch(0.62_0.19_245/15%)] text-[var(--primary)]";
             return (
               <a
                 key={b.name}
                 href={b.link}
                 target="_blank"
                 rel="noreferrer"
-                className="group relative glass rounded-2xl overflow-hidden flex items-center gap-4 p-3 transition-all duration-300 hover:-translate-y-0.5 animate-fade-up"
+                className="group glass rounded-2xl overflow-hidden flex flex-col items-center gap-3 p-4 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg animate-fade-up"
                 style={{ animationDelay: `${i * 0.08}s` }}
               >
-                {/* Left accent bar */}
-                <div className="absolute left-0 inset-y-0 w-0.5 rounded-full transition-all duration-300 group-hover:w-1" style={{ background: accentColor }} />
-
                 {/* Thumbnail */}
-                <div
-                  className="relative shrink-0 size-14 rounded-xl overflow-hidden bot-logo-float"
-                  style={{
-                    ["--bf-dur" as string]: `${4.5 + i * 0.7}s`,
-                    ["--bf-delay" as string]: `${i * 0.9}s`,
-                  }}
-                >
+                <div className="relative size-16 rounded-2xl overflow-hidden shrink-0">
                   <img src={b.img} alt={b.name} className="size-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  <div className="absolute inset-0 bg-gradient-to-br from-transparent to-black/30" />
                 </div>
 
-                {/* Icon badge */}
-                <div className={`shrink-0 size-9 rounded-xl ${iconBg} border border-white/10 grid place-items-center`}>
-                  <Icon className="size-4" />
-                </div>
+                {/* Name */}
+                <h3 className="font-semibold text-sm text-center leading-snug">{b.name}</h3>
 
-                {/* Text */}
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-sm leading-tight mb-0.5">{b.name}</h3>
-                  <p className="text-xs text-muted-foreground leading-snug line-clamp-1">{b.desc}</p>
-                </div>
-
-                {/* Arrow */}
+                {/* Open button */}
                 <div
-                  className="shrink-0 size-8 rounded-xl grid place-items-center transition-transform duration-200 group-hover:translate-x-0.5"
+                  className="flex items-center gap-1.5 text-xs font-medium px-3 py-1.5 rounded-full transition-all duration-200 group-hover:opacity-90"
                   style={{ background: `${accentColor}22`, color: accentColor }}
                 >
-                  <Send className="size-3.5" />
+                  <Send className="size-3" />
+                  Open
                 </div>
               </a>
             );
