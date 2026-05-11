@@ -87,27 +87,38 @@ const bots = [
 ];
 
 function Nav() {
+  const active = useActiveSection();
   return (
     <header className="fixed top-0 inset-x-0 z-50">
       <div className="mx-auto max-w-6xl px-4 py-4">
         <nav className="glass rounded-2xl px-5 py-3 flex items-center justify-between">
-          <a href="#home" className="flex items-center gap-2 font-bold">
+          <a href="#home" onClick={(e) => smoothScroll(e, "home")} className="flex items-center gap-2 font-bold">
             <div className="size-8 rounded-lg bg-gradient-hero grid place-items-center shadow-glow">
               <Bot className="size-4 text-white" />
             </div>
             <span className="text-gradient">សុវណ្ណរដ្យ</span>
           </a>
           <div className="hidden md:flex items-center gap-1 text-sm">
-            {[
-              { href: "#home", label: "ទំព័រដើម" },
-              { href: "#bots", label: "Bots" },
-              { href: "#about", label: "អំពីខ្ញុំ" },
-              { href: "#contact", label: "ទាក់ទង" },
-            ].map((l) => (
-              <a key={l.href} href={l.href} className="px-4 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-secondary/60 transition-colors">
-                {l.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((l) => {
+              const isActive = active === l.id;
+              return (
+                <a
+                  key={l.id}
+                  href={`#${l.id}`}
+                  onClick={(e) => smoothScroll(e, l.id)}
+                  className={`relative px-4 py-2 rounded-lg transition-colors ${
+                    isActive
+                      ? "text-foreground bg-secondary/70"
+                      : "text-muted-foreground hover:text-foreground hover:bg-secondary/60"
+                  }`}
+                >
+                  {l.label}
+                  {isActive && (
+                    <span className="absolute left-1/2 -translate-x-1/2 -bottom-0.5 h-0.5 w-6 rounded-full bg-gradient-hero" />
+                  )}
+                </a>
+              );
+            })}
           </div>
           <a href={TELEGRAM} target="_blank" rel="noreferrer" className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary text-primary-foreground text-sm font-medium hover:opacity-90 transition">
             <Send className="size-4" /> Telegram
