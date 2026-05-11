@@ -228,23 +228,21 @@ function Hero() {
     <section id="home" className="scroll-mt-24 pt-28 md:pt-36 pb-20">
       <div className="mx-auto max-w-2xl px-4 flex flex-col items-center text-center">
 
-        {/* Profile photo */}
-        <div className="relative mb-6">
-          <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
-          <div className="relative size-28 md:size-36 rounded-full overflow-hidden shadow-glow">
-            <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
-          </div>
+        {/* Tagline badge */}
+        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-6">
+          <Sparkles className="size-3.5 text-[var(--cyan)]" />
+          <span className="text-muted-foreground">Telegram Bot Developer</span>
         </div>
 
-        {/* Name & title */}
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-2">
-          <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span>
+        {/* Headline */}
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight mb-4">
+          <span className="text-gradient">បង្កើត Bots</span>{" "}
+          <span>ឆ្លាតវៃសម្រាប់</span>
+          <br />
+          <span>អ្នករាល់គ្នា</span>
         </h1>
-        <p className="text-base md:text-lg text-muted-foreground font-medium mb-2">
-          អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
-        </p>
         <p className="text-sm text-muted-foreground/80 mb-8 leading-relaxed max-w-lg">
-          ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
+          ស្វែងយល់ពី Telegram bots ដ៏មានអានុភាពដែលខ្ញុំបានបង្កើត សម្រាប់ជួយការងារប្រចាំថ្ងៃរបស់អ្នក។
         </p>
 
         {/* Buttons */}
@@ -257,15 +255,13 @@ function Hero() {
             <Bot className="size-4" /> សាកល្បង Bots
           </a>
           <a
-            href={TELEGRAM}
-            target="_blank"
-            rel="noreferrer"
+            href="#about"
+            onClick={(e) => smoothScroll(e, "about")}
             className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl glass font-semibold hover:border-[var(--orange)]/60 transition-colors text-sm"
           >
-            <Send className="size-4 text-[var(--orange)]" /> ទាក់ទងតាម Telegram
+            <MessageCircle className="size-4 text-[var(--orange)]" /> អំពីខ្ញុំ
           </a>
         </div>
-
 
       </div>
     </section>
@@ -368,21 +364,48 @@ function Bots() {
 function About() {
   return (
     <section id="about" className="scroll-mt-24 py-20">
-      <div className="mx-auto max-w-4xl px-4 text-center animate-fade-up">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs mb-4">
-          <Heart className="size-3.5 text-[var(--orange)]" />
-          <span className="text-muted-foreground">អំពីខ្ញុំ</span>
+      <div className="mx-auto max-w-4xl px-4 animate-fade-up">
+        <div className="flex justify-center mb-4">
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full glass text-xs">
+            <Heart className="size-3.5 text-[var(--orange)]" />
+            <span className="text-muted-foreground">អំពីខ្ញុំ</span>
+          </div>
         </div>
-        <h2 className="text-3xl md:text-5xl font-bold mb-6">
-          មនុស្សម្នាក់ <span className="text-gradient">ចូលចិត្តកូដ</span>
-        </h2>
-        <p className="text-lg text-muted-foreground leading-relaxed mb-4">
-          ខ្ញុំជាអ្នកអភិវឌ្ឍន៍ឯករាជ្យដែលមានចំណង់ចំណូលចិត្តក្នុងការបង្កើត Telegram bots ដ៏មានប្រយោជន៍ សម្រាប់សហគមន៍ខ្មែរ និងពិភពលោក។
-        </p>
-        <p className="text-muted-foreground leading-relaxed">
-          ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
-        </p>
 
+        {/* Profile card */}
+        <div className="glass rounded-3xl p-8 md:p-12 flex flex-col md:flex-row items-center gap-8 md:gap-12">
+          {/* Avatar */}
+          <div className="relative shrink-0">
+            <div className="absolute -inset-3 bg-gradient-hero rounded-full blur-2xl opacity-30" />
+            <div className="relative size-32 md:size-44 rounded-full overflow-hidden shadow-glow">
+              <img src={AVATAR} alt="លឹម សុវណ្ណរ៉ាឌី" className="size-full object-cover" />
+            </div>
+          </div>
+
+          {/* Info */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl font-bold leading-tight mb-2">
+              <span className="text-gradient">លឹម សុវណ្ណរ៉ាឌី</span>
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground font-medium mb-4">
+              អ្នកអភិវឌ្ឍន៍ Telegram Bot | បង្កើត Bots ឆ្លាតវៃ
+            </p>
+            <p className="text-sm text-muted-foreground/80 leading-relaxed mb-4">
+              ខ្ញុំបង្កើត Telegram bots ដ៏មានអានុភាព ដូចជា បំលែងអត្ថបទទៅជាសំឡេង បកប្រែភាសា និងមុខងារមានប្រយោជន៍ជាច្រើនទៀត។
+            </p>
+            <p className="text-sm text-muted-foreground/70 leading-relaxed mb-6">
+              ខ្ញុំជឿជាក់ថា បច្ចេកវិទ្យាល្អ គួរតែងាយស្រួលប្រើ និងជួយដោះស្រាយបញ្ហាជាក់ស្ដែងក្នុងជីវិតប្រចាំថ្ងៃ។
+            </p>
+            <a
+              href={TELEGRAM}
+              target="_blank"
+              rel="noreferrer"
+              className="focus-ring inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-hero text-white font-semibold shadow-glow hover:scale-[1.03] transition-transform text-sm"
+            >
+              <Send className="size-4" /> ទាក់ទងតាម Telegram
+            </a>
+          </div>
+        </div>
       </div>
     </section>
   );
