@@ -249,7 +249,7 @@ const BOTS = [
   {
     id: "autoreaction",
     name: "Auto Reaction Bot",
-    username: "@AutoReaction2026Bot",
+    username: "",
     img: "/auto-reaction-bot.jpg",
     telegramLink: MY_BOT_LINK,
     accentColor: "oklch(0.65 0.22 290)",
@@ -334,7 +334,7 @@ function BotsSection() {
               {/* Name + username */}
               <div className="text-center w-full">
                 <p className="text-sm font-bold leading-tight truncate">{bot.name}</p>
-                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{bot.username}</p>
+                {bot.username && <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{bot.username}</p>}
               </div>
 
               {/* Telegram button */}
