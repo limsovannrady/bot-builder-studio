@@ -256,7 +256,7 @@ const BOTS = [
     name: "Auto Reaction Bot",
     username: "@AutoReaction2026Bot",
     desc: "React Emoji ដោយស្វ័យប្រវត្តិទៅសារ Telegram — ជ្រើសសន្លប់ Emoji ហើយ Bot នឹង React ជំនួសអ្នក។",
-    img: "/logo-avatar.jpg",
+    img: "/auto-reaction-bot.jpg",
     telegramLink: MY_BOT_LINK,
     accentColor: "oklch(0.65 0.22 290)",
     cardClass: "bot-card-primary",
