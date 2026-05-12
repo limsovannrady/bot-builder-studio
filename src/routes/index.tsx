@@ -267,10 +267,10 @@ const BOTS = [
   {
     id: "translate",
     name: "Translate Bot",
-    username: "@SovannradyTransBot",
+    username: "@GoogleTranslate2026_Bot",
     desc: "បកប្រែអត្ថបទរវាងភាសា ខ្មែរ, English, 中文, 日本語 និងច្រើនទៀត — លឿន និងត្រឹមត្រូវ។",
-    img: "/logo-avatar.jpg",
-    telegramLink: TELEGRAM,
+    img: "/translate-bot.jpg",
+    telegramLink: "https://t.me/GoogleTranslate2026_Bot",
     accentColor: "oklch(0.82 0.15 200)",
     cardClass: "bot-card-cyan",
     icon: <Languages className="size-5" />,
