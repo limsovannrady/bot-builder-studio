@@ -1,11 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, Sun, Moon, Menu, X, Zap, QrCode, Languages, Mic } from "lucide-react";
+import { Send, Sun, Moon, Menu, X, Zap, Languages } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import BotPage from "@/components/BotModal";
 import AutoReactionDemo from "@/components/bot-demos/AutoReactionDemo";
-import QRDemo from "@/components/bot-demos/QRDemo";
 import TranslateDemo from "@/components/bot-demos/TranslateDemo";
-import VoiceDemo from "@/components/bot-demos/VoiceDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -276,32 +274,6 @@ const BOTS = [
     icon: <Languages className="size-5" />,
     tag: "🌐 Translate",
     demo: <TranslateDemo />,
-  },
-  {
-    id: "qr",
-    name: "QR Code Bot",
-    username: "@SovannradyQRBot",
-    desc: "បង្កើត QR Code ពី Link ឬអត្ថបទ, Scan QR Code ពីរូបភាព — ងាយស្រួល និងរហ័ស។",
-    img: "/logo-avatar.jpg",
-    telegramLink: TELEGRAM,
-    accentColor: "oklch(0.78 0.18 55)",
-    cardClass: "bot-card-orange",
-    icon: <QrCode className="size-5" />,
-    tag: "📱 QR Code",
-    demo: <QRDemo />,
-  },
-  {
-    id: "voice",
-    name: "Voice Bot",
-    username: "@limsovannradybot",
-    desc: "បំប្លែងអត្ថបទជាសំឡេង AI ភាសាខ្មែរ — ជ្រើសសំឡេងបុរស Piseth ឬ ស្ត្រី Sreymom។",
-    img: "/voice-bot.jpg",
-    telegramLink: "https://t.me/limsovannradybot",
-    accentColor: "oklch(0.72 0.19 145)",
-    cardClass: "bot-card-green",
-    icon: <Mic className="size-5" />,
-    tag: "🎙️ Voice",
-    demo: <VoiceDemo />,
   },
 ];
 
