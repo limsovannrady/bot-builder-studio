@@ -293,10 +293,10 @@ const BOTS = [
   {
     id: "voice",
     name: "Voice Bot",
-    username: "@SovannradyVoiceBot",
+    username: "@limsovannradybot",
     desc: "បំប្លែងអត្ថបទជាសំឡេង AI ភាសាខ្មែរ — ជ្រើសសំឡេងបុរស Piseth ឬ ស្ត្រី Sreymom។",
-    img: "/logo-avatar.jpg",
-    telegramLink: TELEGRAM,
+    img: "/voice-bot.jpg",
+    telegramLink: "https://t.me/limsovannradybot",
     accentColor: "oklch(0.72 0.19 145)",
     cardClass: "bot-card-green",
     icon: <Mic className="size-5" />,
