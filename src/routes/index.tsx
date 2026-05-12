@@ -253,7 +253,7 @@ const BOTS = [
     img: "/auto-reaction-bot.jpg",
     telegramLink: MY_BOT_LINK,
     accentColor: "oklch(0.65 0.22 290)",
-    tag: "⚡",
+    tag: "",
   },
   {
     id: "translate",
@@ -262,7 +262,7 @@ const BOTS = [
     img: "/translate-bot.jpg",
     telegramLink: "https://t.me/GoogleTranslate2026_Bot",
     accentColor: "oklch(0.82 0.15 200)",
-    tag: "🌐",
+    tag: "",
   },
 ];
 
@@ -323,12 +323,6 @@ function BotsSection() {
                   </div>
                 </div>
 
-                {/* Tag badge top-right */}
-                <span
-                  className="absolute -top-2 -right-2 text-base leading-none px-1.5 py-1 rounded-full shadow-sm bg-card border border-border/60"
-                >
-                  {bot.tag}
-                </span>
               </a>
 
               {/* Name + username */}
