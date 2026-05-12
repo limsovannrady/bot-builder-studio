@@ -1,9 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, Sun, Moon, Menu, X, Zap, Languages } from "lucide-react";
+import { Send, Sun, Moon, Menu, X, Zap } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import BotPage from "@/components/BotModal";
-import AutoReactionDemo from "@/components/bot-demos/AutoReactionDemo";
-import TranslateDemo from "@/components/bot-demos/TranslateDemo";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -253,35 +250,24 @@ const BOTS = [
     id: "autoreaction",
     name: "Auto Reaction Bot",
     username: "@AutoReaction2026Bot",
-    desc: "React Emoji ដោយស្វ័យប្រវត្តិទៅសារ Telegram — ជ្រើសសន្លប់ Emoji ហើយ Bot នឹង React ជំនួសអ្នក។",
     img: "/auto-reaction-bot.jpg",
     telegramLink: MY_BOT_LINK,
     accentColor: "oklch(0.65 0.22 290)",
-    cardClass: "bot-card-primary",
-    icon: <Zap className="size-5" />,
-    tag: "⚡ Auto Reaction",
-    demo: <AutoReactionDemo />,
+    tag: "⚡",
   },
   {
     id: "translate",
     name: "Translate Bot",
     username: "@GoogleTranslate2026_Bot",
-    desc: "បកប្រែអត្ថបទរវាងភាសា ខ្មែរ, English, 中文, 日本語 និងច្រើនទៀត — លឿន និងត្រឹមត្រូវ។",
     img: "/translate-bot.jpg",
     telegramLink: "https://t.me/GoogleTranslate2026_Bot",
     accentColor: "oklch(0.82 0.15 200)",
-    cardClass: "bot-card-cyan",
-    icon: <Languages className="size-5" />,
-    tag: "🌐 Translate",
-    demo: <TranslateDemo />,
+    tag: "🌐",
   },
 ];
 
 function BotsSection() {
   const ref = useScrollReveal();
-  const [openBot, setOpenBot] = useState<string | null>(null);
-
-  const activeBot = BOTS.find((b) => b.id === openBot) ?? null;
 
   return (
     <section id="bots" className="scroll-mt-24 py-16 px-4">
@@ -291,7 +277,7 @@ function BotsSection() {
             <span className="text-gradient">Bot</span> ទាំងអស់
           </h2>
           <p className="text-muted-foreground text-sm max-w-sm mx-auto">
-            សាកល្បង Demo ឥឡូវ — ឬ ចូល Telegram ដើម្បីប្រើពេញលេញ
+            ប្រើប្រាស់បានតែនៅលើ Telegram — ចុចដើម្បីចូលប្រើ Bot
           </p>
         </div>
 
@@ -301,17 +287,17 @@ function BotsSection() {
               key={bot.id}
               className="flex flex-col items-center gap-3 w-[140px] sm:w-[160px]"
             >
-              {/* App-icon tile */}
-              <button
-                onClick={() => setOpenBot(bot.id)}
+              {/* App-icon tile — links directly to Telegram */}
+              <a
+                href={bot.telegramLink}
+                target="_blank"
+                rel="noreferrer"
                 className="bot-icon-tile relative w-full aspect-square rounded-[28px] bg-card border border-border/60 shadow-md hover:shadow-xl transition-all duration-300 active:scale-95 overflow-visible"
                 style={{ transitionDelay: `${i * 60}ms` }}
-                aria-label={`Demo ${bot.name}`}
+                aria-label={bot.name}
               >
                 {/* Animated logo centered inside tile */}
-                <div
-                  className="absolute inset-0 flex items-center justify-center"
-                >
+                <div className="absolute inset-0 flex items-center justify-center">
                   <div
                     className="relative size-20 bot-logo-float"
                     style={{ ["--bf-dur" as string]: `${4.5 + i * 0.4}s`, ["--bf-delay" as string]: `${i * 0.3}s` }}
@@ -339,12 +325,11 @@ function BotsSection() {
 
                 {/* Tag badge top-right */}
                 <span
-                  className="absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"
-                  style={{ background: bot.accentColor, color: "oklch(0.15 0.04 290)" }}
+                  className="absolute -top-2 -right-2 text-base leading-none px-1.5 py-1 rounded-full shadow-sm bg-card border border-border/60"
                 >
-                  {bot.tag.split(" ")[0]}
+                  {bot.tag}
                 </span>
-              </button>
+              </a>
 
               {/* Name + username */}
               <div className="text-center w-full">
@@ -352,7 +337,7 @@ function BotsSection() {
                 <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{bot.username}</p>
               </div>
 
-              {/* Telegram link */}
+              {/* Telegram button */}
               <a
                 href={bot.telegramLink}
                 target="_blank"
@@ -365,23 +350,6 @@ function BotsSection() {
           ))}
         </div>
       </div>
-
-      {/* Bot Modals */}
-      {BOTS.map((bot) => (
-        <BotPage
-          key={bot.id}
-          open={openBot === bot.id}
-          onClose={() => setOpenBot(null)}
-          botName={bot.name}
-          botUsername={bot.username}
-          botDesc={bot.desc}
-          botImg={bot.img}
-          telegramLink={bot.telegramLink}
-          accentColor={bot.accentColor}
-        >
-          {bot.demo}
-        </BotPage>
-      ))}
     </section>
   );
 }
