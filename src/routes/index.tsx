@@ -295,73 +295,72 @@ function BotsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div className="flex flex-wrap justify-center gap-5">
           {BOTS.map((bot, i) => (
             <div
               key={bot.id}
-              className={`relative rounded-2xl p-5 bg-gradient-card transition-all duration-300 cursor-pointer hover-lift ${bot.cardClass}`}
-              style={{ transitionDelay: `${i * 60}ms` }}
+              className="flex flex-col items-center gap-3 w-[140px] sm:w-[160px]"
             >
-              {/* Tag */}
-              <span
-                className="inline-flex items-center gap-1.5 text-xs font-semibold px-3 py-1 rounded-full mb-4"
-                style={{ background: `${bot.accentColor}20`, color: bot.accentColor }}
+              {/* App-icon tile */}
+              <button
+                onClick={() => setOpenBot(bot.id)}
+                className="bot-icon-tile relative w-full aspect-square rounded-[28px] bg-card border border-border/60 shadow-md hover:shadow-xl transition-all duration-300 active:scale-95 overflow-visible"
+                style={{ transitionDelay: `${i * 60}ms` }}
+                aria-label={`Demo ${bot.name}`}
               >
-                {bot.tag}
-              </span>
-
-              <div className="flex items-start gap-4 mb-4">
-                {/* Bot logo */}
+                {/* Animated logo centered inside tile */}
                 <div
-                  className="relative size-14 shrink-0 bot-logo-float"
-                  style={{ ["--bf-dur" as string]: `${4.5 + i * 0.4}s`, ["--bf-delay" as string]: `${i * 0.3}s` }}
+                  className="absolute inset-0 flex items-center justify-center"
                 >
-                  {/* Glow behind */}
                   <div
-                    className="absolute -inset-1 rounded-2xl blur-lg opacity-55"
-                    style={{ background: bot.accentColor }}
-                  />
-                  {/* Spinning ring */}
-                  <div
-                    className="bot-logo-ring absolute inset-0 rounded-2xl"
-                    style={{ background: `conic-gradient(from 0deg, ${bot.accentColor} 0%, transparent 45%, ${bot.accentColor} 100%)` }}
-                  />
-                  {/* Image clipped inside ring */}
-                  <div className="absolute inset-[2.5px] rounded-xl overflow-hidden">
-                    <img src={bot.img} alt={bot.name} className="size-full object-cover" />
-                    {/* Shimmer sweep */}
+                    className="relative size-20 bot-logo-float"
+                    style={{ ["--bf-dur" as string]: `${4.5 + i * 0.4}s`, ["--bf-delay" as string]: `${i * 0.3}s` }}
+                  >
+                    {/* Glow */}
                     <div
-                      className="bot-logo-shimmer absolute inset-0"
-                      style={{ animationDelay: `${i * 0.9}s` }}
+                      className="absolute -inset-1 rounded-[22px] blur-lg opacity-50"
+                      style={{ background: bot.accentColor }}
                     />
+                    {/* Spinning ring */}
+                    <div
+                      className="bot-logo-ring absolute inset-0 rounded-[22px]"
+                      style={{ background: `conic-gradient(from 0deg, ${bot.accentColor} 0%, transparent 45%, ${bot.accentColor} 100%)` }}
+                    />
+                    {/* Image */}
+                    <div className="absolute inset-[2.5px] rounded-[19px] overflow-hidden">
+                      <img src={bot.img} alt={bot.name} className="size-full object-cover" />
+                      <div
+                        className="bot-logo-shimmer absolute inset-0"
+                        style={{ animationDelay: `${i * 0.9}s` }}
+                      />
+                    </div>
                   </div>
                 </div>
 
-                <div className="flex-1 min-w-0">
-                  <h3 className="font-bold text-base leading-tight">{bot.name}</h3>
-                  <p className="text-xs text-muted-foreground mt-0.5">{bot.username}</p>
-                  <p className="text-sm text-muted-foreground mt-2 leading-relaxed line-clamp-2">{bot.desc}</p>
-                </div>
-              </div>
-
-              {/* Actions */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => setOpenBot(bot.id)}
-                  className="flex-1 flex items-center justify-center gap-1.5 py-2.5 rounded-xl text-sm font-semibold transition-all hover:opacity-90 active:scale-95"
+                {/* Tag badge top-right */}
+                <span
+                  className="absolute -top-2 -right-2 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm"
                   style={{ background: bot.accentColor, color: "oklch(0.15 0.04 290)" }}
                 >
-                  {bot.icon} សាកល្បង Demo
-                </button>
-                <a
-                  href={bot.telegramLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl border border-border bg-secondary/50 text-sm font-medium hover:bg-secondary transition-colors"
-                >
-                  <Send className="size-3.5" />
-                </a>
+                  {bot.tag.split(" ")[0]}
+                </span>
+              </button>
+
+              {/* Name + username */}
+              <div className="text-center w-full">
+                <p className="text-sm font-bold leading-tight truncate">{bot.name}</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5 truncate">{bot.username}</p>
               </div>
+
+              {/* Telegram link */}
+              <a
+                href={bot.telegramLink}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full text-[11px] font-semibold border border-border bg-secondary/60 hover:bg-secondary transition-colors"
+              >
+                <Send className="size-3" /> Telegram
+              </a>
             </div>
           ))}
         </div>
