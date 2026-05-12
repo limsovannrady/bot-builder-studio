@@ -273,6 +273,15 @@ const BOTS = [
     accentColor: "oklch(0.72 0.19 145)",
     tag: "",
   },
+  {
+    id: "qr",
+    name: "Create QR & Scan",
+    username: "@CreateQR_ScanBot",
+    img: "/qr-bot.jpg",
+    telegramLink: "https://t.me/CreateQR_ScanBot",
+    accentColor: "oklch(0.78 0.18 55)",
+    tag: "",
+  },
 ];
 
 function BotsSection() {
