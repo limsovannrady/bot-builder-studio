@@ -264,6 +264,15 @@ const BOTS = [
     accentColor: "oklch(0.82 0.15 200)",
     tag: "",
   },
+  {
+    id: "voice",
+    name: "បង្កើតសំឡេង Ai",
+    username: "@limsovannradybot",
+    img: "/voice-bot.jpg",
+    telegramLink: "https://t.me/limsovannradybot",
+    accentColor: "oklch(0.72 0.19 145)",
+    tag: "",
+  },
 ];
 
 function BotsSection() {
