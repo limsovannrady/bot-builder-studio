@@ -341,14 +341,28 @@ function BotsSection() {
               <div className="flex items-start gap-4 mb-4">
                 {/* Bot logo */}
                 <div
-                  className="relative size-14 shrink-0 rounded-2xl overflow-hidden bot-logo-float"
+                  className="relative size-14 shrink-0 bot-logo-float"
                   style={{ ["--bf-dur" as string]: `${4.5 + i * 0.4}s`, ["--bf-delay" as string]: `${i * 0.3}s` }}
                 >
+                  {/* Glow behind */}
                   <div
-                    className="absolute -inset-1 rounded-2xl blur-md opacity-60"
+                    className="absolute -inset-1 rounded-2xl blur-lg opacity-55"
                     style={{ background: bot.accentColor }}
                   />
-                  <img src={bot.img} alt={bot.name} className="relative size-full object-cover" />
+                  {/* Spinning ring */}
+                  <div
+                    className="bot-logo-ring absolute inset-0 rounded-2xl"
+                    style={{ background: `conic-gradient(from 0deg, ${bot.accentColor} 0%, transparent 45%, ${bot.accentColor} 100%)` }}
+                  />
+                  {/* Image clipped inside ring */}
+                  <div className="absolute inset-[2.5px] rounded-xl overflow-hidden">
+                    <img src={bot.img} alt={bot.name} className="size-full object-cover" />
+                    {/* Shimmer sweep */}
+                    <div
+                      className="bot-logo-shimmer absolute inset-0"
+                      style={{ animationDelay: `${i * 0.9}s` }}
+                    />
+                  </div>
                 </div>
 
                 <div className="flex-1 min-w-0">
