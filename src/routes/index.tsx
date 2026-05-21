@@ -38,6 +38,7 @@ function useTheme() {
 
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
+  { id: "about", label: "អំពីខ្ញុំ" },
   { id: "bots", label: "Bot ទាំងអស់" },
   { id: "memories", label: "រូបថតអនុស្សាវរីយ៍" },
 ];
@@ -386,6 +387,201 @@ function Footer() {
   );
 }
 
+const TIMELINE = [
+  {
+    year: "2024",
+    month: "ខែវិច្ឆិកា",
+    title: "ចូលរួមជាមួយ E-GetS",
+    desc: "បានចាប់ផ្តើមការងារជា Delivery Driver នៅ E-GetS សាខា K16b (Klang Ler) ក្រុងព្រះសីហនុ",
+    icon: "🚀",
+    color: "oklch(0.65 0.22 290)",
+  },
+  {
+    year: "2025",
+    month: "ខែមីនា",
+    title: "ម្ចាស់ Top 5 ស្លាចសេវាកម្ម",
+    desc: "ទទួលបានការទទួលស្គាល់ Top 5 ពានស្លាចសេវាកម្មក្រុម ក្រុងព្រះសីហនុ — បង្ហាញពីការប្តេជ្ញាចិត្ត",
+    icon: "🏆",
+    color: "oklch(0.78 0.18 55)",
+  },
+  {
+    year: "2025",
+    month: "ខែមេសា",
+    title: "សកម្មភាពអនុរក្សបរិស្ថាន",
+    desc: "បានចូលរួមកម្មវិធីសំអាតឆ្នេរ E-GetS Green Clean ជាមួយក្រុមមិត្តរួម",
+    icon: "🌿",
+    color: "oklch(0.72 0.19 145)",
+  },
+  {
+    year: "2025",
+    month: "ខែធ្នូ",
+    title: "E-GetS Annual Party — ពានរង្វាន់",
+    desc: "ទទួលបានពានរង្វាន់ Best Driver Trophy និងវិញ្ញាបនបត្ររាប់អានពី E-GetS Tech Co., Ltd.",
+    icon: "🥇",
+    color: "oklch(0.82 0.15 200)",
+  },
+  {
+    year: "2026",
+    month: "ខែមករា",
+    title: "បង្កើត Telegram Bots",
+    desc: "ចាប់ផ្តើមសរសេរ Bots ដើម្បីជួយអ្នកប្រើប្រាស់ — Auto Reaction, Translate, Voice AI, QR Code",
+    icon: "🤖",
+    color: "oklch(0.72 0.16 82)",
+  },
+];
+
+const STATS = [
+  { value: "2+", label: "ឆ្នាំការងារ", icon: "📅" },
+  { value: "4", label: "Telegram Bots", icon: "🤖" },
+  { value: "Top 5", label: "ស្លាចសេវាកម្ម", icon: "🏅" },
+  { value: "1k+", label: "ការដឹកជញ្ជូន", icon: "📦" },
+];
+
+function AboutSection() {
+  const headerRef = useScrollReveal();
+  const profileRef = useScrollReveal();
+  const timelineRef = useScrollReveal();
+  const statsRef = useScrollReveal();
+
+  return (
+    <section id="about" className="scroll-mt-24 py-16 px-4">
+      <div className="mx-auto max-w-5xl">
+
+        {/* Header */}
+        <div ref={headerRef} className="reveal text-center mb-12">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/70 border border-border/60 text-muted-foreground text-xs font-medium mb-4">
+            <span>✦</span>
+            <span>អំពីខ្ញុំ</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            <span className="text-gradient">ជីវប្រវត្តិ</span> និងដំណើរ
+          </h2>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+            ដំណើរជីវិតការងារ ចាប់ពីអ្នកដឹកជញ្ជូន រហូតដល់អ្នករចនា Bots
+          </p>
+        </div>
+
+        {/* Profile + Bio */}
+        <div ref={profileRef} className="reveal grid md:grid-cols-2 gap-8 items-center mb-14">
+
+          {/* Profile photo */}
+          <div className="flex justify-center">
+            <div className="relative">
+              {/* Glow rings */}
+              <div className="absolute -inset-3 rounded-[2.5rem] bg-gradient-to-br from-[oklch(0.52_0.22_290/30%)] via-[oklch(0.72_0.16_82/25%)] to-[oklch(0.78_0.18_55/30%)] blur-2xl" />
+              <div className="absolute -inset-1 rounded-[2rem] border border-[oklch(0.72_0.16_82/40%)]" />
+              <img
+                src="/mem-01.jpg"
+                alt="លឹម សុវណ្ណរ៉ាឌី"
+                className="relative w-64 h-72 object-cover rounded-[1.75rem] shadow-2xl"
+              />
+              {/* Badge */}
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-xl bg-card border border-border shadow-lg flex items-center gap-2">
+                <span className="size-2 rounded-full bg-green-500 animate-pulse inline-block" />
+                <span className="text-xs font-semibold text-foreground">E-GetS Delivery · K16b</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Bio card */}
+          <div className="space-y-4">
+            <div>
+              <h3 className="text-xl md:text-2xl font-bold mb-1">លឹម <span className="text-gradient">សុវណ្ណរ៉ាឌី</span></h3>
+              <p className="text-muted-foreground text-sm">Lim Sovannrady · ID: 10080812</p>
+            </div>
+
+            <p className="text-sm text-muted-foreground leading-relaxed">
+              ខ្ញុំជា Delivery Driver នៅ <span className="text-foreground font-medium">E-GetS</span> ដែលស្រឡាញ់ការងារ
+              និងការច្នៃប្រឌិតបច្ចេកវិទ្យា។ ក្រៅពីការងារប្រចាំថ្ងៃ ខ្ញុំបង្កើត
+              <span className="text-foreground font-medium"> Telegram Bots </span>
+              ដើម្បីជួយអ្នកប្រើប្រាស់ Telegram ក្នុងប្រទេសកម្ពុជា
+              — ឥតគិតថ្លៃ ហើយប្រើប្រាស់ងាយស្រួល។
+            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {["E-GetS Driver","Telegram Bot Dev","ក្រុងព្រះសីហនុ","Cambodia"].map(tag => (
+                <span key={tag} className="px-3 py-1 rounded-full bg-secondary/60 border border-border/50 text-xs font-medium text-muted-foreground">
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <a
+              href="https://t.me/limsvannrady"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition shadow-glow"
+            >
+              <Send className="size-4" /> ទំនាក់ទំនង Telegram
+            </a>
+          </div>
+        </div>
+
+        {/* Stats */}
+        <div ref={statsRef} className="reveal grid grid-cols-2 sm:grid-cols-4 gap-3 mb-14">
+          {STATS.map((s) => (
+            <div key={s.label} className="flex flex-col items-center gap-1.5 py-5 px-3 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
+              <span className="text-2xl">{s.icon}</span>
+              <span className="text-2xl font-bold text-gradient">{s.value}</span>
+              <span className="text-xs text-muted-foreground text-center font-medium">{s.label}</span>
+            </div>
+          ))}
+        </div>
+
+        {/* Timeline */}
+        <div ref={timelineRef} className="reveal">
+          <h3 className="text-lg font-bold mb-8 text-center">
+            <span className="text-gradient">ដំណើរ</span>ការងារ
+          </h3>
+          <div className="relative">
+            {/* Vertical line */}
+            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent md:-translate-x-px" />
+
+            <div className="space-y-8">
+              {TIMELINE.map((item, i) => {
+                const isRight = i % 2 === 0;
+                return (
+                  <div
+                    key={i}
+                    className={`relative flex items-start gap-6 md:gap-0 ${
+                      isRight ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
+                  >
+                    {/* Content card */}
+                    <div className={`flex-1 md:w-[calc(50%-2rem)] ml-12 md:ml-0 ${
+                      isRight ? "md:pr-10 md:text-right" : "md:pl-10 md:text-left"
+                    }`}>
+                      <div className="group p-4 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
+                        <div className={`flex items-center gap-2 mb-2 ${isRight ? "md:justify-end" : "md:justify-start"}`}>
+                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: item.color }}>
+                            {item.month} {item.year}
+                          </span>
+                        </div>
+                        <h4 className="font-bold text-sm mb-1 text-foreground">{item.title}</h4>
+                        <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
+                      </div>
+                    </div>
+
+                    {/* Center dot */}
+                    <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-4 size-4 rounded-full border-2 border-background flex items-center justify-center shadow-md z-10"
+                      style={{ background: item.color }}>
+                      <span className="text-[8px] leading-none">{item.icon}</span>
+                    </div>
+
+                    {/* Spacer for opposite side */}
+                    <div className="hidden md:block flex-1" />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  );
+}
+
 type MemoryPhoto = {
   src: string;
   caption: string;
@@ -715,6 +911,7 @@ function Index() {
         <Nav />
         <main>
           <Hero />
+          <AboutSection />
           <BotsSection />
           <MemoriesSection />
         </main>
