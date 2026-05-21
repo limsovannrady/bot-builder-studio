@@ -95,13 +95,15 @@ function Nav() {
             href="#home"
             onClick={(e) => smoothScroll(e, "home")}
             aria-label="ត្រឡប់ទៅទំព័រដើម — លឹម សុវណ្ណរ៉ាឌី"
-            className="focus-ring rounded-xl"
+            className="focus-ring rounded-2xl"
           >
-            <img
-              src="/logo-brand.png"
-              alt="លឹម សុវណ្ណរ៉ាឌី"
-              className="h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]"
-            />
+            <div className="px-3 py-1.5 rounded-2xl bg-[oklch(0.14_0.04_280/90%)] border border-[oklch(0.72_0.16_82/40%)] shadow-[0_0_16px_-2px_oklch(0.72_0.16_82/50%)]">
+              <img
+                src="/logo-brand.png"
+                alt="លឹម សុវណ្ណរ៉ាឌី"
+                className="h-9 w-auto object-contain drop-shadow-[0_0_6px_rgba(212,175,55,0.8)]"
+              />
+            </div>
           </a>
 
           {/* Desktop links */}
