@@ -94,15 +94,14 @@ function Nav() {
           <a
             href="#home"
             onClick={(e) => smoothScroll(e, "home")}
-            aria-label="ត្រឡប់ទៅទំព័រដើម — សុវណ្ណរ៉ាឌី"
-            className="focus-ring flex items-center gap-2 font-bold rounded-lg"
+            aria-label="ត្រឡប់ទៅទំព័រដើម — លឹម សុវណ្ណរ៉ាឌី"
+            className="focus-ring rounded-xl"
           >
             <img
-              src="/logo-avatar.jpg"
-              alt="logo"
-              className="size-8 rounded-lg object-cover shadow-glow"
+              src="/logo-brand.jpg"
+              alt="លឹម សុវណ្ណរ៉ាឌី"
+              className="h-10 w-auto rounded-xl object-cover shadow-glow"
             />
-            <span className="text-gradient">សុវណ្ណរ៉ាឌី</span>
           </a>
 
           {/* Desktop links */}
