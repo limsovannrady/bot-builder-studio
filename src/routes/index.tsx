@@ -98,9 +98,9 @@ function Nav() {
             className="focus-ring rounded-xl"
           >
             <img
-              src="/logo-brand.jpg"
+              src="/logo-brand.png"
               alt="លឹម សុវណ្ណរ៉ាឌី"
-              className="h-10 w-auto rounded-xl object-cover shadow-glow"
+              className="h-12 w-auto object-contain drop-shadow-[0_0_8px_rgba(212,175,55,0.6)]"
             />
           </a>
 
