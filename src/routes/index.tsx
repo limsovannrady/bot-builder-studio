@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Send, Sun, Moon, Menu, X, Zap } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { Send, Sun, Moon, Menu, X, Zap, Camera, ChevronLeft, ChevronRight } from "lucide-react";
+import { useEffect, useRef, useState, useCallback } from "react";
 
 function useScrollReveal<T extends HTMLElement = HTMLDivElement>() {
   const ref = useRef<T>(null);
@@ -39,6 +39,7 @@ function useTheme() {
 const NAV_LINKS = [
   { id: "home", label: "ទំព័រដើម" },
   { id: "bots", label: "Bot ទាំងអស់" },
+  { id: "memories", label: "រូបថតអនុស្សាវរីយ៍" },
 ];
 
 function useActiveSection() {
@@ -384,6 +385,201 @@ function Footer() {
   );
 }
 
+type MemoryPhoto = {
+  src: string;
+  caption: string;
+  category: string;
+  span?: "tall" | "wide" | "normal";
+};
+
+const MEMORY_PHOTOS: MemoryPhoto[] = [
+  { src: "/mem-04.jpg", caption: "ទទួលបានពានរង្វាន់ E-GetS Annual Party", category: "ពានរង្វាន់", span: "tall" },
+  { src: "/mem-05.jpg", caption: "រូបថតជាមួយក្រុមការងារ Klang Ler", category: "ក្រុម" },
+  { src: "/mem-02.jpg", caption: "បង្ហាញ 3D Model ដែលជាខ្លួនខ្ញុំ", category: "ពិសេស", span: "tall" },
+  { src: "/mem-03.jpg", caption: "ស្លាចសេវាកម្ម ក្រុងព្រះសីហនុ - Top 5", category: "ពានរង្វាន់" },
+  { src: "/mem-11.jpg", caption: "ក្រុមការងារធំ — ទីតាំង Sihanoukville", category: "ក្រុម" },
+  { src: "/mem-01.jpg", caption: "លឹម សុវណ្ណរ៉ាឌី — E-GetS Delivery K16b", category: "បុគ្គលិក", span: "tall" },
+  { src: "/mem-06.jpg", caption: "សកម្មភាពអនុរក្សបរិស្ថានតាមឆ្នេរ", category: "សកម្មភាព" },
+  { src: "/mem-07.jpg", caption: "ទទួលវិញ្ញាបនបត្រ — ម្ចាស់ E-GetS", category: "ពានរង្វាន់" },
+  { src: "/mem-13.jpg", caption: "ប្រចាំការ — E-GetS Honda NCX", category: "ការងារ", span: "tall" },
+  { src: "/mem-08.jpg", caption: "ក្រុមមិត្តក្នុងសកម្មភាពសំអាតឆ្នេរ", category: "សកម្មភាព" },
+  { src: "/mem-15.jpg", caption: "ក្រុមការងារ — Sihanoukville District", category: "ក្រុម" },
+  { src: "/mem-09.jpg", caption: "ទទួលឧបករណ៍ការងារ — E-GetS Office", category: "ការងារ" },
+  { src: "/mem-10.jpg", caption: "ប្រជុំប្រចាំថ្ងៃ — Krong Preah Sihanouk", category: "ការងារ", span: "wide" },
+  { src: "/mem-12.jpg", caption: "ក្រុមមឈរជួរ — Sihanoukville", category: "ក្រុម" },
+  { src: "/mem-14.jpg", caption: "ប្រជុំនៅ E-GetS Hub", category: "ការងារ" },
+  { src: "/mem-16.jpg", caption: "ម៉ូតូដឹកជញ្ជូន E-GetS — ឆ្នេរព្រះសីហនុ", category: "ការងារ", span: "wide" },
+  { src: "/mem-17.jpg", caption: "ជួររថយន្ត E-GetS — Sihanoukville Road", category: "ការងារ" },
+];
+
+const MEM_CATEGORIES = ["ទាំងអស់", "ពានរង្វាន់", "ក្រុម", "ការងារ", "សកម្មភាព", "ពិសេស", "បុគ្គលិក"];
+
+function MemoriesSection() {
+  const ref = useScrollReveal();
+  const [activeCategory, setActiveCategory] = useState("ទាំងអស់");
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  const filtered = activeCategory === "ទាំងអស់"
+    ? MEMORY_PHOTOS
+    : MEMORY_PHOTOS.filter(p => p.category === activeCategory);
+
+  const openLightbox = useCallback((idx: number) => setLightbox(idx), []);
+  const closeLightbox = useCallback(() => setLightbox(null), []);
+
+  const goPrev = useCallback(() => {
+    setLightbox(i => i === null ? null : (i - 1 + filtered.length) % filtered.length);
+  }, [filtered.length]);
+
+  const goNext = useCallback(() => {
+    setLightbox(i => i === null ? null : (i + 1) % filtered.length);
+  }, [filtered.length]);
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeLightbox();
+      if (e.key === "ArrowLeft") goPrev();
+      if (e.key === "ArrowRight") goNext();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [lightbox, goPrev, goNext, closeLightbox]);
+
+  return (
+    <section id="memories" className="scroll-mt-24 py-16 px-4">
+      <div ref={ref} className="reveal mx-auto max-w-6xl">
+
+        {/* Section header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-secondary/70 border border-border/60 text-muted-foreground text-xs font-medium mb-4">
+            <Camera className="size-3.5" />
+            <span>រូបថតអនុស្សាវរីយ៍</span>
+          </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-2">
+            <span className="text-gradient">ទំព័រ</span> 추억
+          </h2>
+          <h2 className="text-2xl md:text-3xl font-bold mb-3">
+            <span className="text-gradient">ការចងចាំ</span> នៃការងារ
+          </h2>
+          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
+            ឯកសារ ព្រឹត្តិការណ៍ ដែលបានកន្លងផ្តាច់ ក្នុងការិយាល័យ E-GetS
+          </p>
+        </div>
+
+        {/* Category filter */}
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
+          {MEM_CATEGORIES.map(cat => (
+            <button
+              key={cat}
+              onClick={() => { setActiveCategory(cat); setLightbox(null); }}
+              className={`px-4 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 ${
+                activeCategory === cat
+                  ? "bg-primary text-primary-foreground border-primary shadow-glow"
+                  : "bg-secondary/50 text-muted-foreground border-border/50 hover:bg-secondary hover:text-foreground"
+              }`}
+            >
+              {cat}
+            </button>
+          ))}
+        </div>
+
+        {/* Masonry grid */}
+        <div className="columns-2 sm:columns-3 lg:columns-4 gap-3 space-y-3">
+          {filtered.map((photo, idx) => (
+            <div
+              key={photo.src + idx}
+              onClick={() => openLightbox(idx)}
+              className={`mem-card group relative break-inside-avoid rounded-2xl overflow-hidden cursor-zoom-in border border-border/40 shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 ${
+                photo.span === "tall" ? "row-span-2" : ""
+              }`}
+            >
+              <img
+                src={photo.src}
+                alt={photo.caption}
+                className={`w-full object-cover transition-transform duration-500 group-hover:scale-105 ${
+                  photo.span === "tall" ? "aspect-[3/4]" :
+                  photo.span === "wide" ? "aspect-[16/9]" :
+                  "aspect-square"
+                }`}
+                loading="lazy"
+              />
+              {/* Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-3">
+                <span className="inline-block px-2 py-0.5 rounded-full bg-primary/80 text-primary-foreground text-[10px] font-semibold mb-1.5 w-fit">
+                  {photo.category}
+                </span>
+                <p className="text-white text-xs font-medium leading-snug line-clamp-2">
+                  {photo.caption}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {filtered.length === 0 && (
+          <div className="text-center text-muted-foreground py-16 text-sm">
+            មិនមានរូបថតសម្រាប់ប្រភេទនេះ
+          </div>
+        )}
+      </div>
+
+      {/* Lightbox */}
+      {lightbox !== null && (
+        <div
+          className="fixed inset-0 z-[999] flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fade-up"
+          onClick={closeLightbox}
+        >
+          {/* Close */}
+          <button
+            onClick={closeLightbox}
+            className="absolute top-4 right-4 size-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
+            aria-label="បិទ"
+          >
+            <X className="size-5" />
+          </button>
+
+          {/* Prev */}
+          <button
+            onClick={(e) => { e.stopPropagation(); goPrev(); }}
+            className="absolute left-3 md:left-6 size-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
+            aria-label="មុន"
+          >
+            <ChevronLeft className="size-6" />
+          </button>
+
+          {/* Image */}
+          <div
+            className="relative max-w-4xl w-full mx-16 flex flex-col items-center"
+            onClick={e => e.stopPropagation()}
+          >
+            <img
+              src={filtered[lightbox].src}
+              alt={filtered[lightbox].caption}
+              className="max-h-[80vh] w-auto max-w-full rounded-2xl shadow-2xl object-contain"
+            />
+            <div className="mt-4 text-center px-4">
+              <span className="inline-block px-3 py-1 rounded-full bg-primary/80 text-primary-foreground text-xs font-semibold mb-2">
+                {filtered[lightbox].category}
+              </span>
+              <p className="text-white/90 text-sm font-medium">{filtered[lightbox].caption}</p>
+              <p className="text-white/40 text-xs mt-1">{lightbox + 1} / {filtered.length}</p>
+            </div>
+          </div>
+
+          {/* Next */}
+          <button
+            onClick={(e) => { e.stopPropagation(); goNext(); }}
+            className="absolute right-3 md:right-6 size-10 rounded-full bg-white/10 hover:bg-white/25 text-white flex items-center justify-center transition-colors z-10"
+            aria-label="បន្ទាប់"
+          >
+            <ChevronRight className="size-6" />
+          </button>
+        </div>
+      )}
+    </section>
+  );
+}
+
 const OA = [0, 120, 240];
 const IA = [60, 180, 300];
 const OPETAL = "M100 100 C142 84 146 38 100 12 C54 38 58 84 100 100Z";
@@ -519,6 +715,7 @@ function Index() {
         <main>
           <Hero />
           <BotsSection />
+          <MemoriesSection />
         </main>
         <Footer />
       </div>
