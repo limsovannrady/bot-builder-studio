@@ -87,7 +87,7 @@ const SIDE_NAV = [
 function SideNav() {
   const active = useActiveSection();
   return (
-    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2">
+    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
       {SIDE_NAV.map((l) => {
         const isActive = active === l.id;
         return (
@@ -95,13 +95,19 @@ function SideNav() {
             key={l.id}
             href={`#${l.id}`}
             onClick={(e) => smoothScroll(e, l.id)}
-            className={`px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 text-right whitespace-nowrap border backdrop-blur-md ${
-              isActive
-                ? "bg-primary text-primary-foreground border-primary shadow-glow"
-                : "bg-card/70 text-muted-foreground border-border/50 hover:bg-card hover:text-foreground"
-            }`}
+            title={l.label}
+            className="group relative flex items-center justify-end"
           >
-            {l.label}
+            {/* Tooltip label */}
+            <span className="absolute right-6 whitespace-nowrap px-2 py-1 rounded-lg bg-card border border-border/60 text-xs font-medium text-foreground shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none">
+              {l.label}
+            </span>
+            {/* Dot */}
+            <span className={`block rounded-full border-2 transition-all duration-200 ${
+              isActive
+                ? "size-3.5 bg-primary border-primary shadow-glow"
+                : "size-2.5 bg-transparent border-muted-foreground/50 group-hover:border-primary group-hover:bg-primary/30"
+            }`} />
           </a>
         );
       })}
