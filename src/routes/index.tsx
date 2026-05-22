@@ -385,48 +385,6 @@ function Footer() {
   );
 }
 
-const TIMELINE = [
-  {
-    year: "2024",
-    month: "ខែវិច្ឆិកា",
-    title: "ចូលរួមជាមួយ E-GetS",
-    desc: "បានចាប់ផ្តើមការងារជា Delivery Driver នៅ E-GetS សាខា K16b (Klang Ler) ក្រុងព្រះសីហនុ",
-    icon: "🚀",
-    color: "oklch(0.65 0.22 290)",
-  },
-  {
-    year: "2025",
-    month: "ខែមីនា",
-    title: "ម្ចាស់ Top 5 ស្លាចសេវាកម្ម",
-    desc: "ទទួលបានការទទួលស្គាល់ Top 5 ពានស្លាចសេវាកម្មក្រុម ក្រុងព្រះសីហនុ — បង្ហាញពីការប្តេជ្ញាចិត្ត",
-    icon: "🏆",
-    color: "oklch(0.78 0.18 55)",
-  },
-  {
-    year: "2025",
-    month: "ខែមេសា",
-    title: "សកម្មភាពអនុរក្សបរិស្ថាន",
-    desc: "បានចូលរួមកម្មវិធីសំអាតឆ្នេរ E-GetS Green Clean ជាមួយក្រុមមិត្តរួម",
-    icon: "🌿",
-    color: "oklch(0.72 0.19 145)",
-  },
-  {
-    year: "2025",
-    month: "ខែធ្នូ",
-    title: "E-GetS Annual Party — ពានរង្វាន់",
-    desc: "ទទួលបានពានរង្វាន់ Best Driver Trophy និងវិញ្ញាបនបត្ររាប់អានពី E-GetS Tech Co., Ltd.",
-    icon: "🥇",
-    color: "oklch(0.82 0.15 200)",
-  },
-  {
-    year: "2026",
-    month: "ខែមករា",
-    title: "បង្កើត Telegram Bots",
-    desc: "ចាប់ផ្តើមសរសេរ Bots ដើម្បីជួយអ្នកប្រើប្រាស់ — Auto Reaction, Translate, Voice AI, QR Code",
-    icon: "🤖",
-    color: "oklch(0.72 0.16 82)",
-  },
-];
 
 const STATS = [
   { value: "2+", label: "ឆ្នាំការងារ", icon: "📅" },
@@ -438,7 +396,6 @@ const STATS = [
 function AboutSection() {
   const headerRef = useScrollReveal();
   const profileRef = useScrollReveal();
-  const timelineRef = useScrollReveal();
   const statsRef = useScrollReveal();
 
   return (
@@ -526,54 +483,6 @@ function AboutSection() {
           ))}
         </div>
 
-        {/* Timeline */}
-        <div ref={timelineRef} className="reveal">
-          <h3 className="text-lg font-bold mb-8 text-center">
-            <span className="text-gradient">ដំណើរ</span>ការងារ
-          </h3>
-          <div className="relative">
-            {/* Vertical line */}
-            <div className="absolute left-5 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-transparent via-border to-transparent md:-translate-x-px" />
-
-            <div className="space-y-8">
-              {TIMELINE.map((item, i) => {
-                const isRight = i % 2 === 0;
-                return (
-                  <div
-                    key={i}
-                    className={`relative flex items-start gap-6 md:gap-0 ${
-                      isRight ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                  >
-                    {/* Content card */}
-                    <div className={`flex-1 md:w-[calc(50%-2rem)] ml-12 md:ml-0 ${
-                      isRight ? "md:pr-10 md:text-right" : "md:pl-10 md:text-left"
-                    }`}>
-                      <div className="group p-4 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300">
-                        <div className={`flex items-center gap-2 mb-2 ${isRight ? "md:justify-end" : "md:justify-start"}`}>
-                          <span className="text-[10px] font-bold px-2 py-0.5 rounded-full text-white" style={{ background: item.color }}>
-                            {item.month} {item.year}
-                          </span>
-                        </div>
-                        <h4 className="font-bold text-sm mb-1 text-foreground">{item.title}</h4>
-                        <p className="text-xs text-muted-foreground leading-relaxed">{item.desc}</p>
-                      </div>
-                    </div>
-
-                    {/* Center dot */}
-                    <div className="absolute left-5 md:left-1/2 md:-translate-x-1/2 top-4 size-4 rounded-full border-2 border-background flex items-center justify-center shadow-md z-10"
-                      style={{ background: item.color }}>
-                      <span className="text-[8px] leading-none">{item.icon}</span>
-                    </div>
-
-                    {/* Spacer for opposite side */}
-                    <div className="hidden md:block flex-1" />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
 
       </div>
     </section>
