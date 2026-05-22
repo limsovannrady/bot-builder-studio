@@ -443,9 +443,6 @@ function AboutSection() {
           <h2 className="text-2xl md:text-3xl font-bold mb-3">
             <span className="text-gradient">ជីវប្រវត្តិ</span> និងដំណើរ
           </h2>
-          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
-            ដំណើរជីវិតការងារ ចាប់ពីអ្នកដឹកជញ្ជូន រហូតដល់អ្នករចនា Bots
-          </p>
         </div>
 
         {/* Profile + Bio */}
