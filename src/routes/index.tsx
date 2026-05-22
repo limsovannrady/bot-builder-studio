@@ -327,9 +327,6 @@ function BotsSection() {
           <h2 className="text-2xl md:text-3xl font-bold mb-2">
             <span className="text-gradient">Bot</span> ទាំងអស់
           </h2>
-          <p className="text-muted-foreground text-sm max-w-sm mx-auto">
-            ប្រើប្រាស់បានតែនៅលើ Telegram — ចុចដើម្បីចូលប្រើ Bot
-          </p>
         </div>
 
         <div className="flex flex-wrap justify-center gap-5">
