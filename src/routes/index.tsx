@@ -415,17 +415,10 @@ function Footer() {
 }
 
 
-const STATS = [
-  { value: "2+", label: "ឆ្នាំការងារ", icon: "📅" },
-  { value: "4", label: "Telegram Bots", icon: "🤖" },
-  { value: "Top 5", label: "ស្លាចសេវាកម្ម", icon: "🏅" },
-  { value: "1k+", label: "ការដឹកជញ្ជូន", icon: "📦" },
-];
 
 function AboutSection() {
   const headerRef = useScrollReveal();
   const profileRef = useScrollReveal();
-  const statsRef = useScrollReveal();
 
   return (
     <section id="about" className="scroll-mt-24 py-16 px-4">
@@ -466,42 +459,7 @@ function AboutSection() {
               <p className="text-muted-foreground text-sm">Lim Sovannrady · ID: 10080812</p>
             </div>
 
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              ខ្ញុំជា Delivery Driver នៅ <span className="text-foreground font-medium">E-GetS</span> ដែលស្រឡាញ់ការងារ
-              និងការច្នៃប្រឌិតបច្ចេកវិទ្យា។ ក្រៅពីការងារប្រចាំថ្ងៃ ខ្ញុំបង្កើត
-              <span className="text-foreground font-medium"> Telegram Bots </span>
-              ដើម្បីជួយអ្នកប្រើប្រាស់ Telegram ក្នុងប្រទេសកម្ពុជា
-              — ឥតគិតថ្លៃ ហើយប្រើប្រាស់ងាយស្រួល។
-            </p>
-
-            <div className="flex flex-wrap gap-2">
-              {["E-GetS Driver","Telegram Bot Dev","ក្រុងព្រះសីហនុ","Cambodia"].map(tag => (
-                <span key={tag} className="px-3 py-1 rounded-full bg-secondary/60 border border-border/50 text-xs font-medium text-muted-foreground">
-                  {tag}
-                </span>
-              ))}
-            </div>
-
-            <a
-              href="https://t.me/limsvannrady"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-primary text-primary-foreground text-sm font-semibold hover:opacity-90 transition shadow-glow"
-            >
-              <Send className="size-4" /> ទំនាក់ទំនង Telegram
-            </a>
           </div>
-        </div>
-
-        {/* Stats */}
-        <div ref={statsRef} className="reveal grid grid-cols-2 sm:grid-cols-4 gap-3 mb-14">
-          {STATS.map((s) => (
-            <div key={s.label} className="flex flex-col items-center gap-1.5 py-5 px-3 rounded-2xl bg-card border border-border/60 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-300">
-              <span className="text-2xl">{s.icon}</span>
-              <span className="text-2xl font-bold text-gradient">{s.value}</span>
-              <span className="text-xs text-muted-foreground text-center font-medium">{s.label}</span>
-            </div>
-          ))}
         </div>
 
 
