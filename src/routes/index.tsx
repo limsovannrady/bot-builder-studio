@@ -845,9 +845,9 @@ function Index() {
         <SideNav />
         <main>
           <Hero />
-          <AboutSection />
           <BotsSection />
           <MemoriesSection />
+          <AboutSection />
         </main>
         <Footer />
       </div>
