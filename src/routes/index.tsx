@@ -98,7 +98,7 @@ function Nav() {
             aria-label="ត្រឡប់ទៅទំព័រដើម — លឹម សុវណ្ណរ៉ាឌី"
             className="focus-ring rounded-2xl"
           >
-            <div className="px-3 py-1.5 rounded-2xl bg-[oklch(0.14_0.04_280/90%)] border border-[oklch(0.72_0.16_82/40%)] shadow-[0_0_16px_-2px_oklch(0.72_0.16_82/50%)]">
+            <div className="px-3 py-1.5 rounded-2xl bg-transparent border border-[oklch(0.72_0.16_82/40%)] shadow-[0_0_16px_-2px_oklch(0.72_0.16_82/50%)]">
               <img
                 src="/logo-brand.png"
                 alt="លឹម សុវណ្ណរ៉ាឌី"
