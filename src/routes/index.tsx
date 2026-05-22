@@ -78,6 +78,7 @@ const TELEGRAM = "https://t.me/limsvannrady";
 const MY_BOT_LINK = "https://t.me/AutoReaction2026Bot";
 
 const SIDE_NAV = [
+  { id: "home", label: "ទំព័រដើម" },
   { id: "about", label: "អំពីខ្ញុំ" },
   { id: "bots", label: "Bot ទាំងអស់" },
 ];
