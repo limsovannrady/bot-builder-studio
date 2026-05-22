@@ -78,6 +78,37 @@ export const Route = createFileRoute("/")({
 const TELEGRAM = "https://t.me/limsvannrady";
 const MY_BOT_LINK = "https://t.me/AutoReaction2026Bot";
 
+const SIDE_NAV = [
+  { id: "about", label: "អំពីខ្ញុំ" },
+  { id: "bots", label: "Bot ទាំងអស់" },
+  { id: "memories", label: "រូបថតអនុស្សាវរីយ៍" },
+];
+
+function SideNav() {
+  const active = useActiveSection();
+  return (
+    <div className="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-2">
+      {SIDE_NAV.map((l) => {
+        const isActive = active === l.id;
+        return (
+          <a
+            key={l.id}
+            href={`#${l.id}`}
+            onClick={(e) => smoothScroll(e, l.id)}
+            className={`px-3 py-2 rounded-xl text-xs font-medium transition-all duration-200 text-right whitespace-nowrap border backdrop-blur-md ${
+              isActive
+                ? "bg-primary text-primary-foreground border-primary shadow-glow"
+                : "bg-card/70 text-muted-foreground border-border/50 hover:bg-card hover:text-foreground"
+            }`}
+          >
+            {l.label}
+          </a>
+        );
+      })}
+    </div>
+  );
+}
+
 function Nav() {
   const active = useActiveSection();
   const { theme, toggle } = useTheme();
@@ -815,6 +846,7 @@ function Index() {
       <Snow />
       <LotusBackground />
       <div className="relative" style={{ zIndex: 2 }}>
+        <SideNav />
         <main>
           <Hero />
           <AboutSection />
