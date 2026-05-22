@@ -459,11 +459,6 @@ function AboutSection() {
                 alt="លឹម សុវណ្ណរ៉ាឌី"
                 className="relative w-64 h-72 object-cover rounded-[1.75rem] shadow-2xl"
               />
-              {/* Badge */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-2 rounded-xl bg-card border border-border shadow-lg flex items-center gap-2">
-                <span className="size-2 rounded-full bg-green-500 animate-pulse inline-block" />
-                <span className="text-xs font-semibold text-foreground">E-GetS Delivery · K16b</span>
-              </div>
             </div>
           </div>
 
