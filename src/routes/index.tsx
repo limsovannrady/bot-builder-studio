@@ -250,10 +250,6 @@ function Hero() {
           <span>អ្នករាល់គ្នា</span>
         </h1>
 
-        <p className="text-muted-foreground text-sm md:text-base max-w-md mb-8 leading-relaxed">
-          Telegram Bots ដែលជួយអ្នកឆ្លើយតប, បកប្រែ, ចែករំលែក QR Code, និងច្រើនទៀត — ឥតគិតថ្លៃ។
-        </p>
-
         {/* Buttons */}
         <div className="flex flex-wrap items-center justify-center gap-3">
           <a
