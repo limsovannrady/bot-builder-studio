@@ -906,7 +906,6 @@ function Index() {
       <Snow />
       <LotusBackground />
       <div className="relative" style={{ zIndex: 2 }}>
-        <Nav />
         <main>
           <Hero />
           <AboutSection />
